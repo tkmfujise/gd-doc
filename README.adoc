@@ -3,6 +3,12 @@
 A documentation generator for Godot.
 
 
+[CAUTION]
+====
+Early-stage idea. Nothing is set in stone.
+====
+
+
 == Usage
 === Install tree-sitter
 see: https://github.com/Faveod/ruby-tree-sitter?tab=readme-ov-file#dependencies
