@@ -14,3 +14,7 @@ gem 'asciidoctor'
 group 'nanoc' do
   gem 'nanoc-live'
 end
+
+group :test do
+  gem 'rspec'
+end

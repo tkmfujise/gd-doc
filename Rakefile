@@ -12,3 +12,8 @@ task :tree_sitter_build do
     sh 'tree-sitter build'
   end
 end
+
+
+task :test do
+  sh 'bundle exec rspec spec'
+end

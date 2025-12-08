@@ -101,6 +101,19 @@ GEM
     rb-inotify (0.11.1)
       ffi (~> 1.0)
     rbtree (0.4.6)
+    rspec (3.13.2)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-core (3.13.6)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.5)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.7)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-support (3.13.6)
     ruby_tree_sitter (2.0.0)
       oppen (~> 1.0)
       sorbet-runtime
@@ -173,6 +186,7 @@ DEPENDENCIES
   nanoc-live
   pry
   puma
+  rspec
   ruby_tree_sitter
 
 BUNDLED WITH
