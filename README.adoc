@@ -1,0 +1,27 @@
+= gd-doc
+
+Auto documentation for Godot.
+
+
+== Usage
+=== Install tree-sitter
+see: https://github.com/Faveod/ruby-tree-sitter?tab=readme-ov-file#dependencies
+```
+# Ubuntu
+$ sudo apt install libtree-sitter-dev
+
+# macOS
+$ brew install tree-sitter
+```
+
+=== Install gem
+```
+$ bundle install
+```
+
+
+=== Run Server
+```
+$ rake
+```
+
