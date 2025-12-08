@@ -1,6 +1,6 @@
 = gd-doc
 
-Auto documentation for Godot.
+A documentation generator for Godot.
 
 
 == Usage
