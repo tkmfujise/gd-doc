@@ -4,4 +4,7 @@
 
 crash.log
 
+/tree-sitters/*
+!/tree-sitters/.keep
+
 demo/doc/*

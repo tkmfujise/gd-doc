@@ -37,6 +37,7 @@ GEM
     immutable-ruby (0.2.0)
       concurrent-ruby (~> 1.1)
       sorted_set (~> 1.0)
+    io-console (0.8.2)
     json_schema (0.21.0)
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -101,6 +102,10 @@ GEM
     rb-inotify (0.11.1)
       ffi (~> 1.0)
     rbtree (0.4.6)
+    readline (0.0.4)
+      reline
+    reline (0.6.3)
+      io-console (~> 0.5)
     rspec (3.13.2)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
@@ -156,7 +161,7 @@ GEM
       zeitwerk
     set (1.1.2)
     slow_enumerator_tools (1.1.0)
-    sorbet-runtime (0.6.12825)
+    sorbet-runtime (0.6.12845)
     sorted_set (1.0.3)
       rbtree
       set (~> 1.0)
@@ -186,8 +191,10 @@ DEPENDENCIES
   nanoc-live
   pry
   puma
+  readline
   rspec
   ruby_tree_sitter
+  zeitwerk (~> 2.7)
 
 BUNDLED WITH
    2.7.1

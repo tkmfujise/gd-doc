@@ -8,6 +8,7 @@ gem 'pry'
 gem 'nanoc'
 gem 'adsf'
 gem 'puma'
+gem 'readline'
 
 gem 'asciidoctor'
 
@@ -18,3 +19,5 @@ end
 group :test do
   gem 'rspec'
 end
+
+gem "zeitwerk", "~> 2.7"
