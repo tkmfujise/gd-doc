@@ -8,6 +8,19 @@ module GdDoc
       end
       target
     end
+
+    def cast_value(value)
+      case value.type
+      when :integer
+        value.text.to_i
+      when :string
+        value.text[1..-2]
+      when :constructor
+        Constructor.new(value)
+      else
+        value.text
+      end
+    end
   end
 end
 
