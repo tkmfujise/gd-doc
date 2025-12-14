@@ -9,6 +9,10 @@ module GdDoc
       combine_resources_and_scripts
     end
 
+    def asciidoc_formatter
+      Formatter::AsciiDoc.new(self)
+    end
+
     private
       def combine_resources_and_scripts
         resources.each do |resource|
