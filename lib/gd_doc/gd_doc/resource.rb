@@ -4,6 +4,8 @@ module GdDoc
     self.extensions = ['tscn']
 
     attr_accessor(
+      :uid,
+      :script_path,
       :sections,
     )
 
@@ -18,6 +20,16 @@ module GdDoc
           self.sections << Section.new(child)
         end
       end
+
+      self.uid = value_of('gd_scene', 'uid')
+      self.script_path = sections.map(&:script_path).compact[0]
     end
+
+    private
+      def value_of(section_name, property_name)
+        section = sections.find{|s| s.name == section_name }
+        return nil unless section
+        section.value_of(property_name)
+      end
   end
 end

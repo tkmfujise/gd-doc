@@ -1,4 +1,4 @@
-= gd-doc
+= GdDoc
 
 A documentation generator for Godot.
 

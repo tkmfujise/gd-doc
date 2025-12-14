@@ -46,6 +46,7 @@ RSpec.describe GdDoc::Resource do
         expect(subject.sections[0].attributes[2]).to be_a GdDoc::Attribute
         expect(subject.sections[0].attributes[2].name).to eq 'uid'
         expect(subject.sections[0].attributes[2].value).to eq 'uid://foobar'
+        expect(subject.uid).to eq 'uid://foobar'
       end
     end
 
@@ -81,6 +82,20 @@ RSpec.describe GdDoc::Resource do
         expect(subject.sections[1].properties[1]).to be_a GdDoc::Property
         expect(subject.sections[1].properties[1].name).to eq 'shader_parameter/sunny'
         expect(subject.sections[1].properties[1].value).to eq 0.0
+      end
+    end
+
+    context 'script_path' do
+      let(:src) {
+        <<~TSCN
+          [gd_scene load_steps=34 format=3 uid="uid://foobar"]
+
+          [ext_resource type="Script" uid="uid://barfoo" path="res://src/main.gd" id="1)eewff"]
+        TSCN
+      }
+      it 'works' do
+        expect{ subject }.not_to raise_error
+        expect(subject.script_path).to eq 'res://src/main.gd'
       end
     end
   end

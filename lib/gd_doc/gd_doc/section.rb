@@ -20,6 +20,32 @@ module GdDoc
         end
       end
     end
+
+
+    def value_of(name)
+      property_value_of(name) || attribute_value_of(name)
+    end
+
+    def script?
+      attributes.any?{|a| a.name == 'type' && a.value == 'Script' }
+    end
+
+    def script_path
+      if script?
+        attributes.find{|a| a.name == 'path' }&.value
+      else
+        nil
+      end
+    end
+
+    private
+      def property_value_of(name)
+        properties.find{|s| s.name == name }&.value
+      end
+
+      def attribute_value_of(name)
+        attributes.find{|s| s.name == name }&.value
+      end
   end
 end
 

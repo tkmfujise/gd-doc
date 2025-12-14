@@ -23,5 +23,16 @@ module GdDoc
         end
       end
     end
+
+    def name
+      value_of('application', 'config/name')
+    end
+
+    private
+      def value_of(section_name, property_name)
+        section = sections.find{|s| s.name == section_name }
+        return nil unless section
+        section.value_of(property_name)
+      end
   end
 end
