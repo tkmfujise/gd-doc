@@ -1,12 +1,13 @@
 module GdDoc
   class Composer
-    attr_accessor :project, :resources, :scripts
+    attr_accessor :project, :resources, :scenes, :scripts
 
     def initialize
       self.project   = Project.build
       self.resources = Resource.build_all
+      self.scenes    = Scene.build_all
       self.scripts   = Script.build_all.map{|s| [s.path, s] }.to_h
-      combine_resources_and_scripts
+      combine_scenes_and_scripts
     end
 
     def asciidoc_formatter
@@ -14,10 +15,10 @@ module GdDoc
     end
 
     private
-      def combine_resources_and_scripts
-        resources.each do |resource|
-          next unless resource.script_path
-          resource.script = scripts[resource.script_path]
+      def combine_scenes_and_scripts
+        scenes.each do |scene|
+          next unless scene.script_path
+          scene.script = scripts[scene.script_path]
         end
       end
   end

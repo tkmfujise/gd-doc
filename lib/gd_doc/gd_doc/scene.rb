@@ -1,11 +1,12 @@
 module GdDoc
-  class Resource < Parser
+  class Scene < Parser
     self.name = 'godot-resource'
-    self.extensions = ['tres']
+    self.extensions = ['tscn']
 
     attr_accessor(
       :uid,
-      :type,
+      :script_path,
+      :script,
       :sections,
     )
 
@@ -21,8 +22,8 @@ module GdDoc
         end
       end
 
-      self.uid = value_of('gd_resource', 'uid')
-      self.uid = value_of('gd_resource', 'uid')
+      self.uid = value_of('gd_scene', 'uid')
+      self.script_path = sections.map(&:script_path).compact[0]
     end
 
     private
@@ -33,3 +34,4 @@ module GdDoc
       end
   end
 end
+

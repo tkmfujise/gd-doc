@@ -7,7 +7,7 @@ module GdDoc
       node = root.children.find{|c| c.type == :arguments }
       if node
         node.children.reject{|c|
-          [:"(", :")"].include?(c.type)
+          [:"(", :")", :","].include?(c.type)
         }
       else
         []

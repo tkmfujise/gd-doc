@@ -27,12 +27,13 @@ module GdDoc
     attr_accessor(
       :file,
       :path,
+      :root,
     )
 
     def initialize(file)
       self.file = file
       self.path = "res://#{Pathname(file).relative_path_from(GdDoc.config.project_dir)}"
-      root = self.class.parser.parse_string(File.read(file)).root_node
+      self.root = self.class.parser.parse_string(File.read(file)).root_node
       initializer
       parse(root)
     end
