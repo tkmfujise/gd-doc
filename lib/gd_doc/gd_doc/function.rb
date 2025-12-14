@@ -15,9 +15,7 @@ module GdDoc
         when :name
           self.name = child.text
         when :parameters
-          child.children.select{|c|
-            FunctionParameter::NODE_TYPES.include?(c.type)
-          }.each do |node|
+          FunctionParameter.select(child).each do |node|
             self.parameters << FunctionParameter.new(node)
           end
         when :type

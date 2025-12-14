@@ -6,12 +6,14 @@ module GdDoc
     attr_accessor(
       :extends,
       :class_name,
+      :signals,
       :functions,
       :variables,
       :constants,
     )
 
     def initializer
+      self.signals   = []
       self.functions = []
       self.variables = []
       self.constants = []
@@ -24,6 +26,8 @@ module GdDoc
           self.extends = dig(child, :type, :identifier)&.text
         when :class_name_statement
           self.class_name = dig(child, :name)&.text
+        when :signal_statement
+          self.signals << Signal.new(child)
         when :function_definition
           self.functions << Function.new(child)
         when :variable_statement

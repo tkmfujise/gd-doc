@@ -4,6 +4,12 @@ module GdDoc
     include TreeNodeHelper
     attr_accessor :name, :type
 
+    def self.select(root)
+      root.children.select{|c|
+        NODE_TYPES.include?(c.type)
+      }
+    end
+
     def initialize(root)
       parse(root)
     end

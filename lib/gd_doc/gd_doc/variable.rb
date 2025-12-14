@@ -1,10 +1,11 @@
 module GdDoc
   class Variable
     include TreeNodeHelper
-    attr_accessor :name, :type, :static
+    attr_accessor :name, :type, :static, :annotations
 
     def initialize(root)
       self.static = false
+      self.annotations = []
       parse(root)
     end
 
@@ -12,6 +13,7 @@ module GdDoc
       self.name   = dig(root, :name)&.text
       self.static = !dig(root, :static_keyword).nil?
       self.type   = dig(root, :type, :identifier)&.text
+      self.annotations = dig(root, :annotations)&.map &:text || []
     end
   end
 end
