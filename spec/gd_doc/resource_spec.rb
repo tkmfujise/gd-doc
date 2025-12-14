@@ -56,7 +56,6 @@ RSpec.describe GdDoc::Resource do
 
           [sub_resource type="ShaderMaterial" id="ShaderMaterial_brvuo"]
           shader = ExtResource("3_51v81")
-          shader_parameter/source_panorama = ExtResource("3_w7862")
           shader_parameter/sunny = 0.0
         TSCN
       }
@@ -79,6 +78,9 @@ RSpec.describe GdDoc::Resource do
         expect(subject.sections[1].properties[0].value.name).to eq 'ExtResource'
         expect(subject.sections[1].properties[0].value.arguments[0]).to be_a GdDoc::Argument
         expect(subject.sections[1].properties[0].value.arguments[0].value).to eq '3_51v81'
+        expect(subject.sections[1].properties[1]).to be_a GdDoc::Property
+        expect(subject.sections[1].properties[1].name).to eq 'shader_parameter/sunny'
+        expect(subject.sections[1].properties[1].value).to eq 0.0
       end
     end
   end

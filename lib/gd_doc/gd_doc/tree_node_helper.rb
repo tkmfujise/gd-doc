@@ -13,6 +13,8 @@ module GdDoc
       case value.type
       when :integer
         value.text.to_i
+      when :float
+        value.text.to_f
       when :string
         value.text[1..-2]
       when :constructor
