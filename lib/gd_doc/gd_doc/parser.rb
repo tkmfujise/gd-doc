@@ -5,7 +5,6 @@ module GdDoc
     class << self
       attr_accessor :name, :extensions
     end
-
     
     def self.parser
       TreeStand::Parser.new(self.name)
@@ -15,6 +14,8 @@ module GdDoc
       Dir["#{GdDoc.config.project_dir}/**/*.#{self.extensions.join('|')}"]
     end
 
+    include TreeNodeHelper
+
     attr_accessor(
       :file,
       :root,
@@ -23,17 +24,17 @@ module GdDoc
     def initialize(file)
       self.file = file
       self.root = self.class.parser.parse_string(File.read(file)).root_node
+      initializer
+      parse(root)
     end
 
-    private
-      def dig(base, *keys)
-        target = base
-        keys.each do |key|
-          target = target.children.find{|c| c.type == key }
-          return nil unless target
-        end
-        target
-      end
+    def initializer
+      # Override this method
+    end
+
+    def parse(root)
+      # Override this method
+    end
   end
 end
 

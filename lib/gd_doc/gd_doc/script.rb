@@ -1,5 +1,3 @@
-require 'tree_stand'
-
 module GdDoc
   class Script < Parser
     self.name = 'gdscript'
@@ -7,13 +5,31 @@ module GdDoc
 
     attr_accessor(
       :extends,
+      :class_name,
+      :functions,
+      :variables,
+      :constants,
     )
 
-    def parse
+    def initializer
+      self.functions = []
+      self.variables = []
+      self.constants = []
+    end
+
+    def parse(root)
       root.each do |child|
         case child.type
         when :extends_statement
           self.extends = dig(child, :type, :identifier)&.text
+        when :class_name_statement
+          self.class_name = dig(child, :name)&.text
+        when :function_definition
+          self.functions << Function.new(child)
+        when :variable_statement
+          self.variables << Variable.new(child)
+        when :const_statement
+          self.constants << Constant.new(child)
         end
       end
     end
