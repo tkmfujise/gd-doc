@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 RSpec.describe GdDoc do
   describe '.config' do
     subject { GdDoc.config }

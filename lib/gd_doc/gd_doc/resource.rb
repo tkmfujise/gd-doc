@@ -6,6 +6,7 @@ module GdDoc
     attr_accessor(
       :uid,
       :script_path,
+      :script,
       :sections,
     )
 

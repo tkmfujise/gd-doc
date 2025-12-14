@@ -19,7 +19,10 @@ RSpec.describe GdDoc::Script do
 
     context 'demo file' do
       let(:file) { GdDoc::Resource.files[0] }
-      it { expect{ subject }.not_to raise_error }
+      it 'works' do
+        expect{ subject }.not_to raise_error 
+        expect(subject.path).to start_with 'res://'
+      end
     end
   end
 

@@ -18,7 +18,10 @@ RSpec.describe GdDoc::Project do
 
     context 'demo file' do
       let(:file) { GdDoc::Project.files[0] }
-      it { expect{ subject }.not_to raise_error }
+      it 'works' do
+        expect{ subject }.not_to raise_error
+        expect(subject.path).to eq 'res://project.godot'
+      end
     end
   end
 
