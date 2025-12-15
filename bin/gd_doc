@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require_relative '../lib/gd_doc'
+
+Dry::CLI.new(GdDoc::Commands).call

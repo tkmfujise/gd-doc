@@ -1,5 +1,6 @@
 require 'pathname'
 require 'tree_stand'
+require 'dry/cli'
 require 'zeitwerk'
 
 module GdDoc

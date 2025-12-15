@@ -4,6 +4,7 @@ source "https://rubygems.org"
 
 gem 'ruby_tree_sitter'
 gem 'pry'
+gem 'dry-cli'
 
 gem 'nanoc'
 gem 'adsf'
@@ -11,6 +12,7 @@ gem 'puma'
 gem 'readline'
 
 gem 'asciidoctor'
+gem 'asciidoctor-kroki'
 
 group 'nanoc' do
   gem 'nanoc-live'
