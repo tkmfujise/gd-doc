@@ -1,7 +1,6 @@
-module GdDoc
-  class Parameter
+module GdDoc::TreeNode
+  class Parameter < Base
     NODE_TYPES = %i[identifier]
-    include TreeNodeHelper
     attr_accessor :name
 
     def self.select(root)

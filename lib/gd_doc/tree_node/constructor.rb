@@ -1,6 +1,5 @@
-module GdDoc
-  class Constructor
-    include TreeNodeHelper
+module GdDoc::TreeNode
+  class Constructor < Base
     attr_accessor :name, :arguments
 
     def initialize(root)

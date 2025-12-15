@@ -18,7 +18,7 @@ module GdDoc
       when :string
         value.text[1..-2]
       when :constructor
-        Constructor.new(value)
+        TreeNode::Constructor.new(value)
       else
         value.text
       end

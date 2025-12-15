@@ -1,6 +1,5 @@
-module GdDoc
-  class Function
-    include TreeNodeHelper
+module GdDoc::TreeNode
+  class Function < Base
     attr_accessor :name, :parameters, :return_type, :static
 
     def initialize(root)

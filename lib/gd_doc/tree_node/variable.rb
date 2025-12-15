@@ -1,6 +1,5 @@
-module GdDoc
-  class Variable
-    include TreeNodeHelper
+module GdDoc::TreeNode
+  class Variable < Base
     attr_accessor :name, :type, :static, :annotations
 
     def initialize(root)

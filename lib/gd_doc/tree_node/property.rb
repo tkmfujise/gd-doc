@@ -1,6 +1,5 @@
-module GdDoc
-  class Attribute
-    include TreeNodeHelper
+module GdDoc::TreeNode
+  class Property < Base
     attr_accessor :name, :value
 
     def initialize(root)
@@ -13,3 +12,4 @@ module GdDoc
     end
   end
 end
+

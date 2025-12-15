@@ -38,15 +38,15 @@ RSpec.describe GdDoc::Scene do
       }
       it 'works' do
         expect{ subject }.not_to raise_error
-        expect(subject.sections[0]).to be_a GdDoc::Section
+        expect(subject.sections[0]).to be_a GdDoc::TreeNode::Section
         expect(subject.sections[0].name).to eq 'gd_scene'
-        expect(subject.sections[0].attributes[0]).to be_a GdDoc::Attribute
+        expect(subject.sections[0].attributes[0]).to be_a GdDoc::TreeNode::Attribute
         expect(subject.sections[0].attributes[0].name).to eq 'load_steps'
         expect(subject.sections[0].attributes[0].value).to eq 34
-        expect(subject.sections[0].attributes[1]).to be_a GdDoc::Attribute
+        expect(subject.sections[0].attributes[1]).to be_a GdDoc::TreeNode::Attribute
         expect(subject.sections[0].attributes[1].name).to eq 'format'
         expect(subject.sections[0].attributes[1].value).to eq 3
-        expect(subject.sections[0].attributes[2]).to be_a GdDoc::Attribute
+        expect(subject.sections[0].attributes[2]).to be_a GdDoc::TreeNode::Attribute
         expect(subject.sections[0].attributes[2].name).to eq 'uid'
         expect(subject.sections[0].attributes[2].value).to eq 'uid://foobar'
         expect(subject.uid).to eq 'uid://foobar'
@@ -65,24 +65,24 @@ RSpec.describe GdDoc::Scene do
       }
       it 'works' do
         expect{ subject }.not_to raise_error
-        expect(subject.sections[1]).to be_a GdDoc::Section
+        expect(subject.sections[1]).to be_a GdDoc::TreeNode::Section
 
         # attributes
-        expect(subject.sections[1].attributes[0]).to be_a GdDoc::Attribute
+        expect(subject.sections[1].attributes[0]).to be_a GdDoc::TreeNode::Attribute
         expect(subject.sections[1].attributes[0].name).to eq 'type'
         expect(subject.sections[1].attributes[0].value).to eq 'ShaderMaterial'
-        expect(subject.sections[1].attributes[1]).to be_a GdDoc::Attribute
+        expect(subject.sections[1].attributes[1]).to be_a GdDoc::TreeNode::Attribute
         expect(subject.sections[1].attributes[1].name).to eq 'id'
         expect(subject.sections[1].attributes[1].value).to eq 'ShaderMaterial_brvuo'
 
         # properties
-        expect(subject.sections[1].properties[0]).to be_a GdDoc::Property
+        expect(subject.sections[1].properties[0]).to be_a GdDoc::TreeNode::Property
         expect(subject.sections[1].properties[0].name).to eq 'shader'
-        expect(subject.sections[1].properties[0].value).to be_a GdDoc::Constructor
+        expect(subject.sections[1].properties[0].value).to be_a GdDoc::TreeNode::Constructor
         expect(subject.sections[1].properties[0].value.name).to eq 'ExtScene'
-        expect(subject.sections[1].properties[0].value.arguments[0]).to be_a GdDoc::Argument
+        expect(subject.sections[1].properties[0].value.arguments[0]).to be_a GdDoc::TreeNode::Argument
         expect(subject.sections[1].properties[0].value.arguments[0].value).to eq '3_51v81'
-        expect(subject.sections[1].properties[1]).to be_a GdDoc::Property
+        expect(subject.sections[1].properties[1]).to be_a GdDoc::TreeNode::Property
         expect(subject.sections[1].properties[1].name).to eq 'shader_parameter/sunny'
         expect(subject.sections[1].properties[1].value).to eq 0.0
       end

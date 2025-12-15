@@ -1,7 +1,6 @@
-module GdDoc
-  class FunctionParameter
+module GdDoc::TreeNode
+  class FunctionParameter < Base
     NODE_TYPES = %i[typed_parameter typed_default_parameter]
-    include TreeNodeHelper
     attr_accessor :name, :type
 
     def self.select(root)

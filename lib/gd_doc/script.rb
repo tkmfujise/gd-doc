@@ -27,13 +27,13 @@ module GdDoc
         when :class_name_statement
           self.class_name = dig(child, :name)&.text
         when :signal_statement
-          self.signals << Signal.new(child)
+          self.signals << TreeNode::Signal.new(child)
         when :function_definition
-          self.functions << Function.new(child)
+          self.functions << TreeNode::Function.new(child)
         when :variable_statement
-          self.variables << Variable.new(child)
+          self.variables << TreeNode::Variable.new(child)
         when :const_statement
-          self.constants << Constant.new(child)
+          self.constants << TreeNode::Constant.new(child)
         end
       end
     end

@@ -1,6 +1,5 @@
-module GdDoc
-  class Section
-    include TreeNodeHelper
+module GdDoc::TreeNode
+  class Section < Base
     attr_accessor :name, :attributes, :properties
 
     def initialize(root)

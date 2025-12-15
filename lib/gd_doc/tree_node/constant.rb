@@ -1,6 +1,5 @@
-module GdDoc
-  class Constant
-    include TreeNodeHelper
+module GdDoc::TreeNode
+  class Constant < Base
     attr_accessor :name, :type, :static
 
     def initialize(root)

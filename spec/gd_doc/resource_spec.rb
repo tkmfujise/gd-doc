@@ -38,18 +38,18 @@ RSpec.describe GdDoc::Resource do
       }
       it 'works' do
         expect{ subject }.not_to raise_error
-        expect(subject.sections[0]).to be_a GdDoc::Section
+        expect(subject.sections[0]).to be_a GdDoc::TreeNode::Section
         expect(subject.sections[0].name).to eq 'gd_resource'
-        expect(subject.sections[0].attributes[0]).to be_a GdDoc::Attribute
+        expect(subject.sections[0].attributes[0]).to be_a GdDoc::TreeNode::Attribute
         expect(subject.sections[0].attributes[0].name).to eq 'type'
         expect(subject.sections[0].attributes[0].value).to eq 'Theme'
-        expect(subject.sections[0].attributes[1]).to be_a GdDoc::Attribute
+        expect(subject.sections[0].attributes[1]).to be_a GdDoc::TreeNode::Attribute
         expect(subject.sections[0].attributes[1].name).to eq 'load_steps'
         expect(subject.sections[0].attributes[1].value).to eq 3
-        expect(subject.sections[0].attributes[2]).to be_a GdDoc::Attribute
+        expect(subject.sections[0].attributes[2]).to be_a GdDoc::TreeNode::Attribute
         expect(subject.sections[0].attributes[2].name).to eq 'format'
         expect(subject.sections[0].attributes[2].value).to eq 2
-        expect(subject.sections[0].attributes[3]).to be_a GdDoc::Attribute
+        expect(subject.sections[0].attributes[3]).to be_a GdDoc::TreeNode::Attribute
         expect(subject.sections[0].attributes[3].name).to eq 'uid'
         expect(subject.sections[0].attributes[3].value).to eq 'uid://foobar'
         expect(subject.uid).to eq 'uid://foobar'
@@ -67,22 +67,22 @@ RSpec.describe GdDoc::Resource do
       }
       it 'works' do
         expect{ subject }.not_to raise_error
-        expect(subject.sections[1]).to be_a GdDoc::Section
+        expect(subject.sections[1]).to be_a GdDoc::TreeNode::Section
 
         # attributes
-        expect(subject.sections[1].attributes[0]).to be_a GdDoc::Attribute
+        expect(subject.sections[1].attributes[0]).to be_a GdDoc::TreeNode::Attribute
         expect(subject.sections[1].attributes[0].name).to eq 'type'
         expect(subject.sections[1].attributes[0].value).to eq 'StyleBoxFlat'
-        expect(subject.sections[1].attributes[1]).to be_a GdDoc::Attribute
+        expect(subject.sections[1].attributes[1]).to be_a GdDoc::TreeNode::Attribute
         expect(subject.sections[1].attributes[1].name).to eq 'id'
         expect(subject.sections[1].attributes[1].value).to eq 'StyleBoxFlat_ht2pf'
 
         # properties
-        expect(subject.sections[1].properties[0]).to be_a GdDoc::Property
+        expect(subject.sections[1].properties[0]).to be_a GdDoc::TreeNode::Property
         expect(subject.sections[1].properties[0].name).to eq 'bg_color'
-        expect(subject.sections[1].properties[0].value).to be_a GdDoc::Constructor
+        expect(subject.sections[1].properties[0].value).to be_a GdDoc::TreeNode::Constructor
         expect(subject.sections[1].properties[0].value.name).to eq 'Color'
-        expect(subject.sections[1].properties[0].value.arguments[0]).to be_a GdDoc::Argument
+        expect(subject.sections[1].properties[0].value.arguments[0]).to be_a GdDoc::TreeNode::Argument
         expect(subject.sections[1].properties[0].value.arguments[0].value).to eq 0
         expect(subject.sections[1].properties[0].value.arguments[1].value).to eq 0.44705883
         expect(subject.sections[1].properties[0].value.arguments[2].value).to eq 0.23921569

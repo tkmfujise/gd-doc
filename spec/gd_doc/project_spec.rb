@@ -44,13 +44,13 @@ RSpec.describe GdDoc::Project do
       }
       it 'works' do
         expect{ subject }.not_to raise_error
-        expect(subject.properties[0]).to be_a GdDoc::Property
+        expect(subject.properties[0]).to be_a GdDoc::TreeNode::Property
         expect(subject.properties[0].name).to eq 'config_version'
         expect(subject.properties[0].value).to eq 5
 
-        expect(subject.sections[0]).to be_a GdDoc::Section
+        expect(subject.sections[0]).to be_a GdDoc::TreeNode::Section
         expect(subject.sections[0].name).to eq 'application'
-        expect(subject.sections[0].properties[0]).to be_a GdDoc::Property
+        expect(subject.sections[0].properties[0]).to be_a GdDoc::TreeNode::Property
         expect(subject.sections[0].properties[0].name).to eq 'config/name'
         expect(subject.sections[0].properties[0].value).to eq 'GdDoc Demo'
       end

@@ -1,6 +1,5 @@
-module GdDoc
-  class Signal
-    include TreeNodeHelper
+module GdDoc::TreeNode
+  class Signal < Base
     attr_accessor :name, :parameters
 
     def initialize(root)

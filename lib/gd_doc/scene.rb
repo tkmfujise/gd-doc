@@ -18,7 +18,7 @@ module GdDoc
       root.children.each do |child|
         case child.type
         when :section
-          self.sections << Section.new(child)
+          self.sections << TreeNode::Section.new(child)
         end
       end
 

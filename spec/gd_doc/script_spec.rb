@@ -63,13 +63,13 @@ RSpec.describe GdDoc::Script do
         expect(subject.class_name).to eq 'Foo'
 
         # functions
-        expect(subject.functions[0]).to be_a(GdDoc::Function)
+        expect(subject.functions[0]).to be_a(GdDoc::TreeNode::Function)
         expect(subject.functions[0].name).to eq '_ready'
         expect(subject.functions[0].parameters).to eq []
         expect(subject.functions[0].return_type).to eq 'void'
 
         # variables
-        expect(subject.variables[0]).to be_a(GdDoc::Variable)
+        expect(subject.variables[0]).to be_a(GdDoc::TreeNode::Variable)
         expect(subject.variables[0].name).to eq 'foo'
         expect(subject.variables[0].type).to eq nil
         expect(subject.variables[0].static).to eq true
@@ -78,7 +78,7 @@ RSpec.describe GdDoc::Script do
         expect(subject.variables[1].static).to eq false
 
         # constants
-        expect(subject.constants[0]).to be_a(GdDoc::Constant)
+        expect(subject.constants[0]).to be_a(GdDoc::TreeNode::Constant)
         expect(subject.constants[0].name).to eq 'Foo'
         expect(subject.constants[0].type).to eq nil
         expect(subject.constants[0].static).to eq false
@@ -94,13 +94,13 @@ RSpec.describe GdDoc::Script do
       }
       it 'works' do
         expect{ subject }.not_to raise_error
-        expect(subject.signals[0]).to be_a GdDoc::Signal
+        expect(subject.signals[0]).to be_a GdDoc::TreeNode::Signal
         expect(subject.signals[0].name).to eq 'pressed'
-        expect(subject.signals[1]).to be_a GdDoc::Signal
+        expect(subject.signals[1]).to be_a GdDoc::TreeNode::Signal
         expect(subject.signals[1].name).to eq 'changed'
-        expect(subject.signals[1].parameters[0]).to be_a GdDoc::Parameter
+        expect(subject.signals[1].parameters[0]).to be_a GdDoc::TreeNode::Parameter
         expect(subject.signals[1].parameters[0].name).to eq 'old_value'
-        expect(subject.signals[1].parameters[1]).to be_a GdDoc::Parameter
+        expect(subject.signals[1].parameters[1]).to be_a GdDoc::TreeNode::Parameter
         expect(subject.signals[1].parameters[1].name).to eq 'new_value'
       end
     end
@@ -114,10 +114,10 @@ RSpec.describe GdDoc::Script do
       }
       it 'works' do
         expect{ subject }.not_to raise_error
-        expect(subject.variables[0]).to be_a GdDoc::Variable
+        expect(subject.variables[0]).to be_a GdDoc::TreeNode::Variable
         expect(subject.variables[0].name).to eq 'foo'
         expect(subject.variables[0].annotations).to eq ['@onready']
-        expect(subject.variables[1]).to be_a GdDoc::Variable
+        expect(subject.variables[1]).to be_a GdDoc::TreeNode::Variable
         expect(subject.variables[1].name).to eq 'bar'
         expect(subject.variables[1].annotations).to eq ['@export']
       end

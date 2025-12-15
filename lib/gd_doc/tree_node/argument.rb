@@ -1,6 +1,5 @@
-module GdDoc
-  class Argument
-    include TreeNodeHelper
+module GdDoc::TreeNode
+  class Argument < Base
     attr_accessor :value
 
     def self.select(root)
