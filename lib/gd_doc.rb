@@ -1,8 +1,9 @@
+require 'pathname'
 require 'tree_stand'
 require 'zeitwerk'
 
 module GdDoc
-  ROOT_DIR = File.expand_path('../..', __dir__)
+  ROOT_DIR = File.expand_path('../', __dir__)
   TREE_SITTER_DIR = Pathname("#{ROOT_DIR}/tree-sitters")
 
   class << self
