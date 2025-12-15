@@ -25,6 +25,11 @@ $ brew install tree-sitter
 $ bundle install
 ```
 
+=== Install command
+```
+$ ln -s $(realpath bin/gd_doc) ~/.local/bin/gd_doc
+```
+
 
 === Run Server
 ```
