@@ -27,7 +27,7 @@ $ bundle install
 
 === Install command
 ```
-$ ln -s $(realpath bin/gd_doc) ~/.local/bin/gd_doc
+$ ln -s $(realpath bin/gd-doc) ~/.local/bin/gd-doc
 ```
 
 
