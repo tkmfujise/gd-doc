@@ -1,0 +1,68 @@
+:root {
+  --contents-menu-width: 340px;
+}
+
+body>header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: white;
+  border-bottom: 1px solid gray;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+}
+
+
+body>main {
+  min-height: 764px;
+  display: flex;
+  padding-top: 0;
+}
+
+/* aside */
+body>main>aside {
+  width: var(--contents-menu-width);
+  background-color: lightgray;
+}
+body>main>aside>nav {
+  padding: 0.5rem 0 0 2rem;
+  position: sticky;
+  top: 0;
+  max-height: 90vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* article */
+body>main>article.content {
+  padding-left: 2rem;
+  width: calc(100vw - var(--contents-menu-width));
+}
+
+
+/* utilities */
+.visible-if-portrait {
+  display: none;
+}
+
+
+@media only screen and (max-width: 768px) {
+  body>main>aside {
+    position: fixed;
+    visibility: hidden;
+  }
+
+  body>main>article.content {
+    width: 100vw;
+  }
+
+  .visible-if-portrait {
+    display: block;
+  }
+}
+
+
+body>footer {
+  border-top: 1px solid darkgray;
+}

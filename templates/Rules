@@ -2,6 +2,27 @@
 require 'asciidoctor-kroki'
 
 
+compile '/**/foo.html' do
+  # layout '/default.*'
+
+  if item.identifier =~ '**/index.*'
+    write item.identifier.to_s
+  else
+    write item.identifier.without_ext + '/index.html'
+  end
+end
+
+compile '/**/bar.html' do
+  # layout '/default.*'
+
+  if item.identifier =~ '**/index.*'
+    write item.identifier.to_s
+  else
+    write item.identifier.without_ext + '/index.html'
+  end
+end
+
+
 compile '/**/*.html' do
   layout '/default.*'
 
@@ -16,7 +37,8 @@ end
 compile '/**/*.adoc' do
   filter :asciidoctor, \
     attributes: {
-      'kroki-server-url' => 'http://localhost:8123'
+      # 'kroki-server-url' => 'http://localhost:8123'
+      'kroki-server-url' => 'https://kroki.io'
     }
 
   layout '/default.*'
@@ -32,3 +54,4 @@ end
 passthrough '/**/*'
 
 layout '/**/*', :erb
+

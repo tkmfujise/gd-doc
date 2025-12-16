@@ -8,3 +8,5 @@ crash.log
 !/tree-sitters/.keep
 
 demo/doc/*
+
+templates/output
