@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>GdDoc - <%= @item[:title] %></title>
-    <link rel="stylesheet" href="/assets/css/pico/pico.min.css">
+    <link rel="stylesheet" href="/assets/css/pico.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/syntax.gessetti.css">
     <script src="/assets/js/main.js"></script>
 
     <!-- you don't need to keep this, but it's cool for stats! -->
@@ -14,43 +15,10 @@
     <%= render '/header.html' %>
     <main>
       <aside class="contents-menu">
-        <nav>
-          <ul>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-          </ul>
-        </nav>
+        <%= render '/contents-menu.html' %>
       </aside>
       <article class="content">
+        <%= render '/breadcrumb.html' %>
         <%= yield %>
       </article>
     </main>

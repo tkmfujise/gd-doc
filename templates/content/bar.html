@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no'>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+
+    <title>Responsive Menu Sample</title>
+  </head>
+
+  <body>
+    <header>
+      <div>
+        <button class="hamburger">Button</button>
+        <span>Responsive Menu Sample</span>
+      </div>
+    </header>
+
+    <main>
+      <div class='fade-layer'></div>
+      <nav class='menu-panel'>
+        <a href='#'>Home</a>
+        <a href='#'>List</a>
+        <a href='#'>Message</a>
+        <a href='#'>Profile</a>
+      </nav>
+
+      <div class='main'>
+        <h1>はろーわーるど</h1>
+        <p>This is responsive menu sample.</p>
+        <p>Change browser size.</p>
+      </div>
+    </main>
+
+<style>
+
+header {
+    position: sticky;
+	  z-index: 1000;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background-color: rgb(240, 240, 240);
+    box-shadow: 0px 3px 2px rgba(0, 10, 10, 0.2);
+    font-size: x-large;
+}
+
+header>div {
+    position: sticky;
+    bottom: 0;
+}
+
+.hamburger {
+    position: fixed;
+    left: -15px;
+    opacity: 0.5;
+}
+
+
+.menu-panel {
+    position: fixed;
+    top: auto;
+   	width: 240px;
+	  z-index: 500;
+	  left: -240px;
+    background: rgb(245, 245, 245);
+    box-shadow: 0px 3px 2px rgba(0, 10, 10, 0.2);
+
+    transition: all 0.4s;
+}
+
+.menu-panel a {
+    padding: 1em;
+  	display: block;
+	  font-size: 1.1em;
+	  font-weight: 300;
+    padding-top: 1em;
+    box-shadow: 0px 1px 1px rgba(50, 80, 80, 0.1);
+}
+
+.menu-open {
+    -webkit-transform: translate(240px, 0);
+          transform: translate(240px, 0);
+}
+
+
+
+.fade-layer {
+    position: fixed;
+    width: 100%;
+
+    background-color: rgba(0, 0, 0, 0);
+    opacity:0.5;
+    visibility: hidden;
+    z-index:1;
+
+    transition: background-color 0.4s;
+}
+
+@media only screen and (min-width: 768px) {
+    .menu-panel {
+        left: 0px;
+        top: 60px;
+    }
+
+    header {
+        height: 60px;
+        font-size: xx-large;
+    }
+
+    .hamburger {
+        visibility: hidden;
+    }
+}
+</style>
+
+<script>
+
+(function() {
+
+  'use strict';
+
+  var querySelector = document.querySelector.bind(document);
+  var menuPanel = querySelector('.menu-panel');
+  var hambuger = querySelector('.hamburger');
+  var fadeLayer = querySelector('.fade-layer');
+
+  function toggleMenu() {
+    var currentVisibility = fadeLayer.style.visibility;
+    var currentColr = fadeLayer.style.backgroundColor;
+    if (currentVisibility === 'visible') {
+		  menuPanel.classList.remove('menu-open' );
+      fadeLayer.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+      fadeLayer.style.visibility = 'hidden';
+    } else {
+		  menuPanel.classList.add('menu-open' );
+      fadeLayer.style.visibility = 'visible';
+      fadeLayer.style.backgroundColor = '#000000';
+    }
+  };
+
+  // Menu open
+  hambuger.addEventListener('click', toggleMenu);
+  fadeLayer.addEventListener('click', toggleMenu);
+
+})();
+
+</script>
+
+  </body>
+
+</html>

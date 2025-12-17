@@ -1,0 +1,11 @@
+<nav
+  aria-label="breadcrumb"
+  style="--pico-nav-breadcrumb-divider: '/';"
+>
+  <ul>
+    <% @item[:breadcrumbs].to_a.each do |name| %>
+      <li><%= name %></li>
+    <% end %>
+  </ul>
+</nav>
+

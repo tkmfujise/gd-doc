@@ -36,6 +36,7 @@ body>main>aside>nav {
 
 /* article */
 body>main>article.content {
+  padding-top: 0;
   padding-left: 2rem;
   width: calc(100vw - var(--contents-menu-width));
 }
@@ -49,8 +50,13 @@ body>main>article.content {
 
 @media only screen and (max-width: 768px) {
   body>main>aside {
+    width: 70vw;
     position: fixed;
     visibility: hidden;
+    z-index: 1;
+  }
+  body>main>aside.open {
+    visibility: visible;
   }
 
   body>main>article.content {

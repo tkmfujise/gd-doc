@@ -1,0 +1,12 @@
+<nav>
+  <ul>
+    <% @items.find_all('/project/**/*').each do |item| %>
+      <li>
+        <%= link_to(
+          item.path.delete_prefix('/project/')[0..-2],
+          item
+        ) %>
+      </li>
+    <% end %>
+  </ul>
+</nav>
