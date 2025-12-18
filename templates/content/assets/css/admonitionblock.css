@@ -1,0 +1,61 @@
+.admonitionblock {
+  margin: 1rem 0;
+  border: 1px solid #e5e7eb;
+  border-left: 6px solid #3b82f6;
+  border-radius: 6px;
+  background: #f8fafc;
+  overflow: hidden;
+}
+
+/* colors */
+.admonitionblock.note {
+  border-left-color: cornflowerblue;
+}
+.admonitionblock.note .icon {
+  color: cornflowerblue;
+}
+.admonitionblock.tip {
+  border-left-color: darkseagreen;
+}
+.admonitionblock.tip .icon {
+  color: darkseagreen;
+}
+.admonitionblock.important {
+  border-left-color: violet;
+}
+.admonitionblock.important .icon {
+  color: violet;
+}
+.admonitionblock.caution {
+  border-left-color: orange;
+}
+.admonitionblock.caution .icon {
+  color: orange;
+}
+.admonitionblock.warning {
+  border-left-color: red;
+}
+.admonitionblock.warning .icon {
+  color: red;
+}
+
+.admonitionblock .icon {
+  padding-top: 0.8rem;
+  vertical-align: top;
+}
+
+.admonitionblock .content {
+  padding: .8rem;
+  color: #0f172a;
+  width: 100%;
+}
+.admonitionblock .content p:last-child {
+  margin-bottom: 0;
+}
+section .admonitionblock {
+  margin: .8rem 0;
+}
+
+.admonitionblock table {
+  margin-bottom: 0;
+}

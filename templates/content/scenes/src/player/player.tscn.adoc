@@ -1,22 +1,133 @@
 ---
-title: src/player/player.gd
-breadcrumbs:
-- src
-- player
-- player.gd
+title: src/player/player.tscn
 ---
-:source-highlighter: rouge
-:rouge-style: thankful_eyes
 
-== player.gd
+== src / player / player.tscn
 
-```ruby
-class Foo
-  def bar
-	'test'
-  end
-end
-```
+=== Diagram
+
+[plantuml]
+....
+class Game <<Control>> {
+  ~ color_count_changed
+  ~ turn_changed
+  ~ all_animation_finished
+  ---
+  - DiskScene
+  - MAX_LOCATION_NUMBER
+  * current_color
+  * player_color
+  * animation_disks
+  * cpu
+  ---
+  + _ready()
+  + initialize()
+  + place( location)
+  + put( location, color )
+  + clear_disks()
+  + get_disks()
+  + get_disk( location )
+  + get_color_count(color )
+  + invalid_place( location, color )
+  + already_placed( location )
+  + out_of_range( location )
+  + reversible_count( location, color )
+  + try_reverse_by( disk )
+  + reversible_disks_by( disk )
+  + directional_locations_from( base)
+  + locations_line_from( base, dx, dy )
+  + set_current_color( _color )
+  + take_turn()
+  + emit_signal_color_count_changed()
+  + _on_board_clicked( location )
+  + _on_disk_animation_finished()
+  + _on_all_animation_finished()
+}
+class Board <<Polygon2D>> {
+  ~ clicked
+  ---
+  * texture
+  * repeat
+  ---
+  + _input( event )
+  + calc_location( postion )
+}
+package "Disk" as DiskScene {
+  class Disk <<AnimatedSprite2D>> {
+    ~ animation_finished
+    ---
+    - COLOR
+    * color
+    * location
+    ---
+    + set_location( _location )
+    + change_color( _color )
+    + reverse()
+    + _on_animation_finished()
+  }
+}
+class CPU <<(C,white)>> {
+  * color
+  * game
+  ---
+  + initialize( _game )
+  + perform()
+  + decide_place()
+  + placeable_moves()
+}
+class NormalCPU <<(C,white)>> {
+  + decide_place()
+}
+class EasyCPU <<(C,white)>> {
+  + decide_place()
+}
+class HardCPU <<(C,white)>> {
+  + decide_place()
+}
+
+left to right direction
+
+Game --o Board
+Board --o Disk
+
+Game::_on_board_clicked <-[#blue,thickness=2]- Board::clicked
+Game::_on_disk_animation_finished <-[#blue,thickness=2]- Disk::animation_finished
+
+Game::cpu .. CPU
+CPU <|-- EasyCPU
+CPU <|-- NormalCPU
+CPU <|-- HardCPU
+....
+
+=== Scene Tree
+[.scene-tree]
+* [.node-name.type-2d]#Player# [.node-type.type-2d]#<CharactorBody2D>#
+** [.node-name.type-2d]#CollisionShape2D# [.node-type.type-2d]#<CollisionShape2D>#
+** [.node-name.type-2d]#Area2D# [.node-type.type-2d]#<Area2D>#
+*** [.node-name.type-2d]#CollisionShape2D# [.node-type.type-2d]#<CollisionShape2D>#
+** [.node-name.type-other]#Timer# [.node-type.type-other]#<Timer>#
+** [.node-name.type-control]#Control# [.node-type.type-control]#<Control>#
+** [.node-name.type-3d]#Xxx3D# [.node-type.type-3d]#<Xxx3D>#
+
+
+
+=== Properties
+
+[cols="1,1,2", options="header"]
+|===
+|Node |Name |Value
+|_AnimationPlayer_
+|*unique_name_in_owner*
+|`true`
+|_Mist_
+|*modulate*
+|`Color(1, 1, 1, 1)`
+|_Mist_
+|*postition*
+|`Vector2(0, -1)`
+|===
+
+=== link:/scripts/src/player/player.gd[player.gd]
 
 ```gdscript
 extends CharacterBody2D
@@ -154,3 +265,4 @@ func _on_frame_subject_area_exited(area: Area2D) -> void:
 func _on_failure_collision_area_entered(_area: Area2D) -> void:
 	GameEvent.falied.emit()
 ```
+

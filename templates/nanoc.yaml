@@ -11,4 +11,6 @@ data_sources:
   - type: filesystem
     encoding: utf-8
 
+title: Godot Project
+
 # output_dir: output

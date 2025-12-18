@@ -2,8 +2,68 @@
 title: Home
 ---
 
+[.welcome-code]
+```gdscript
+▖  ▖  ▜            ▗        ▌   ▌      
+▌▞▖▌█▌▐ ▛▘▛▌▛▛▌█▌  ▜▘▛▌  ▛▌▛▌▄▖▛▌▛▌▛▘  
+▛ ▝▌▙▖▐▖▙▖▙▌▌▌▌▙▖  ▐▖▙▌  ▙▌▙▌  ▙▌▙▌▙▖▗ 
+                         ▄▌            
 
-== Foo
+Usage
 
-bar!!
+$ rake  # Analyze your Godot project, generate AsciiDoc files, and start the server.
+```
+
+=== Stats
+
+[cols="1,2"]
+|===
+| Scenes | 12 files.
+| Scripts | 34 files.
+| Resources | 3 files.
+|===
+
+
+
+=== Scenes
+
+* link:/scenes/src/player/player.tscn[src/player/player.tscn]
+
+
+=== Scripts
+
+* link:/scripts/src/player/player.gd[src/player/player.gd]
+
+
+=== Resources
+
+* some_resource.tres
+
+
+=== Other
+
+[NOTE]
+====
+foo
+bar
+
+```ruby
+class Foo
+  def bar
+    'test'
+  end
+end
+```
+====
+
+
+TIP: Foo
+
+IMPORTANT: Foo
+
+CAUTION: Foo
+
+WARNING: Foo
+
+
 

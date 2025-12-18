@@ -2,10 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>GdDoc - <%= @item[:title] %></title>
+    <title><%= @config[:title] %> - <%= @item[:title] %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="/assets/css/pico.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/syntax.gessetti.css">
+    <link rel="stylesheet" href="/assets/css/admonitionblock.css">
     <script src="/assets/js/main.js"></script>
 
     <!-- you don't need to keep this, but it's cool for stats! -->
@@ -18,7 +20,6 @@
         <%= render '/contents-menu.html' %>
       </aside>
       <article class="content">
-        <%= render '/breadcrumb.html' %>
         <%= yield %>
       </article>
     </main>

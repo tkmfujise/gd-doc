@@ -1,9 +1,0 @@
----
-title: src/player/player.tscn
-breadcrumbs:
-- src
-- player
-- player.tscn
----
-
-== player.tscn

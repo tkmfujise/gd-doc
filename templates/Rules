@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require 'asciidoctor-kroki'
+require 'rouge'
 
 
 compile '/**/*.html' do
@@ -19,6 +20,7 @@ compile '/**/*.adoc' do
       # 'kroki-server-url' => 'http://localhost:8123'
       'kroki-server-url' => 'https://kroki.io',
       'source-highlighter' => 'rouge',
+      'rouge-css' => 'class',
     }
 
   layout '/default.*'

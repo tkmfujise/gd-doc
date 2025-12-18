@@ -1,0 +1,152 @@
+---
+title: src/player/player.gd
+---
+:source-highlighter: rouge
+
+
+== src / player / player.gd
+
+```ruby
+class Foo
+  def bar
+	'test'
+  end
+end
+```
+
+```gdscript
+extends CharacterBody2D
+class_name Player
+
+@export var GhostEffect : PackedScene
+
+signal dashed
+
+const SPEED = 1000.0
+const DASH_SPEED = SPEED * 4
+const JUMP_VELOCITY = -1100.0
+const GRAVITY = 4000
+const ALLOWED_TIME_TO_JUMP = 0.15
+const DASH_TIME = 0.1
+const DASH_ATTENUATION = Vector2(55, 50)
+const MAX_DASH_COUNT = 1
+var falling_time := 0.0
+var dash_rest_time := 0.0
+var dash_rest_count := MAX_DASH_COUNT
+var grounding : bool = true
+var is_failed : bool = false
+
+
+func _ready() -> void:
+	GameEvent.falied.connect(_on_failed)
+
+
+func _physics_process(delta: float) -> void:
+	if is_failed:
+		return
+	if dash_rest_time > 0:
+		dash_rest_time -= delta
+		velocity *= DASH_ATTENUATION * delta
+	else:
+		# Add the gravity.
+		if not is_on_floor():
+			velocity.y += GRAVITY * delta
+			falling_time += delta
+			grounding = false
+		else:
+			if not grounding: vibrate('Landed')
+			grounding = true
+			falling_time = 0
+			dash_rest_count = MAX_DASH_COUNT
+
+		# Handle jump.
+		if Input.is_action_just_pressed("move_jump") and falling_time < ALLOWED_TIME_TO_JUMP:
+			velocity.y = JUMP_VELOCITY
+
+		var direction_x := Input.get_axis("move_left", "move_right")
+		if direction_x:
+			velocity.x = direction_x * SPEED
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+
+		# Handle dash.
+		if Input.is_action_just_pressed("move_dash") && dash_rest_count > 0:
+			var direction_y := Input.get_axis("move_up", "move_down")
+			var direction = Vector2(direction_x, direction_y).normalized()
+			if direction:
+				dashed.emit()
+				velocity = direction * DASH_SPEED
+				dash_rest_time = DASH_TIME
+				dash_rest_count -= 1
+	animate()
+	move_and_slide()
+
+
+func animate():
+	if is_failed: return
+	if velocity.x:
+		for state in ['Idle', 'Run', 'Jump', 'Fall']:
+			%AnimationTree.set('parameters/%s/blend_position' % [state], velocity.x)
+	%AnimationTree.get('parameters/playback').travel(get_state())
+	update_sprite_states_shader_parameters()
+	if dash_rest_time > 0 && int(dash_rest_time*100)%3 > 0:
+		spawn_ghost_effect()
+
+
+func vibrate(key: String):
+	var values = [0, 0, 0]
+	match key:
+		'Dashed': values = [0.4, 0.6, 0.2]
+		'Landed': values = [0.1, 0.3, 0.1]
+	Input.start_joy_vibration(0, values[0], values[1], values[2])
+
+
+func get_state() -> String:
+	if velocity:
+		if velocity.y < 0: return 'Jump'
+		if velocity.y > 0: return 'Fall'
+		else: return 'Run'
+	else: return 'Idle'
+
+
+func update_sprite_states_shader_parameters():
+	for state in %SpriteStates.get_children():
+		state.material.set_shader_parameter("dashed", is_dashed())
+
+
+func spawn_ghost_effect():
+	var ghost = GhostEffect.instantiate()
+	ghost.spawn(self)
+
+
+func current_sprite_state() -> Sprite2D:
+	return %SpriteStates.get_children().filter(
+		func(c): return c.visible)[0]
+
+
+func is_dashed() -> bool:
+	return true if dash_rest_count < MAX_DASH_COUNT else false
+
+
+func _on_dashed() -> void:
+	vibrate('Dashed')
+	%Camera.shake(&'dash')
+
+
+func _on_failed() -> void:
+	is_failed = true
+	%AnimationTree.active = false
+	%AnimationPlayer.play("burst")
+
+
+func _on_frame_subject_area_entered(area: Area2D) -> void:
+	%Camera.add_frame(area)
+
+
+func _on_frame_subject_area_exited(area: Area2D) -> void:
+	%Camera.remove_frame(area)
+
+
+func _on_failure_collision_area_entered(_area: Area2D) -> void:
+	GameEvent.falied.emit()
+```

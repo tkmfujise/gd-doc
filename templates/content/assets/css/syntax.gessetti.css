@@ -4,6 +4,9 @@
   color: #faf6e4;
   background-color: #051F36;
 }
+.highlight code {
+  color: white;
+}
 .highlight .gl {
   color: #dee5e7;
   background-color: #4e5d62;
