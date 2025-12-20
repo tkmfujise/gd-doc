@@ -1,4 +1,4 @@
-<% categories = %w[scenes scripts] %>
+<% categories = %w[scenes scripts resources] %>
 <% current_category = categories.find{|c| @item.path.start_with? "/#{c}" } || categories[0] %>
 <nav>
   <% categories.each do |category| %>

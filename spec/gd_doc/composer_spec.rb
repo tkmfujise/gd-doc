@@ -8,9 +8,8 @@ RSpec.describe GdDoc::Composer do
       expect(subject.project).to be_a GdDoc::Project
       expect(subject.resources[0]).to be_a GdDoc::Resource
       expect(subject.scenes[0]).to be_a GdDoc::Scene
-      expect(subject.scripts).to be_a Hash
-      expect(subject.scripts.keys[0]).to start_with 'res://'
-      expect(subject.scripts.values[0]).to be_a GdDoc::Script
+      expect(subject.scenes[0]).to be_a GdDoc::Scene
+      expect(subject.scripts[0]).to be_a GdDoc::Script
       expect(subject.scenes.map(&:script).compact[0]).to be_a GdDoc::Script
     end
   end

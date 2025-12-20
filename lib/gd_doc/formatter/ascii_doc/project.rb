@@ -13,11 +13,50 @@ module GdDoc
 
       def format
         <<~ASCIIDOC
-        = #{project.name}
+        ---
+        title: #{project.name}
+        ---
 
-        == Properties
+        #{welcome_message}
+
+        === Properties
+        #{properties}
         ASCIIDOC
       end
+
+
+      private
+        def welcome_message
+          <<~TEXT
+          [.welcome-code]
+          ```gdscript
+          ▖  ▖  ▜            ▗        ▌   ▌      
+          ▌▞▖▌█▌▐ ▛▘▛▌▛▛▌█▌  ▜▘▛▌  ▛▌▛▌▄▖▛▌▛▌▛▘  
+          ▛ ▝▌▙▖▐▖▙▖▙▌▌▌▌▙▖  ▐▖▙▌  ▙▌▙▌  ▙▌▙▌▙▖▗ 
+                                   ▄▌            
+
+          Usage
+
+          $ rake  # Analyze your Godot project, generate AsciiDoc files, and start the server.
+          ```
+          TEXT
+        end
+
+
+        def properties
+          content = project.sections.flat_map{|section|
+              section.properties.map{|prop|
+                "|_#{section.name}_ |*#{prop.name}* |`#{prop.value}`"
+              }
+            }.join("\n")
+          <<~TEXT
+          [cols="1,1,3" options="header"]
+          |===
+          |Section |Name |Value
+          #{content}
+          |===
+          TEXT
+        end
     end
   end
 end

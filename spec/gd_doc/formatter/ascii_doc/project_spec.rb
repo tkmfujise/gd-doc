@@ -21,7 +21,7 @@ RSpec.describe GdDoc::Formatter::AsciiDoc::Project do
 
       it 'works' do
         expect{ subject }.not_to raise_error
-        expect(subject.file_path).to eq File.join(GdDoc.config.doc_dir, 'index.adoc')
+        expect(subject.file_path.to_s).to eq File.join(GdDoc.config.doc_dir, 'content', 'index.adoc')
         expect{ subject.format }.not_to raise_error
       end
     end

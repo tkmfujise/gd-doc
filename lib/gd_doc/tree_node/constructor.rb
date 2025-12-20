@@ -13,6 +13,10 @@ module GdDoc::TreeNode
         self.arguments << Argument.new(child)
       end
     end
+
+    def to_s
+      "#{name}(#{arguments.map(&:to_s).join(', ')})"
+    end
   end
 end
 

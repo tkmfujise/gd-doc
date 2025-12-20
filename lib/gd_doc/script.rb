@@ -2,6 +2,7 @@ module GdDoc
   class Script < Parser
     self.name = 'gdscript'
     self.extensions = ['gd']
+    self.store_raw_data = true
 
     attr_accessor(
       :extends,

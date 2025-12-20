@@ -5,6 +5,7 @@ source "https://rubygems.org"
 gem 'ruby_tree_sitter'
 gem 'pry'
 gem 'dry-cli'
+gem 'readline'
 
 group :test do
   gem 'rspec'

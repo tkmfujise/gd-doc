@@ -25,8 +25,25 @@ module GdDoc::TreeNode
       property_value_of(name) || attribute_value_of(name)
     end
 
+    def property_value_of(name)
+      properties.find{|s| s.name == name }&.value
+    end
+
+    def attribute_value_of(name)
+      attributes.find{|s| s.name == name }&.value
+    end
+
+
     def script?
       attributes.any?{|a| a.name == 'type' && a.value == 'Script' }
+    end
+
+    def root_node?
+      name == 'node' && attributes.none?{|a| a.name == 'parent' }
+    end
+
+    def child_node?
+      name == 'node' && attributes.any?{|a| a.name == 'parent' }
     end
 
     def script_path
@@ -36,15 +53,6 @@ module GdDoc::TreeNode
         nil
       end
     end
-
-    private
-      def property_value_of(name)
-        properties.find{|s| s.name == name }&.value
-      end
-
-      def attribute_value_of(name)
-        attributes.find{|s| s.name == name }&.value
-      end
   end
 end
 

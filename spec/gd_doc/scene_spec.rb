@@ -34,6 +34,8 @@ RSpec.describe GdDoc::Scene do
       let(:src) {
         <<~TSCN
           [gd_scene load_steps=34 format=3 uid="uid://foobar"]
+
+          [node name="Main" type="Control"]
         TSCN
       }
       it 'works' do
@@ -58,6 +60,8 @@ RSpec.describe GdDoc::Scene do
         <<~TSCN
           [gd_scene load_steps=34 format=3 uid="uid://foobar"]
 
+          [node name="Main" type="Control"]
+
           [sub_resource type="ShaderMaterial" id="ShaderMaterial_brvuo"]
           shader = ExtScene("3_51v81")
           shader_parameter/sunny = 0.0
@@ -68,23 +72,23 @@ RSpec.describe GdDoc::Scene do
         expect(subject.sections[1]).to be_a GdDoc::TreeNode::Section
 
         # attributes
-        expect(subject.sections[1].attributes[0]).to be_a GdDoc::TreeNode::Attribute
-        expect(subject.sections[1].attributes[0].name).to eq 'type'
-        expect(subject.sections[1].attributes[0].value).to eq 'ShaderMaterial'
-        expect(subject.sections[1].attributes[1]).to be_a GdDoc::TreeNode::Attribute
-        expect(subject.sections[1].attributes[1].name).to eq 'id'
-        expect(subject.sections[1].attributes[1].value).to eq 'ShaderMaterial_brvuo'
+        expect(subject.sections[2].attributes[0]).to be_a GdDoc::TreeNode::Attribute
+        expect(subject.sections[2].attributes[0].name).to eq 'type'
+        expect(subject.sections[2].attributes[0].value).to eq 'ShaderMaterial'
+        expect(subject.sections[2].attributes[1]).to be_a GdDoc::TreeNode::Attribute
+        expect(subject.sections[2].attributes[1].name).to eq 'id'
+        expect(subject.sections[2].attributes[1].value).to eq 'ShaderMaterial_brvuo'
 
         # properties
-        expect(subject.sections[1].properties[0]).to be_a GdDoc::TreeNode::Property
-        expect(subject.sections[1].properties[0].name).to eq 'shader'
-        expect(subject.sections[1].properties[0].value).to be_a GdDoc::TreeNode::Constructor
-        expect(subject.sections[1].properties[0].value.name).to eq 'ExtScene'
-        expect(subject.sections[1].properties[0].value.arguments[0]).to be_a GdDoc::TreeNode::Argument
-        expect(subject.sections[1].properties[0].value.arguments[0].value).to eq '3_51v81'
-        expect(subject.sections[1].properties[1]).to be_a GdDoc::TreeNode::Property
-        expect(subject.sections[1].properties[1].name).to eq 'shader_parameter/sunny'
-        expect(subject.sections[1].properties[1].value).to eq 0.0
+        expect(subject.sections[2].properties[0]).to be_a GdDoc::TreeNode::Property
+        expect(subject.sections[2].properties[0].name).to eq 'shader'
+        expect(subject.sections[2].properties[0].value).to be_a GdDoc::TreeNode::Constructor
+        expect(subject.sections[2].properties[0].value.name).to eq 'ExtScene'
+        expect(subject.sections[2].properties[0].value.arguments[0]).to be_a GdDoc::TreeNode::Argument
+        expect(subject.sections[2].properties[0].value.arguments[0].value).to eq '3_51v81'
+        expect(subject.sections[2].properties[1]).to be_a GdDoc::TreeNode::Property
+        expect(subject.sections[2].properties[1].name).to eq 'shader_parameter/sunny'
+        expect(subject.sections[2].properties[1].value).to eq 0.0
       end
     end
 
@@ -92,6 +96,8 @@ RSpec.describe GdDoc::Scene do
       let(:src) {
         <<~TSCN
           [gd_scene load_steps=34 format=3 uid="uid://foobar"]
+
+          [node name="Main" type="Control"]
 
           [ext_resource type="Script" uid="uid://barfoo" path="res://src/main.gd" id="1)eewff"]
         TSCN
