@@ -1,6 +1,8 @@
 module GdDoc
   module Formatter
     class Base
+      include Helper
+
       def file_path
         Pathname(File.join(GdDoc.config.doc_dir, 'content', file_name))
       end

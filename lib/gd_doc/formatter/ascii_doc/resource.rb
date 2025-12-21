@@ -18,7 +18,7 @@ module GdDoc
         ---
         :toc:
 
-        == #{splitted_path}
+        == #{split_slush(resource.relative_path)}
 
         === Properties
         #{properties}
@@ -26,9 +26,6 @@ module GdDoc
       end
 
       private
-        def splitted_path
-          resource.relative_path.gsub('/', ' / ')
-        end
 
         # TODO
         def properties

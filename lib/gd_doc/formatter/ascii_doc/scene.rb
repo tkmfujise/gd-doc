@@ -18,13 +18,16 @@ module GdDoc
         ---
         :toc:
 
-        == #{splitted_path}
+        == #{split_slush(scene.relative_path)}
 
         === Diagram
         #{diagram}
 
         === Scene Tree
         #{scene_tree}
+
+        === Signal Connections
+        #{signal_connections}
 
         === Properties
         #{properties}
@@ -46,9 +49,6 @@ module GdDoc
       end
 
       private
-        def splitted_path
-          scene.relative_path.gsub('/', ' / ')
-        end
 
         # e.g.)
         #
@@ -86,6 +86,20 @@ module GdDoc
           ASCIIDOC
         end
 
+
+        def signal_connections
+          return 'NOTE: No signal connections.' unless scene.connections.any?
+          content = scene.connections.map{|c|
+              "|_#{split_slush(c.from)}_ |*#{c.name}* |_#{split_slush(c.to)}_ |`#{c.method_name}`"
+            }.join("\n")
+          <<~TEXT
+          [cols="1,1,1,2" options="header"]
+          |===
+          |From |Name |To |Method
+          #{content}
+          |===
+          TEXT
+        end
 
         # TODO
         def properties

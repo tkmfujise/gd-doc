@@ -46,6 +46,10 @@ module GdDoc::TreeNode
       name == 'node' && attributes.any?{|a| a.name == 'parent' }
     end
 
+    def connection_signal?
+      name == 'connection' && attributes.any?{|a| a.name == 'signal' }
+    end
+
     def script_path
       if script?
         attributes.find{|a| a.name == 'path' }&.value

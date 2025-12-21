@@ -76,6 +76,23 @@ module GdDoc
     end
 
 
+    class Connection
+      attr_accessor(
+        :name,
+        :from,
+        :to,
+        :method_name,
+      )
+
+      def initialize(section)
+        self.name = section.attribute_value_of('signal')
+        self.from = section.attribute_value_of('from')
+        self.to   = section.attribute_value_of('to')
+        self.method_name = section.attribute_value_of('method')
+      end
+    end
+
+
     attr_accessor(
       :uid,
       :script_path,
@@ -83,11 +100,13 @@ module GdDoc
       :sections,
       :root_node,
       :child_nodes,
+      :connections,
     )
 
     def initializer
       self.sections = []
       self.child_nodes = []
+      self.connections = []
     end
 
     def parse(root)
@@ -101,6 +120,7 @@ module GdDoc
       self.uid = value_of('gd_scene', 'uid')
       self.script_path = sections.map(&:script_path).compact[0]
       build_nodes
+      build_connections
     end
 
     def nodes
@@ -127,6 +147,11 @@ module GdDoc
           target = nodes.find{|n| n.path == node.parent }
           target.children << node if target
         end
+      end
+
+      def build_connections
+        self.connections = sections.select(&:connection_signal?) \
+          .map{|section| Connection.new(section) }
       end
   end
 end

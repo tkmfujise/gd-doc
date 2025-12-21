@@ -18,18 +18,13 @@ module GdDoc
         ---
         :toc:
 
-        == #{splitted_path}
+        == #{split_slush(script.relative_path)}
 
         ```gdscript
         #{script.raw_data}
         ```
         ASCIIDOC
       end
-
-      private
-        def splitted_path
-          script.relative_path.gsub('/', ' / ')
-        end
     end
   end
 end
