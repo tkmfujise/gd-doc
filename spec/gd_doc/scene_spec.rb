@@ -107,6 +107,60 @@ RSpec.describe GdDoc::Scene do
         expect(subject.script_path).to eq 'res://src/main.gd'
       end
     end
+
+    context 'children' do
+      let(:src) {
+        <<~TSCN
+          [gd_scene load_steps=42 format=3 uid="uid://c8777f6ryw7re"]
+
+          [ext_resource type="PackedScene" uid="uid://bb3rohjwfowwf" path="res://src/player/camera/camera.tscn" id="8_x42xx"]
+
+          [ext_resource type="Texture2D" uid="uid://cp4bljrqpo6mr" path="res://assets/images/player/Player_idle.png" id="2_byvol"]
+
+          [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_opnj4"]
+          radius = 30.0
+          height = 96.0
+
+          [node name="Player" type="CharacterBody2D"]
+
+          [node name="Sprites" type="Node2D" parent="."]
+          unique_name_in_owner = true
+          position = Vector2(-12, -72)
+
+          [node name="SpriteStates" type="Node2D" parent="Sprites"]
+
+          [node name="IdleSprite2D" type="Sprite2D" parent="Sprites/SpriteStates"]
+          texture = ExtResource("2_byvol")
+
+          [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+          shape = SubResource("CapsuleShape2D_opnj4")
+
+          [node name="Camera" parent="." instance=ExtResource("8_x42xx")]
+
+          [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+        TSCN
+      }
+      it 'works' do
+        expect{ subject }.not_to raise_error
+        expect(subject.root_node.name).to eq 'Player'
+        expect(subject.root_node.type).to eq 'CharacterBody2D'
+        tree = %w[
+          .
+          Sprites
+          Sprites/SpriteStates
+          Sprites/SpriteStates/IdleSprite2D
+          CollisionShape2D
+          Camera
+          AnimationPlayer
+        ]
+        expect(subject.nodes.count).to eq tree.count
+        expect(subject.nodes.map(&:path)).to eq tree
+        expect(subject.tree[0].name).to eq 'Player'
+        expect(subject.tree[1].count).to eq 4
+        expect(subject.tree.flatten.count).to eq tree.count
+        expect(subject.tree.flatten.map(&:path)).to eq tree
+      end
+    end
   end
 end
 

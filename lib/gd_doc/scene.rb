@@ -33,7 +33,13 @@ module GdDoc
       end
 
       def path
-        root? ? name : "#{parent}/#{name}"
+        if root?
+          '.'
+        elsif root_child?
+          name
+        else
+          "#{parent}/#{name}"
+        end
       end
 
       def depth
@@ -54,8 +60,12 @@ module GdDoc
         type && type.end_with?('3D')
       end
 
+      def type_control?
+        type && Type::CONTROLS.include?(type)
+      end
+
       def tree
-        [self, *children]
+        [self, *children.map(&:tree)]
       end
 
       def inspect
@@ -113,11 +123,9 @@ module GdDoc
         self.child_nodes = sections.select(&:child_node?) \
           .map{|section| Node.new(section) }
 
-        nodes.each do |node|
-          unless node.root_child?
-            target = nodes.find{|n| n.path == node.parent }
-            target.children << node if target
-          end
+        child_nodes.each do |node|
+          target = nodes.find{|n| n.path == node.parent }
+          target.children << node if target
         end
       end
   end

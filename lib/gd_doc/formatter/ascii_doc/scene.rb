@@ -60,7 +60,13 @@ module GdDoc
           txt = "[.scene-tree]\n"
           scene.nodes.each do |node|
             txt << ('*' * node.depth.succ) + ' '
-            suffix = node.type_2d? ? '2d' : (node.type_3d? ? '3d' : 'other')
+            suffix = \
+              if    node.type_2d?      then '2d'
+              elsif node.type_3d?      then '3d'
+              elsif node.type_control? then 'control'
+              else; 'other'
+              end
+
             txt << [
                 "[.node-name.type-#{suffix}]##{node.name}#",
                 "[.node-type.type-#{suffix}]##{node.type || (node.name + '.tscn')}#",
