@@ -20,7 +20,7 @@ module GdDoc
       def files
         targets = extensions.map{|ext| "#{GdDoc.config.project_dir_absolute}/**/*.#{ext}" }
         Dir[*targets].reject{|path|
-            next true if Pathname(path).directory?
+            next true if File.directory?(path)
             rel_path = relativized_path(path)
             GdDoc.config.ignoring_paths.any?{|str| rel_path.to_s.start_with? str }
           }

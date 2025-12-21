@@ -23,6 +23,15 @@ module GdDoc
         value.text
       end
     end
+
+    def format_value(value)
+      case value
+      when String
+        "\"#{value}\""
+      else
+        value.to_s
+      end
+    end
   end
 end
 

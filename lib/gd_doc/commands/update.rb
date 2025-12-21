@@ -12,6 +12,7 @@ module GdDoc::Commands
     # generate doc/content/resources/resource_name.adoc
     #
     def call(*)
+      GdDoc.config.log_verbose = true
       load_config_file
       validate_configuration
       rm_content_dir 'scenes'

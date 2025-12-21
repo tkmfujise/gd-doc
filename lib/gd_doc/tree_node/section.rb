@@ -50,6 +50,10 @@ module GdDoc::TreeNode
       name == 'connection' && attributes.any?{|a| a.name == 'signal' }
     end
 
+    def ext_resource?
+      name == 'ext_resource'
+    end
+
     def script_path
       if script?
         attributes.find{|a| a.name == 'path' }&.value

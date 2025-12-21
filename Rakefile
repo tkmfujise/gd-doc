@@ -1,9 +1,10 @@
 require 'bundler/setup'
 
-task :default => :server
+task :default => :test
 
-task server: [:tree_sitter_build] do
-  sh 'bin/server'
+
+task :test do
+  sh 'bundle exec rspec spec'
 end
 
 
@@ -26,7 +27,3 @@ task :tree_sitter_build do
   end
 end
 
-
-task :test do
-  sh 'bundle exec rspec spec'
-end

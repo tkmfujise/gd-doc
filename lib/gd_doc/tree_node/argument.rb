@@ -20,6 +20,10 @@ module GdDoc::TreeNode
     def parse(root)
       self.value = cast_value(root)
     end
+
+    def to_s
+      format_value(value)
+    end
   end
 end
 

@@ -8,6 +8,7 @@ module GdDoc
       self.scenes    = Scene.build_all
       self.scripts   = Script.build_all
       combine_scenes_and_scripts
+      combine_scenes_to_children
     end
 
 
@@ -22,6 +23,15 @@ module GdDoc
         scenes.each do |scene|
           next unless scene.script_path
           scene.script = scripts_hash[scene.script_path]
+        end
+      end
+
+      def combine_scenes_to_children
+        scenes.each do |scene|
+          scene.nodes.select(&:instance).each do |node|
+            target = scenes.find{|s| s.uid == node.scene_uid }
+            node.scene = target if target
+          end
         end
       end
   end

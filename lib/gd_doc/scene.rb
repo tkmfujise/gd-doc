@@ -10,6 +10,7 @@ module GdDoc
         :parent,
         :instance,
         :scene,
+        :scene_uid,
         :section,
         :children,
       )
@@ -50,6 +51,13 @@ module GdDoc
         else
           2 + parent.count('/')
         end
+      end
+
+      def scene=(scene)
+        if scene
+          self.type = scene.root_node&.type
+        end
+        @scene = scene
       end
 
       def type_2d?
@@ -131,6 +139,10 @@ module GdDoc
       [root_node, child_nodes.select(&:root_child?).map(&:tree)]
     end
 
+    def find(path)
+      nodes.find{|n| n.path == path }
+    end
+
     private
       def value_of(section_name, property_name)
         section = sections.find{|s| s.name == section_name }
@@ -146,6 +158,19 @@ module GdDoc
         child_nodes.each do |node|
           target = nodes.find{|n| n.path == node.parent }
           target.children << node if target
+        end
+        root_node.scene = self
+        set_uid_to_nodes
+      end
+
+      def set_uid_to_nodes
+        ext_resources = sections.select(&:ext_resource?)
+        child_nodes.select(&:instance).each do |node|
+          section = ext_resources \
+            .find{|e| e.attribute_value_of('id') == node.instance }
+          if section
+            node.scene_uid = section.attribute_value_of('uid')
+          end
         end
       end
 
