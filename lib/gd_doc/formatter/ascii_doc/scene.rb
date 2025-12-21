@@ -69,10 +69,10 @@ module GdDoc
 
             txt << [
                 "[.node-name.type-#{suffix}]##{node.name}#",
-                (if node.scene
+                (if !node.root? && node.scene
                   "[.node-type.type-#{suffix}]#link:/scenes/#{node.scene.relative_path}[#{node.scene.path}]#"
                 else
-                  "[.node-type.type-#{suffix}]##{node.type}#"
+                  "[.node-type.type-#{suffix}]##{node.type || 'Node'}#"
                 end),
               ].join(' ') + "\n"
           end

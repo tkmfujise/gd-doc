@@ -9,7 +9,8 @@
           <li>
             <%= link_to(
               item.path.delete_prefix("/#{category}/")[0..-2],
-              item
+              item,
+              class: (@rep&.path == item.path ? 'selected' : '')
             ) %>
           </li>
         <% end %>

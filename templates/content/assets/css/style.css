@@ -38,6 +38,9 @@ body>main>aside>nav {
 body>main>aside>nav a {
   font-size: 0.9rem;
 }
+body>main>aside>nav a.selected {
+  background-color: var(--pico-text-selection-color);
+}
 
 /* article */
 body>main>article.content {
@@ -81,6 +84,18 @@ div#toc {
   top: 8rem;
   padding: 0 0.5rem;
   font-size: 0.9rem;
+}
+div#toc #toctitle {
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--pico-primary);
+}
+div#toc .sectlevel1 {
+  display: none;
+}
+div#toc .sectlevel1.open {
+  display: block;
 }
 
 
