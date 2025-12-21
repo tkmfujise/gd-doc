@@ -21,7 +21,7 @@ module GdDoc
         == #{split_slush(scene.relative_path)}
 
         === Diagram
-        #{diagram}
+        #{Diagram.new(scene).format}
 
         === Scene Tree
         #{scene_tree}
@@ -73,17 +73,6 @@ module GdDoc
               ].join(' ') + "\n"
           end
           txt
-        end
-
-
-        # TODO
-        def diagram
-          <<~ASCIIDOC
-          [plantuml]
-          ....
-          class Foo
-          ....
-          ASCIIDOC
         end
 
 
