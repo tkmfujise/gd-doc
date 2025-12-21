@@ -15,6 +15,7 @@ module GdDoc
         <<~ASCIIDOC
         ---
         title: #{project.name}
+        application_name: #{project.name}
         ---
 
         #{welcome_message}

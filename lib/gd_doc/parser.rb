@@ -18,15 +18,16 @@ module GdDoc
       end
 
       def files
-        Dir["#{GdDoc.config.project_dir}/**/*.#{extensions.join('|')}"] \
-          .reject{|path|
-            rel_path = relativized_path(path).to_s
-            GdDoc.config.ignoring_paths.any?{|str| rel_path.start_with? str }
+        targets = extensions.map{|ext| "#{GdDoc.config.project_dir_absolute}/**/*.#{ext}" }
+        Dir[*targets].reject{|path|
+            rel_path = relativized_path(path)
+            return true if rel_path.directory?
+            GdDoc.config.ignoring_paths.any?{|str| rel_path.to_s.start_with? str }
           }
       end
 
       def relativized_path(path)
-        Pathname(path).relative_path_from(GdDoc.config.project_dir)
+        Pathname(path).realpath.relative_path_from(GdDoc.config.project_dir_absolute)
       end
     end
 

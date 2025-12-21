@@ -34,6 +34,21 @@ module GdDoc::Commands
     end
 
 
+    def cd(dir, &block)
+      before = Dir.pwd
+      puts "cd #{dir}"
+      Dir.chdir(dir)
+      if block_given?
+        result = yield
+        puts 'cd -'
+        Dir.chdir(before)
+        result
+      else
+        Dir.pwd
+      end
+    end
+
+
     def yes?(message)
       print "#{message} (y/N): "
       unless %w[y yes Y].include?(STDIN.gets.chomp)
