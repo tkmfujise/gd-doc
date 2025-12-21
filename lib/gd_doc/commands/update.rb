@@ -13,6 +13,7 @@ module GdDoc::Commands
     #
     def call(*)
       load_config_file
+      validate_configuration
       rm_content_dir 'scenes'
       rm_content_dir 'scripts'
       rm_content_dir 'resources'
@@ -27,6 +28,18 @@ module GdDoc::Commands
     end
 
     private
+      def validate_configuration
+        if GdDoc::Project.files.none?
+          STDERR.puts <<~TEXT
+            ---
+            Error: Missing `project.godot` file at #{GdDoc.config.project_dir}
+            Please check and configure the `project_dir` in config.rb.
+            ---
+          TEXT
+          exit(1)
+        end
+      end
+
       def rm_content_dir(name)
         dir = File.join(GdDoc.config.doc_dir, 'content', name)
         if Dir.exist?(dir)

@@ -5,6 +5,7 @@ module GdDoc::Commands
     desc 'Start REPL'
 
     def call(*)
+      load_config_file
       Pry.start
     end
   end

@@ -1,12 +1,13 @@
 module GdDoc::Commands
   class Install < Dry::CLI::Command
-    desc 'Install docs directory'
+    desc 'Install docs'
 
     argument :directory, desc: 'Directory to install'
 
     example [
+      "     # Install docs to `#{GdDoc::Configuration::DEFAULT_DOC_DIR}` directory",
       '.    # Install docs to current directory',
-      'doc  # Install docs to doc directory',
+      'doc  # Install docs to `doc` directory',
     ]
 
     #
