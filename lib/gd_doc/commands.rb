@@ -5,4 +5,5 @@ module GdDoc::Commands
   register 'install', Install
   register 'update',  Update
   register 'repl',    Repl
+  register 'upgrade', Upgrade
 end

@@ -122,3 +122,19 @@ rake update   # Update *.adoc files
 rake w        # Alias for `rake watch`
 rake watch    # Run live reloading server and watch files
 ```
+
+
+== How to upgrade `gd-doc`
+```
+$ gd-doc upgrade
+```
+
+The `gd-doc upgrade` command produces output like this:
+```
+cd /path/to/gd-doc
+sh git pull
+⋮
+sh git submodule update --init --recursive
+⋮
+cd -
+```
