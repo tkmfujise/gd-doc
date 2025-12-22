@@ -136,7 +136,7 @@ module GdDoc
       
         # e.g.)
         #
-        #   class Board <<Polygon2D>> {
+        #   class Board <<(P,lightskyblue) Polygon2D>> {
         #     ~ clicked
         #     ---
         #     - SIZE
@@ -147,7 +147,7 @@ module GdDoc
         #   }
         #
         def node_definition(node)
-          txt =  "class #{identify(node)} as \"#{node.name}\" <<#{node.type || 'Node'}>> {\n"
+          txt =  "class #{identify(node)} as \"#{node.name}\" #{node_definition_subtitle(node)} {\n"
           if node.scene&.script
             node.scene.script.signals.each do |signal|
               txt << "  ~ #{signal.name}\n"
@@ -167,6 +167,19 @@ module GdDoc
           end
           txt += "}\n"
           txt
+        end
+
+        # <<(P,lightskyblue) Polygon2D>>
+        def node_definition_subtitle(node)
+          type  = node.type || 'Node'
+          color = \
+            if    node.type_2d?      then 'lightskyblue'
+            elsif node.type_3d?      then 'hotpink'
+            elsif node.type_control? then 'lightgreen'
+            else; 'darkgray'
+            end
+
+          "<<(#{type[0]},#{color}) #{type}>>"
         end
 
         # e.g.)
