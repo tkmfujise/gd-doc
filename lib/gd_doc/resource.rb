@@ -22,7 +22,6 @@ module GdDoc
       end
 
       self.uid = value_of('gd_resource', 'uid')
-      self.uid = value_of('gd_resource', 'uid')
     end
 
     private
