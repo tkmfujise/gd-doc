@@ -27,9 +27,10 @@ module GdDoc
       end
 
       def combine_scenes_to_children
+        scenes_hash = scenes.map{|s| [s.uid, s] }.to_h
         scenes.each do |scene|
           scene.nodes.select(&:instance).each do |node|
-            target = scenes.find{|s| s.uid == node.scene_uid }
+            target = scenes_hash[node.scene_uid]
             node.scene = target if target
           end
         end

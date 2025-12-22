@@ -17,7 +17,7 @@ module GdDoc
     end
 
     def loader
-      @_loader = begin
+      @_loader ||= begin
         Zeitwerk::Loader.for_gem.tap do |loader|
           loader.enable_reloading
         end
