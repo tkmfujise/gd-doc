@@ -37,6 +37,14 @@ gdscript.so  godot-resource.so
 $ ln -s $(realpath bin/gd-doc) ~/.local/bin/gd-doc
 or
 $ ln -s $(realpath bin/gd-doc) /usr/local/bin/gd-doc
+
+
+$ gd-doc --help
+Commands:
+  gd-doc install [DIRECTORY]    # Install docs
+  gd-doc repl                   # Start REPL
+  gd-doc update                 # Update docs
+  gd-doc upgrade                # Upgradegd-doc
 ```
 
 == Usage
