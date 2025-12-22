@@ -30,7 +30,7 @@ module GdDoc::Commands
 
     private
       def validate_configuration
-        if GdDoc::Project.files.none?
+        unless File.exist? File.join(GdDoc.config.project_dir, 'project.godot')
           STDERR.puts <<~TEXT
             ---
             Error: Missing `project.godot` file at #{GdDoc.config.project_dir}

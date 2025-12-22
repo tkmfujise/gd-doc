@@ -141,6 +141,8 @@ Puma starting in single mode...
 Use Ctrl-C to stop
 ```
 
+Once the server starts, you can access the generated documentation at http://localhost:3001.
+
 
 === Other commands
 ```
