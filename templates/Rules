@@ -5,6 +5,7 @@ require 'rouge'
 
 compile '/**/*.html' do
   layout '/default.*'
+  filter :relativize_paths, type: :html
 
   if item.identifier =~ '**/index.*'
     write item.identifier.to_s
@@ -24,6 +25,7 @@ compile '/**/*.adoc' do
     }
 
   layout '/default.*'
+  filter :relativize_paths, type: :html
 
   if item.identifier =~ '**/index.*'
     write item.identifier.without_ext + '.html'

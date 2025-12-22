@@ -11,6 +11,9 @@ data_sources:
   - type: filesystem
     encoding: utf-8
 
+#= Title for header
 # title: gd-doc
 
-# output_dir: output
+#= HTML output dir
+# output_dir: output # default
+# output_dir: docs   # for GitHub Pages

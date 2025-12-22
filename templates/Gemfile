@@ -10,6 +10,7 @@ gem 'readline'
 gem 'asciidoctor'
 gem 'asciidoctor-kroki'
 gem 'rouge'
+gem 'nokogiri'
 
 group 'nanoc' do
   gem 'nanoc-live'

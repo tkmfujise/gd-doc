@@ -80,6 +80,10 @@ GEM
       nanoc-cli (~> 4.11, >= 4.11.14)
       nanoc-core (~> 4.11, >= 4.11.14)
     nio4r (2.7.5)
+    nokogiri (1.18.10-x64-mingw-ucrt)
+      racc (~> 1.4)
+    nokogiri (1.18.10-x86_64-linux-gnu)
+      racc (~> 1.4)
     parallel (1.27.0)
     pastel (0.8.0)
       tty-color (~> 0.5)
@@ -89,6 +93,7 @@ GEM
     public_suffix (7.0.0)
     puma (7.1.0)
       nio4r (~> 2.0)
+    racc (1.8.1)
     rack (3.2.4)
     rackup (2.3.1)
       rack (>= 3)
@@ -114,7 +119,6 @@ GEM
     zeitwerk (2.7.4)
 
 PLATFORMS
-  ruby
   x64-mingw-ucrt
   x86_64-linux
 
@@ -124,6 +128,7 @@ DEPENDENCIES
   asciidoctor-kroki
   nanoc
   nanoc-live
+  nokogiri
   puma
   readline
   rouge
@@ -161,11 +166,14 @@ CHECKSUMS
   nanoc-deploying (1.0.3) sha256=ca583eab659a3dd92aa8ff227c089af6042c85b0e9fc1d7ce527798eb974fc5b
   nanoc-live (1.1.0) sha256=116bec0d9cea6960c5cac5fd70e4daa8e2e81c2249aee188d91d94ecc7574fdd
   nio4r (2.7.5) sha256=6c90168e48fb5f8e768419c93abb94ba2b892a1d0602cb06eef16d8b7df1dca1
+  nokogiri (1.18.10-x64-mingw-ucrt) sha256=64f40d4a41af9f7f83a4e236ad0cf8cca621b97e31f727b1bebdae565a653104
+  nokogiri (1.18.10-x86_64-linux-gnu) sha256=ff5ba26ba2dbce5c04b9ea200777fd225061d7a3930548806f31db907e500f72
   parallel (1.27.0) sha256=4ac151e1806b755fb4e2dc2332cbf0e54f2e24ba821ff2d3dcf86bf6dc4ae130
   pastel (0.8.0) sha256=481da9fb7d2f6e6b1a08faf11fa10363172dc40fd47848f096ae21209f805a75
   pry (0.15.2) sha256=12d54b8640d3fa29c9211dd4ffb08f3fd8bf7a4fd9b5a73ce5b59c8709385b6b
   public_suffix (7.0.0) sha256=f7090b5beb0e56f9f10d79eed4d5fbe551b3b425da65877e075dad47a6a1b095
   puma (7.1.0) sha256=e45c10cb124f224d448c98db653a75499794edbecadc440ad616cf50f2fd49dd
+  racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
   rack (3.2.4) sha256=5d74b6f75082a643f43c1e76b419c40f0e5527fcfee1e669ac1e6b73c0ccb6f6
   rackup (2.3.1) sha256=6c79c26753778e90983761d677a48937ee3192b3ffef6bc963c0950f94688868
   rb-fsevent (0.11.2) sha256=43900b972e7301d6570f64b850a5aa67833ee7d87b458ee92805d56b7318aefe
