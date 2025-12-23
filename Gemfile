@@ -6,6 +6,7 @@ gem 'ruby_tree_sitter'
 gem 'pry'
 gem 'dry-cli'
 gem 'readline'
+gem 'rake'
 
 group :test do
   gem 'rspec'
