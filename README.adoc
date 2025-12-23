@@ -158,7 +158,11 @@ Use Ctrl-C to stop
 Once the server starts, you can access the generated documentation at http://localhost:3001.
 
 
-=== Other commands
+== Architecture
+image::doc/architecture.svg[Architecture]
+
+
+== Other commands
 ```
 $ cd gd_doc
 
