@@ -159,6 +159,14 @@ Once the server starts, you can access the generated documentation at http://loc
 
 
 == Architecture
+This project uses the following libraries:
+
+* link:https://www.ruby-lang.org/ja/[Ruby]
+* link:https://github.com/Faveod/ruby-tree-sitter[Tree-sitter]
+* link:https://nanoc.app/[Nanoc]
+* link:https://github.com/asciidoctor/asciidoctor[Asciidoctor]
+* link:https://kroki.io/[Kroki]
+
 image::doc/architecture.svg[Architecture]
 
 
