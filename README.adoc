@@ -4,11 +4,11 @@ A documentation generator for Godot.
 
 
 == Demo
-=== Video
-image::http://img.youtube.com/vi/ieUu7soeRn4/0.jpg[Logo,link=https://www.youtube.com/watch?v=ieUu7soeRn4]
-
 === Example
 https://tkmfujise.github.io/Platformer-Game-Learning/
+
+=== Video
+image::http://img.youtube.com/vi/ieUu7soeRn4/0.jpg[Logo,link=https://www.youtube.com/watch?v=ieUu7soeRn4]
 
 
 == Requirements
