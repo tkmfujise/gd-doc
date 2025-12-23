@@ -2,6 +2,15 @@
 
 A documentation generator for Godot.
 
+
+== Demo
+=== Video
+image::http://img.youtube.com/vi/ieUu7soeRn4/0.jpg[Logo,link=https://www.youtube.com/watch?v=ieUu7soeRn4]
+
+=== Example
+https://tkmfujise.github.io/Platformer-Game-Learning/
+
+
 == Requirements
 * Ruby
 * tree-sitter
@@ -29,7 +38,12 @@ $ bundle install
 $ rake build
 
 $ ls tree-sitters/
+
+# Ubuntu (Windows WSL)
 gdscript.so  godot-resource.so
+
+# macOS
+gdscript.dylib  godot-resource.dylib
 ```
 
 === Add the `gd-doc` command to PATH

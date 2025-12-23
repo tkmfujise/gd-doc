@@ -1,0 +1,73 @@
+= gd-doc architecutre
+
+== Diagram
+[plantuml]
+....
+folder "gd-doc" as GdDocDir {
+  folder "templates" as TemplatesDir {
+    folder "layout" as TemplateLayoutDir {
+      file ".html" as TemplateHTML
+    }
+  }
+  folder "tree-sitters" as TreeSitters {
+    component "<b>gdscript.(so|dylib)" as TreeSitterScript #palegreen
+    component "<b>godot-resource.(so|dylib)" as TreeSitterResource #palegreen
+  }
+}
+
+folder "your_godot_project" as GodotDir {
+  file ".tscn" as GodotScene
+  file ".gd"   as GodotScript
+  file ".tres" as GodotResource
+}
+
+folder "doc_dir" as MyDir {
+  folder "layout" as LayoutDir {
+    file ".html" as LayoutHTML
+  }
+  folder "content" as ContentDir {
+    file ".adoc" as ContentAdoc
+  }
+  folder "output" as OutputDir {
+    file ".html" as OutputHTML
+  }
+}
+
+agent "<b>$ gd-doc install" as GdDocInstallCommand #pink
+agent "<b>$ rake" as GdDocUpdateCommand #palegreen
+control "GdDoc::Parser" as Parser #palegreen
+control "GdDoc::Formatter" as Formatter #palegreen
+control "Nanoc" as Nanoc #lightskyblue
+control "Asciidoctor" as Asciidoctor #lightskyblue
+control "Puma" as Puma #lightskyblue
+boundary "Browser" as Browser
+actor "User" as User
+cloud "Kroki" as Kroki
+
+left to right direction
+
+GdDocInstallCommand <== TemplatesDir #red
+GdDocInstallCommand ==> MyDir #red : "cp -r" 
+
+GdDocUpdateCommand ==> Parser #green
+Parser ==> Formatter #green
+TreeSitterScript   <==> Parser #green
+TreeSitterResource <==> Parser #green
+Parser <== GodotScene  #green
+Parser <== GodotScript  #green
+Parser <== GodotResource  #green
+Formatter ==> ContentDir #green : Generate
+GdDocUpdateCommand ==> Nanoc #blue
+Nanoc <= LayoutHTML #blue
+Nanoc <== ContentAdoc #blue : "Compile"
+Nanoc ==> Asciidoctor #blue
+Asciidoctor ==> OutputHTML #blue
+Puma <== Nanoc #blue : "Run server"
+
+User --> GdDocInstallCommand
+User --> GdDocUpdateCommand
+User --> Browser : "http://localhost:3001"
+Browser --> Puma
+Browser <-left-> Kroki : "Parse PlantUML"
+....
+
