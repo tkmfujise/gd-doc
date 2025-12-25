@@ -86,6 +86,7 @@ cd -
 Next steps:
 ---------------------
 $ cd gd_doc
+$ bundle install  # Only if needed
 $ rake
 ---------------------
 ```

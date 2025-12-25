@@ -18,13 +18,11 @@ module GdDoc::Commands
       GdDoc.config.log_verbose = true
       confirm_override(directory)
       cp_r templates_dir, directory
-      cd directory do
-        sh 'bundle install'
-      end
       puts <<~TEXT
         Next steps:
         ---------------------
         $ cd #{directory}
+        $ bundle install  # Only if needed
         $ rake
         ---------------------
       TEXT
