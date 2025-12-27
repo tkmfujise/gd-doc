@@ -19,6 +19,10 @@ module GdDoc
         value.text[1..-2]
       when :constructor
         TreeNode::Constructor.new(value)
+      when :true
+        true
+      when :false
+        false
       else
         value.text
       end

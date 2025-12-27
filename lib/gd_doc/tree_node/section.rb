@@ -50,6 +50,10 @@ module GdDoc::TreeNode
       name == 'connection' && attributes.any?{|a| a.name == 'signal' }
     end
 
+    def animation?
+      name = 'sub_resource' && attribute_value_of('type') == 'Animation'
+    end
+
     def ext_resource?
       name == 'ext_resource'
     end
