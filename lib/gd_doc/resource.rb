@@ -6,6 +6,7 @@ module GdDoc
     attr_accessor(
       :uid,
       :type,
+      :script_path,
       :sections,
     )
 
@@ -17,11 +18,20 @@ module GdDoc
       root.children.each do |child|
         case child.type
         when :section
-          self.sections << TreeNode::Section.new(child)
+          section = TreeNode::Section.new(child)
+          self.sections << section
+
+          case section.name
+          when 'gd_resource'
+            self.uid  = section.value_of('uid')
+            self.type = section.value_of('script_class') || section.value_of('type')
+          end
+
+          if section.script?
+            self.script_path ||= section.script_path
+          end
         end
       end
-
-      self.uid = value_of('gd_resource', 'uid')
     end
 
     private

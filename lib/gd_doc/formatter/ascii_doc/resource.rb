@@ -20,14 +20,25 @@ module GdDoc
 
         == #{split_slush(resource.relative_path)}
 
+        === Type
+        #{type}
+
         === Properties
         #{properties}
         ASCIIDOC
       end
 
       private
+        def type
+          if resource.script_path
+            link = resource.script_path.dup
+            link['res://'] =  '/scripts/'
+            "* #{resource.type} (link:#{link}[#{resource.script_path}])"
+          else
+            "* #{resource.type}"
+          end
+        end
 
-        # TODO
         def properties
           content = resource.sections.flat_map{|section|
               section.properties.map{|prop|
