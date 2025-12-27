@@ -93,6 +93,7 @@ div#toc {
   top: 8rem;
   padding: 0 0.5rem;
   font-size: 0.9rem;
+  z-index: 2;
 }
 div#toc #toctitle {
   text-decoration: underline;
