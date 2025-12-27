@@ -20,8 +20,12 @@ module GdDoc
 
         #{welcome_message}
 
+        === Main Scene
+        #{main_scene}
+
         === Properties
         #{properties}
+
         ASCIIDOC
       end
 
@@ -44,6 +48,14 @@ module GdDoc
         end
 
 
+        def main_scene
+          return 'CAUTION: This project has no main scene.' unless project.main_scene
+          <<~TEXT
+          * link:/scenes/#{project.main_scene.relative_path}[#{project.main_scene.path}]
+          TEXT
+        end
+
+        
         def properties
           content = project.sections.flat_map{|section|
               section.properties.map{|prop|

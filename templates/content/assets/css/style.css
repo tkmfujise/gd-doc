@@ -12,6 +12,9 @@ body>header {
   max-width: 100%;
   padding: 0;
 }
+body>header>nav {
+  padding: 0 2rem;
+}
 
 
 body>main {

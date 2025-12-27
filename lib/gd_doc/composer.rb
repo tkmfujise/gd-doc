@@ -22,13 +22,20 @@ module GdDoc
         scripts_hash = scripts.map{|s| [s.path, s] }.to_h
         scenes.each do |scene|
           next unless scene.script_path
-          scene.script = scripts_hash[scene.script_path]
+          script = scripts_hash[scene.script_path]
+          scene.script = script
+          script.attached_scenes << scene
         end
       end
 
       def combine_scenes_to_children
         scenes_hash = scenes.map{|s| [s.uid, s] }.to_h
+
         scenes.each do |scene|
+          if project.main_scene_path == scene.path
+            project.main_scene = scene
+          end
+
           scene.nodes.select(&:instance).each do |node|
             target = scenes_hash[node.scene_uid]
             node.scene = target if target

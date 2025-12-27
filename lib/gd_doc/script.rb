@@ -11,6 +11,7 @@ module GdDoc
       :functions,
       :variables,
       :constants,
+      :attached_scenes,
     )
 
     def initializer
@@ -18,6 +19,7 @@ module GdDoc
       self.functions = []
       self.variables = []
       self.constants = []
+      self.attached_scenes = []
     end
 
     def parse(root)

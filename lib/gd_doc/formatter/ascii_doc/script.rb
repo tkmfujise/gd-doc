@@ -20,11 +20,28 @@ module GdDoc
 
         == #{split_slush(script.relative_path)}
 
+        === Attached Scenes
+        #{attached_scenes}
+
+
+        === Code
         ```gdscript
         #{script.raw_data}
         ```
         ASCIIDOC
       end
+
+      private
+        def attached_scenes
+          return 'NOTE: No attached scenes.' unless script.attached_scenes.any?
+          content = script.attached_scenes.map{|scene|
+              "* link:/scenes/#{scene.relative_path}[#{scene.path}]"
+            }.join("\n")
+          <<~TEXT
+          #{content}
+          TEXT
+          
+        end
     end
   end
 end

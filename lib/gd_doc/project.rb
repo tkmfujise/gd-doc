@@ -6,6 +6,9 @@ module GdDoc
     attr_accessor(
       :properties,
       :sections,
+      :name,
+      :main_scene_path,
+      :main_scene,
     )
 
     def initializer
@@ -22,11 +25,11 @@ module GdDoc
           self.properties << TreeNode::Property.new(child)
         end
       end
+
+      self.name = value_of('application', 'config/name')
+      self.main_scene_path = value_of('application', 'run/main_scene')
     end
 
-    def name
-      value_of('application', 'config/name')
-    end
 
     private
       def value_of(section_name, property_name)
