@@ -23,6 +23,9 @@ module GdDoc
         === Main Scene
         #{main_scene}
 
+        === Autoloads
+        #{autoloads}
+
         === Properties
         #{properties}
 
@@ -52,6 +55,29 @@ module GdDoc
           return 'CAUTION: This project has no main scene.' unless project.main_scene
           <<~TEXT
           * link:/scenes/#{project.main_scene.relative_path}[#{project.main_scene.path}]
+          TEXT
+        end
+
+        
+        def autoloads
+          return 'NOTE: No autoloads' unless project.autoloads.any?
+          content = project.autoloads.map{|a|
+              link = a.path.dup
+              link['res://'] =  \
+                if    a.scene?  then '/scenes/'
+                elsif a.script? then '/scripts/'
+                else
+                  '/'
+                end
+
+              "|_#{a.name}_ |link:#{link}[#{a.path}]"
+            }.join("\n")
+          <<~TEXT
+          [cols="1,3" options="header"]
+          |===
+          |Name |Path
+          #{content}
+          |===
           TEXT
         end
 
