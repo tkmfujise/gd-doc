@@ -12,7 +12,7 @@ module GdDoc
       end
 
       def format
-        txt = <<~ASCIIDOC
+        <<~ASCIIDOC
         ---
         title: #{scene.relative_path}
         ---
@@ -26,26 +26,17 @@ module GdDoc
         === Scene Tree
         #{SceneTree.new(scene).format}
 
+        #{animations_with_title}
+
         === Signal Connections
         #{signal_connections}
 
         === Properties
         #{properties}
 
+        #{script_with_title}
+
         ASCIIDOC
-
-        if scene.script
-          path = Pathname(File.join('scripts', scene.script.relative_path))
-          txt += <<~ASCIIDOC
-          === link:/#{path}[#{path.basename}]
-
-          ```gdscript
-          #{scene.script.raw_data}
-          ```
-          ASCIIDOC
-        end
-
-        txt
       end
 
       private
@@ -78,6 +69,29 @@ module GdDoc
           #{content}
           |===
           TEXT
+        end
+
+
+        def script_with_title
+          return '' unless scene.script
+          path = Pathname(File.join('scripts', scene.script.relative_path))
+          <<~ASCIIDOC
+          === link:/#{path}[#{path.basename}]
+
+          ```gdscript
+          #{scene.script.raw_data}
+          ```
+          ASCIIDOC
+        end
+
+
+        def animations_with_title
+          return '' unless scene.animations.any?
+          txt = "=== Animations\n"
+          scene.animations.each do |animation|
+            txt += "#{Animation.new(animation).format}\n"
+          end
+          txt
         end
     end
   end

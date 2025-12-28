@@ -44,6 +44,112 @@ RSpec.describe GdDoc::Formatter::AsciiDoc::Scene do
         expect{ subject.format }.not_to raise_error
       end
     end
+
+
+    context 'animation' do
+      let(:src) {
+        <<~TSCN
+          [gd_scene load_steps=34 format=3 uid="uid://foobar"]
+
+          [node name="Player" type="CharacterBody2D"]
+
+          [sub_resource type="Animation" id="Animation_sdj2t"]
+          resource_name = "jump_left"
+          length = 0.25
+          loop_mode = 1
+          step = 0.125
+          tracks/0/type = "value"
+          tracks/0/imported = false
+          tracks/0/enabled = true
+          tracks/0/path = NodePath("Sprites/SpriteStates/IdleSprite2D:visible")
+          tracks/0/interp = 1
+          tracks/0/loop_wrap = true
+          tracks/0/keys = {
+          "times": PackedFloat32Array(0),
+          "transitions": PackedFloat32Array(1),
+          "update": 1,
+          "values": [false]
+          }
+          tracks/1/type = "value"
+          tracks/1/imported = false
+          tracks/1/enabled = true
+          tracks/1/path = NodePath("Sprites/SpriteStates/RunSprite2D:visible")
+          tracks/1/interp = 1
+          tracks/1/loop_wrap = true
+          tracks/1/keys = {
+          "times": PackedFloat32Array(0),
+          "transitions": PackedFloat32Array(1),
+          "update": 1,
+          "values": [false]
+          }
+          tracks/2/type = "value"
+          tracks/2/imported = false
+          tracks/2/enabled = true
+          tracks/2/path = NodePath("Sprites:position")
+          tracks/2/interp = 1
+          tracks/2/loop_wrap = true
+          tracks/2/keys = {
+          "times": PackedFloat32Array(0),
+          "transitions": PackedFloat32Array(1),
+          "update": 0,
+          "values": [Vector2(-12, -72)]
+          }
+          tracks/3/type = "value"
+          tracks/3/imported = false
+          tracks/3/enabled = true
+          tracks/3/path = NodePath("Sprites/SpriteStates/JumpSprite2D:visible")
+          tracks/3/interp = 1
+          tracks/3/loop_wrap = true
+          tracks/3/keys = {
+          "times": PackedFloat32Array(0),
+          "transitions": PackedFloat32Array(1),
+          "update": 1,
+          "values": [true]
+          }
+          tracks/4/type = "value"
+          tracks/4/imported = false
+          tracks/4/enabled = true
+          tracks/4/path = NodePath("Sprites/SpriteStates/FallSprite2D:visible")
+          tracks/4/interp = 1
+          tracks/4/loop_wrap = true
+          tracks/4/keys = {
+          "times": PackedFloat32Array(0),
+          "transitions": PackedFloat32Array(1),
+          "update": 1,
+          "values": [false]
+          }
+          tracks/5/type = "value"
+          tracks/5/imported = false
+          tracks/5/enabled = true
+          tracks/5/path = NodePath("Sprites/SpriteStates/JumpSprite2D:flip_h")
+          tracks/5/interp = 1
+          tracks/5/loop_wrap = true
+          tracks/5/keys = {
+          "times": PackedFloat32Array(0),
+          "transitions": PackedFloat32Array(1),
+          "update": 1,
+          "values": [false]
+          }
+          tracks/6/type = "value"
+          tracks/6/imported = false
+          tracks/6/enabled = true
+          tracks/6/path = NodePath("Sprites/SpriteStates/JumpSprite2D:frame")
+          tracks/6/interp = 1
+          tracks/6/loop_wrap = true
+          tracks/6/keys = {
+          "times": PackedFloat32Array(0, 0.125),
+          "transitions": PackedFloat32Array(1, 1),
+          "update": 1,
+          "values": [0, 1]
+          }
+        TSCN
+      }
+
+      it 'works' do
+        expect{ subject }.not_to raise_error
+        expect{ subject.format }.not_to raise_error
+      end
+    end
   end
 end
 

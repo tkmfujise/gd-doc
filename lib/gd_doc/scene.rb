@@ -109,7 +109,8 @@ module GdDoc
           :keys,
           :imported,
           :enabled,
-          :path,
+          :node,
+          :property,
           :interp,
           :loop_wrap,
         )
@@ -125,11 +126,22 @@ module GdDoc
         end
 
         def path=(value)
-          if value.kind_of?(GdDoc::TreeNode::Constructor)
-            @path = value.arguments[0]&.value || ''
-          else
-            @path = value
-          end
+          path = \
+            if value.kind_of?(GdDoc::TreeNode::Constructor)
+              value.arguments[0]&.value || ''
+            else
+              value
+            end
+
+          self.node, self.property = path.split(':')
+        end
+
+        def path
+          "#{node}:#{property}"
+        end
+
+        def root_node?
+          node == '.'
         end
 
         # keys
@@ -167,6 +179,14 @@ module GdDoc
               @keys[k.to_sym] = v
             end
           end
+
+          def linear?
+            keys[:update] == '0'
+          end
+
+          def discrete?
+            keys[:update] == '1'
+          end
         end
       end
 
@@ -196,6 +216,17 @@ module GdDoc
             tracks << Track.new(key[1].to_i, arr) if key[0] == 'tracks'
           end
         end
+      end
+
+      def time_grouped_tracks
+        grouped = Hash.new
+        tracks.each do |track|
+          track.keys[:times].each_with_index do |time, i|
+            grouped[time] ||= []
+            grouped[time] << [track.keys[:values][i], track]
+          end
+        end
+        grouped
       end
     end
 
