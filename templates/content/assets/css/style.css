@@ -29,14 +29,18 @@ body>main>aside {
   width: var(--contents-menu-width);
   background-color: ghostwhite;
   min-height: 90vh;
+  border-right: 1px solid whitesmoke;
 }
 body>main>aside>nav {
-  padding: 0.5rem 0 0 2rem;
+  padding: 0.5rem 1rem 0 2rem;
   position: sticky;
   top: 0;
   max-height: 90vh;
   overflow-x: hidden;
   overflow-y: auto;
+}
+body>main>aside>nav .search-form {
+  padding-bottom: 1rem;
 }
 body>main>aside>nav a {
   font-size: 0.9rem;
@@ -55,6 +59,9 @@ body>main>article.content {
 /* utilities */
 .visible-if-portrait {
   display: none;
+}
+.hidden-if-portrait {
+  display: display;
 }
 
 
@@ -158,6 +165,9 @@ div#toc .sectlevel1.open {
 
   .visible-if-portrait {
     display: block;
+  }
+  .hidden-if-portrait {
+    display: none;
   }
 }
 

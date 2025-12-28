@@ -1,12 +1,22 @@
 <% categories = %w[scenes scripts resources] %>
 <% current_category = categories.find{|c| @item.path.start_with? "/#{c}" } || categories[0] %>
 <nav>
+  <ul>
+    <li class="search-form">
+      <input
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+      />
+    </li>
+  </ul>
+
   <% categories.each do |category| %>
-    <details name="category" <%= 'open' if current_category == category %>>
+    <details <%= 'open' if current_category == category %>>
       <summary><b><%= category.capitalize %></b></summary>
       <ul>
         <% @items.find_all("/#{category}/**/*").each do |item| %>
-          <li>
+          <li data-path='<%= item.path %>' data-category='<%= category %>'>
             <%= link_to(
               item.path.delete_prefix("/#{category}/")[0..-2],
               item,
@@ -18,3 +28,78 @@
     </details>
   <% end %>
 </nav>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+  const selectorName = {
+    contents: 'aside.contents-menu nav li[data-path]',
+    category: 'aside.contents-menu nav details',
+    search:   'aside.contents-menu nav input[type="search"]',
+  }
+
+  function debounce(fn, delay) {
+    let timer
+    return (...args) => {
+      clearTimeout(timer)
+      timer = setTimeout(() => fn(...args), delay)
+    }
+  }
+
+
+  const contentsMenuList = Array.from(document.querySelectorAll(selectorName.contents))
+  const generateFuseItems = (elements) => {
+      return elements.map(e => {
+        return {
+          path:     e.dataset.path,
+          category: e.dataset.category,
+          target:   e,
+        }   
+      })
+    }
+
+  const newFuse = (elements) => {
+      return new Fuse(generateFuseItems(elements), {
+        keys: ['path'],
+        threshold: 0.3,
+      })
+    }
+
+  const categoryElements = Array.from(document.querySelectorAll(selectorName.category))
+  const openCategoriesAll = () => categoryElements.map(e => e.open = true)
+
+
+  const hideAll = (elements) => {
+      elements.forEach(l => l.style.display = 'none')
+    }
+
+  const showAll = (elements) => {
+      elements.forEach(l => l.style.display = '')
+    }
+
+  const search = debounce((query) => {
+      openCategoriesAll()
+      if (query) {
+        hideAll(contentsMenuList)
+
+        terms = query.trim().split(/\s+/)
+        results = contentsMenuList
+        for (const term of terms) {
+          results = newFuse(results).search(term).map(i => i.item.target)
+        }
+        showAll(results)
+      }
+      else {
+        showAll(contentsMenuList)
+      }
+    }, 300)
+
+
+  const inputField = document.querySelector(selectorName.search)
+  if (inputField) {
+    inputField.addEventListener('input', (e) => search(e.target.value))
+  }
+
+})
+</script>
