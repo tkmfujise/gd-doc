@@ -42,6 +42,6 @@ window.onload = () => {
   if (toctitle) toctitle.addEventListener('click', toggleTocContents)
 
   document.querySelectorAll('#toc .sectlevel1 a').forEach(elem => {
-    elem.addEventListener('click', hideContentsMenu)
+    elem.addEventListener('click', toggleTocContents)
   })
 }
