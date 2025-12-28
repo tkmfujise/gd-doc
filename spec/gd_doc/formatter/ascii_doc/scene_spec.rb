@@ -46,7 +46,7 @@ RSpec.describe GdDoc::Formatter::AsciiDoc::Scene do
     end
 
 
-    context 'animation' do
+    context 'animation pattern 1' do
       let(:src) {
         <<~TSCN
           [gd_scene load_steps=34 format=3 uid="uid://foobar"]
@@ -142,6 +142,56 @@ RSpec.describe GdDoc::Formatter::AsciiDoc::Scene do
           "update": 1,
           "values": [0, 1]
           }
+        TSCN
+      }
+
+      it 'works' do
+        expect{ subject }.not_to raise_error
+        expect{ subject.format }.not_to raise_error
+      end
+    end
+
+
+    context 'animation pattern 2' do
+      let(:src) {
+        <<~TSCN
+          [gd_scene load_steps=99 format=3 uid="uid://byi6b08jpb2iw"]
+
+          [node name="RedRobot" type="CharacterBody3D"]
+          collision_layer = 3
+          collision_mask = 3
+
+          [sub_resource type="Animation" id="Animation_awjuk"]
+          resource_name = "Cannon-L"
+          length = 0.001
+          tracks/0/type = "position_3d"
+          tracks/0/imported = true
+          tracks/0/enabled = true
+          tracks/0/path = NodePath("Armature/Skeleton3D:MASTER")
+          tracks/0/interp = 1
+          tracks/0/loop_wrap = true
+          tracks/0/keys = PackedFloat32Array(0, 1, 0, -1.1106, 0)
+          tracks/1/type = "rotation_3d"
+          tracks/1/imported = true
+          tracks/1/enabled = true
+          tracks/1/path = NodePath("Armature/Skeleton3D:MASTER")
+          tracks/1/interp = 1
+          tracks/1/loop_wrap = true
+          tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+          tracks/2/type = "position_3d"
+          tracks/2/imported = true
+          tracks/2/enabled = true
+          tracks/2/path = NodePath("Armature/Skeleton3D:Body")
+          tracks/2/interp = 1
+          tracks/2/loop_wrap = true
+          tracks/2/keys = PackedFloat32Array(0, 1, 0, 1.1106, 0)
+          tracks/3/type = "rotation_3d"
+          tracks/3/imported = true
+          tracks/3/enabled = true
+          tracks/3/path = NodePath("Armature/Skeleton3D:Body")
+          tracks/3/interp = 1
+          tracks/3/loop_wrap = true
+          tracks/3/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
         TSCN
       }
 

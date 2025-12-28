@@ -144,7 +144,10 @@ module GdDoc
           node == '.'
         end
 
-        # keys
+
+        # == keys
+        # pattern 1)
+        #
         #   "{\n\"times\": PackedFloat32Array(0, 0.5),\n\"transitions\": PackedFloat32Array(0.25, 1),\n\"update\": 0,\n\"values\": [Vector2(2080, 25), Vector2(1720, 25)]\n}"
         # => {
         #   times:       [0, 0.5],
@@ -153,30 +156,50 @@ module GdDoc
         #   values:      ['Vector2(2080, 25)', 'Vector2(1720, 25)'],
         # }
         #
+        # patern 2)
+        #
+        #   "PackedFloat32Array(0, 1, 0, -1.1106, 0)"
+        # => {
+        #   times: [0, 0],
+        #   values: [1, -1.1106],
+        # }
+        #
+
         def keys=(value)
           if value.kind_of?(Hash)
             @keys = value
           else
             @keys = Hash.new
-            value.to_s.scan(/\"(\w+)\":\s(.+)\n/).each do |k, v|
-              v = v[0..-2] if v.end_with?(',')
-              case k
-              when 'times', 'transitions'
-                regexp = /Packed\w+Array\((.+)\)/
-                if v =~ regexp
-                  v = v[regexp, 1]&.split(', ')&.map(&:to_f)
-                else
-                  v = [v.to_f]
+            case value
+            when GdDoc::TreeNode::Constructor
+              arr = value.arguments.map(&:value)
+              even, odd = arr.partition.with_index{|_, i| i.even? }
+              count = [even.count, odd.count].min
+              @keys = {
+                times:  even.take(count),
+                values: odd.take(count),
+              }
+            else
+              value.to_s.scan(/\"(\w+)\":\s(.+)\n/).each do |k, v|
+                v = v[0..-2] if v.end_with?(',')
+                case k
+                when 'times', 'transitions'
+                  regexp  = /Packed\w+Array\((.+)\)/
+                  if v =~ regexp
+                    v = v[regexp, 1]&.split(', ')&.map(&:to_f)
+                  else
+                    v = [v.to_f]
+                  end
+                when 'values'
+                  regexp = /[^\[\s)]+\([^\)]+\),?/
+                  if v =~ regexp
+                    v = v.scan(regexp).map{|s| s.dup.delete_suffix(',') }
+                  else
+                    v = v[1..-2].split(', ')
+                  end
                 end
-              when 'values'
-                regexp = /[^\[\s)]+\([^\)]+\),?/
-                if v =~ regexp
-                  v = v.scan(regexp).map{|s| s.dup.delete_suffix(',') }
-                else
-                  v = v[1..-2].split(', ')
-                end
+                @keys[k.to_sym] = v
               end
-              @keys[k.to_sym] = v
             end
           end
 
@@ -218,9 +241,11 @@ module GdDoc
         end
       end
 
+
+      # { 0.0 => ['value', track] }
       def time_grouped_tracks
         grouped = Hash.new
-        tracks.each do |track|
+        tracks.reject{|t| t.type == 'audio' }.each do |track|
           track.keys[:times].each_with_index do |time, i|
             grouped[time] ||= []
             grouped[time] << [track.keys[:values][i], track]
