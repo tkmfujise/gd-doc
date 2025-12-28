@@ -130,7 +130,7 @@ module GdDoc
           if str == '.'
             'ROOT'
           else
-            str.gsub('/', '_')
+            str.gsub('/', '_').gsub('-', '_')
           end
         end
       
