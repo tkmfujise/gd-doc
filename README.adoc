@@ -58,7 +58,7 @@ Commands:
   gd-doc install [DIRECTORY]    # Install docs
   gd-doc repl                   # Start REPL
   gd-doc update                 # Update docs
-  gd-doc upgrade                # Upgradegd-doc
+  gd-doc upgrade                # Upgrade gd-doc
 ```
 
 == Usage
@@ -78,11 +78,6 @@ $ gd-doc install doc # Install gd-doc into `doc` directory.
 The `gd-doc install` command shows output like this:
 ```
 cp -r /path/to/gd-doc/templates gd_doc
-cd gd_doc
-sh bundle install
-Bundle complete! 6 Gemfile dependencies, 18 gems now installed.
-Use `bundle info [gemname]` to see where a bundled gem is installed.
-cd -
 Next steps:
 ---------------------
 $ cd gd_doc
