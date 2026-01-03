@@ -283,7 +283,7 @@ module GdDoc
       end
 
       self.uid = value_of('gd_scene', 'uid')
-      self.script_path = sections.map(&:script_path).compact[0]
+      self.script_path = sections.find(&:script_path)&.script_path
       build_nodes
       build_connections
       build_animations

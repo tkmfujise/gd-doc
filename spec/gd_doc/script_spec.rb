@@ -55,6 +55,12 @@ RSpec.describe GdDoc::Script do
           func _ready() -> void:
               pass
 
+          func foo(bar) -> String:
+              return '%s!' % bar
+
+          func _input(event: InputEvent):
+              pass
+
         GDSCRIPT
       }
       it 'works' do
@@ -67,6 +73,19 @@ RSpec.describe GdDoc::Script do
         expect(subject.functions[0].name).to eq '_ready'
         expect(subject.functions[0].parameters).to eq []
         expect(subject.functions[0].return_type).to eq 'void'
+        expect(subject.functions[0].overridden_virtual?).to eq true
+        expect(subject.functions[0].text).not_to be_empty
+        expect(subject.functions[1].name).to eq 'foo'
+        expect(subject.functions[1].parameters[0]).to be_a(GdDoc::TreeNode::FunctionParameter)
+        expect(subject.functions[1].parameters[0].name).to eq 'bar'
+        expect(subject.functions[1].parameters[0].type).to eq nil
+        expect(subject.functions[1].return_type).to eq 'String'
+        expect(subject.functions[1].overridden_virtual?).to eq false
+        expect(subject.functions[2].name).to eq '_input'
+        expect(subject.functions[2].parameters[0].name).to eq 'event'
+        expect(subject.functions[2].parameters[0].type).to eq 'InputEvent'
+        expect(subject.functions[2].return_type).to eq nil
+        expect(subject.functions[2].overridden_virtual?).to eq true
 
         # variables
         expect(subject.variables[0]).to be_a(GdDoc::TreeNode::Variable)

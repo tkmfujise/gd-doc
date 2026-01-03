@@ -23,6 +23,8 @@ module GdDoc
         === Diagram
         #{Diagram.new(scene).format}
 
+        #{overridden_virtual_functions_with_title}
+
         === Scene Tree
         #{SceneTree.new(scene).format}
 
@@ -82,6 +84,22 @@ module GdDoc
           #{scene.script.raw_data}
           ```
           ASCIIDOC
+        end
+
+
+        def overridden_virtual_functions_with_title
+          arr = scene.script&.then{|s| s.functions.select(&:overridden_virtual?) } || []
+          return '' unless arr.any?
+          txt = "=== Overridden virtual functions\n"
+          arr.each do |func|
+            txt += <<~ASCIIDOC
+            ==== #{func.name}
+            ```gdscript
+            #{func.text}
+            ```
+            ASCIIDOC
+          end
+          txt
         end
 
 
