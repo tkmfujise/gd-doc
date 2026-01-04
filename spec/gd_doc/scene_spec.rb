@@ -92,19 +92,21 @@ RSpec.describe GdDoc::Scene do
       end
     end
 
-    context 'script_path' do
+    context 'script_paths' do
       let(:src) {
         <<~TSCN
           [gd_scene load_steps=34 format=3 uid="uid://foobar"]
 
-          [node name="Main" type="Control"]
+          [ext_resource type="Script" uid="uid://barfoo" path="res://src/main.gd" id="1_5irfl"]
 
-          [ext_resource type="Script" uid="uid://barfoo" path="res://src/main.gd" id="1)eewff"]
+          [node name="Main" type="Control"]
+          script = ExtResource("1_5irfl")
         TSCN
       }
       it 'works' do
         expect{ subject }.not_to raise_error
-        expect(subject.script_path).to eq 'res://src/main.gd'
+        expect(subject.script_paths).to eq ['res://src/main.gd']
+        expect(subject.root_node.script_path).to eq 'res://src/main.gd'
       end
     end
 

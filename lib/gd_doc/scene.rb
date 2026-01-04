@@ -13,6 +13,9 @@ module GdDoc
         :scene_uid,
         :section,
         :children,
+        :script_path,
+        :script_id,
+        :script,
       )
 
       def initialize(section)
@@ -22,6 +25,8 @@ module GdDoc
         self.parent   = section.attribute_value_of('parent')
         self.instance = section.attribute_value_of('instance') \
           &.arguments&.first&.value
+        self.script_id = section.property_value_of('script') \
+            &.then{|v| v.arguments[0].value }
         self.children = []
       end
 
@@ -53,9 +58,15 @@ module GdDoc
         end
       end
 
+      def set_script_path(script_path_ids)
+        return unless script_id
+        self.script_path = script_path_ids[script_id]
+      end
+
       def scene=(scene)
         if scene
           self.type = scene.root_node&.type
+          self.script ||= scene.script
         end
         @scene = scene
       end
@@ -258,7 +269,7 @@ module GdDoc
 
     attr_accessor(
       :uid,
-      :script_path,
+      :script_path_ids,
       :script,
       :sections,
       :root_node,
@@ -283,7 +294,9 @@ module GdDoc
       end
 
       self.uid = value_of('gd_scene', 'uid')
-      self.script_path = sections.find(&:script_path)&.script_path
+      self.script_path_ids = sections.select(&:script?).map{|s|
+          [s.attribute_value_of('id'), s.script_path]
+        }.to_h
       build_nodes
       build_connections
       build_animations
@@ -301,6 +314,25 @@ module GdDoc
       nodes.find{|n| n.path == path }
     end
 
+    def script_paths
+      nodes.map(&:script_path).compact
+    end
+
+    def script
+      root_node&.script
+    end
+
+    def combine_scripts(scripts_hash)
+      nodes.select(&:script_path).each do |node|
+        script = scripts_hash[node.script_path]
+        next unless script
+        node.script = script
+        if node.root?
+          script.attached_scenes << self
+        end
+      end
+    end
+
     private
       def value_of(section_name, property_name)
         section = sections.find{|s| s.name == section_name }
@@ -313,8 +345,10 @@ module GdDoc
         self.child_nodes = sections.select(&:child_node?) \
           .map{|section| Node.new(section) }
 
+        root_node.set_script_path(script_path_ids)
         child_nodes.each do |node|
           target = nodes.find{|n| n.path == node.parent }
+          node.set_script_path(script_path_ids)
           target.children << node if target
         end
         root_node.scene = self

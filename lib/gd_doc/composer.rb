@@ -21,10 +21,7 @@ module GdDoc
       def combine_scenes_and_scripts
         scripts_hash = scripts.map{|s| [s.path, s] }.to_h
         scenes.each do |scene|
-          next unless scene.script_path
-          script = scripts_hash[scene.script_path]
-          scene.script = script
-          script.attached_scenes << scene
+          scene.combine_scripts(scripts_hash)
         end
       end
 

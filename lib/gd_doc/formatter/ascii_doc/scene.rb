@@ -87,17 +87,28 @@ module GdDoc
         end
 
 
+        # TODO: root_node 以外のスクリプトも参照する
         def overridden_virtual_functions_with_title
-          arr = scene.script&.then{|s| s.functions.select(&:overridden_virtual?) } || []
-          return '' unless arr.any?
+          hash = scene.nodes.select(&:script).flat_map{|node|
+              node.script.functions.select(&:overridden_virtual?).map{|func|
+                [func.name, node.script, func.text, node]
+              } }.group_by(&:first)
+          return '' unless hash.any?
           txt = "=== Overridden virtual functions\n"
-          arr.each do |func|
-            txt += <<~ASCIIDOC
-            ==== #{func.name}
-            ```gdscript
-            #{func.text}
-            ```
-            ASCIIDOC
+          hash.each do |func_name, arr|
+            txt += "==== #{func_name}\n"
+            arr.group_by{|a| a[1] }.each do |_, group|
+              func_text = group[0][2]
+              nodes = group.map(&:last)
+              unless nodes[0].root?
+                txt += "_#{nodes.map{|n| '$' + n.path }.join(', ')}_\n"
+              end
+              txt += <<~ASCIIDOC
+              ```gdscript
+              #{func_text}
+              ```
+              ASCIIDOC
+            end
           end
           txt
         end

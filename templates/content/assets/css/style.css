@@ -147,6 +147,12 @@ div#toc .sectlevel1.open {
   color: limegreen;
 }
 
+/* .imageblock.kroki */
+.imageblock.kroki {
+  margin-bottom: 1rem;
+}
+
+
 
 @media only screen and (max-width: 768px) {
   body>main>aside {
