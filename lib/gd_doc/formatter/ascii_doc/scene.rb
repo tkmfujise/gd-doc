@@ -25,6 +25,10 @@ module GdDoc
 
         #{overridden_virtual_functions_with_title}
 
+
+        === Instantiators
+        #{instantiators}
+        
         === Scene Tree
         #{SceneTree.new(scene).format}
 
@@ -42,6 +46,13 @@ module GdDoc
       end
 
       private
+
+        def instantiators
+          return 'CAUTION: No other scene instantiate this scene.' if scene.instantiators.none?
+          scene.instantiators.map{|instantiator|
+            "* link:/scenes/#{instantiator.relative_path}[#{instantiator.path}]\n"
+          }.join
+        end
 
         def signal_connections
           return 'NOTE: No signal connections.' unless scene.connections.any?
@@ -87,13 +98,14 @@ module GdDoc
         end
 
 
-        # TODO: root_node 以外のスクリプトも参照する
         def overridden_virtual_functions_with_title
           hash = scene.nodes.select(&:script).flat_map{|node|
               node.script.functions.select(&:overridden_virtual?).map{|func|
                 [func.name, node.script, func.text, node]
               } }.group_by(&:first)
+
           return '' unless hash.any?
+
           txt = "=== Overridden virtual functions\n"
           hash.each do |func_name, arr|
             txt += "==== #{func_name}\n"
@@ -101,7 +113,7 @@ module GdDoc
               func_text = group[0][2]
               nodes = group.map(&:last)
               unless nodes[0].root?
-                txt += "_#{nodes.map{|n| '$' + n.path }.join(', ')}_\n"
+                txt += ".#{nodes.map{|n| '$' + n.path }.join(', ')}\n"
               end
               txt += <<~ASCIIDOC
               ```gdscript

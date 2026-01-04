@@ -29,13 +29,14 @@ module GdDoc
         scenes_hash = scenes.map{|s| [s.uid, s] }.to_h
 
         scenes.each do |scene|
-          if project.main_scene_path == scene.path
-            project.main_scene = scene
-          end
+          project.set_main_scene_if_match(scene)
 
           scene.nodes.select(&:instance).each do |node|
             target = scenes_hash[node.scene_uid]
-            node.scene = target if target
+            if target
+              node.scene = target
+              target.instantiators << scene
+            end
           end
         end
       end

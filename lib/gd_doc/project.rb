@@ -32,6 +32,7 @@ module GdDoc
       :sections,
       :name,
       :main_scene_path,
+      :main_scene_uid,
       :main_scene,
       :autoloads,
     )
@@ -59,7 +60,21 @@ module GdDoc
       end
 
       self.name = value_of('application', 'config/name')
-      self.main_scene_path = value_of('application', 'run/main_scene')
+
+      main = value_of('application', 'run/main_scene')
+      if main && main.start_with?('uid://')
+        self.main_scene_uid = main
+      else
+        self.main_scene_path = main
+      end
+    end
+
+
+    def set_main_scene_if_match(scene)
+      if (main_scene_uid && main_scene_uid == scene.uid) \
+      || (main_scene_path && main_scene_path == scene.path)
+        self.main_scene = scene
+      end
     end
 
 

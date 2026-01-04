@@ -276,6 +276,7 @@ module GdDoc
       :child_nodes,
       :connections,
       :animations,
+      :instantiators,
     )
 
     def initializer
@@ -283,6 +284,7 @@ module GdDoc
       self.child_nodes = []
       self.connections = []
       self.animations  = []
+      self.instantiators = Set.new
     end
 
     def parse(root)
