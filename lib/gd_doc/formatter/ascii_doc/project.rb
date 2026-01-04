@@ -14,7 +14,7 @@ module GdDoc
       def format
         <<~ASCIIDOC
         ---
-        title: #{project.name}
+        title: Home
         application_name: #{project.name}
         ---
 
