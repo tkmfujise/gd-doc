@@ -269,7 +269,6 @@ module GdDoc
 
     attr_accessor(
       :uid,
-      :script_path_ids,
       :script,
       :sections,
       :root_node,
@@ -296,10 +295,10 @@ module GdDoc
       end
 
       self.uid = value_of('gd_scene', 'uid')
-      self.script_path_ids = sections.select(&:script?).map{|s|
+      script_path_ids = sections.select(&:script?).map{|s|
           [s.attribute_value_of('id'), s.script_path]
         }.to_h
-      build_nodes
+      build_nodes(script_path_ids)
       build_connections
       build_animations
     end
@@ -342,7 +341,7 @@ module GdDoc
         section.value_of(property_name)
       end
 
-      def build_nodes
+      def build_nodes(script_path_ids)
         self.root_node   = Node.new(sections.find(&:root_node?))
         self.child_nodes = sections.select(&:child_node?) \
           .map{|section| Node.new(section) }
