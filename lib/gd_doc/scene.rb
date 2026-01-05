@@ -258,6 +258,7 @@ module GdDoc
         grouped = Hash.new
         tracks.reject{|t| t.type == 'audio' }.each do |track|
           track.keys[:times].each_with_index do |time, i|
+            next unless track.keys[:values]
             grouped[time] ||= []
             grouped[time] << [track.keys[:values][i], track]
           end
