@@ -18,7 +18,7 @@ end
 compile '/**/*.adoc' do
   filter :asciidoctor, \
     attributes: {
-      # 'kroki-server-url' => 'http://localhost:8123'
+      # 'kroki-server-url' => 'http://localhost:8123',
       'kroki-server-url' => 'https://kroki.io',
       'source-highlighter' => 'rouge',
       'rouge-css' => 'class',

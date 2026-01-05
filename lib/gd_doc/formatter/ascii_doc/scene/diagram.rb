@@ -1,10 +1,11 @@
 module GdDoc
   module Formatter
     class AsciiDoc::Scene::Diagram
-      attr_accessor :scene
+      attr_accessor :scene, :aliases
 
       def initialize(scene)
-        self.scene = scene
+        self.scene   = scene
+        self.aliases = Hash.new
       end
 
       def format
@@ -17,6 +18,8 @@ module GdDoc
             txt << "#{identify(node)} --o #{identify(child)}\n"
           end
         end
+
+        txt << "!define _(a,b) a <-[#blue,thickness=2]- b\n"
         txt << "left to right direction\n"
         txt << "#{connection_definitions}\n"
         txt << "....\n"
@@ -30,10 +33,12 @@ module GdDoc
         end
 
         def identify_str(str)
-          if str == '.'
-            'ROOT'
-          else
-            str.gsub('/', '_').gsub('-', '_')
+          self.aliases[str] ||= begin
+            if str == '.'
+              'R'
+            else
+              "N#{aliases.count}"
+            end
           end
         end
       
@@ -87,11 +92,15 @@ module GdDoc
 
         # e.g.)
         #
+        #   _(Game::_on_board_clicked, Board::clicked)
+        #
+        # will expand by macro
+        #
         #   Game::_on_board_clicked <-[#blue,thickness=2]- Board::clicked
         #
         def connection_definitions
           scene.connections.map do |c|
-            "#{identify_str(c.to)}::#{c.method_name} <-[#blue,thickness=2]- #{identify_str(c.from)}::#{c.name}"
+            "_(#{identify_str(c.to)}::#{c.method_name}, #{identify_str(c.from)}::#{c.name})"
           end.join("\n")
         end 
     end
