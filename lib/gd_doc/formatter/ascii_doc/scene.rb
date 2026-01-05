@@ -54,19 +54,28 @@ module GdDoc
           }.join
         end
 
+
         def signal_connections
           return 'NOTE: No signal connections.' unless scene.connections.any?
-          content = scene.connections.map{|c|
-              "|_#{split_slush(c.from)}_ |*#{c.name}* |_#{split_slush(c.to)}_ |`#{c.method_name}`"
-            }.join("\n")
-          <<~TEXT
-          [cols="1,1,1,2" options="header"]
-          |===
-          |From |Name |To |Method
-          #{content}
-          |===
-          TEXT
+
+          group = scene.connections.map{|c|
+              code = scene.find(c.to)&.script&.functions \
+                  &.find{|f| f.name == c.method_name }&.text
+              next nil unless code
+              [code, c]
+            }.compact.group_by{|c, _| c.object_id }
+
+          group.map{|_, arr|
+            <<~TEXT
+            [.signal-connection]
+            .#{arr.map{|_, c| "$#{c.from}:[#_#{c.name}_#]=>$#{c.to}" }.join(', ')}
+            ```gdscript
+            #{arr[0][0]}
+            ```
+            TEXT
+          }.join
         end
+
 
         # TODO
         def properties

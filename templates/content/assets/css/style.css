@@ -153,6 +153,13 @@ div#toc .sectlevel1.open {
 }
 
 
+/* .signal-connection .title */
+.signal-connection .title mark {
+  background-color: aliceblue;
+  color: blue;
+}
+
+
 
 @media only screen and (max-width: 768px) {
   body>main>aside {
