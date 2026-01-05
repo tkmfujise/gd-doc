@@ -14,7 +14,7 @@ module GdDoc
 
         [plantuml]
         ....
-        control "Root" as Root
+        control "Root" as R
         #{animation.tracks.map.with_index{|t, i| track_definition(t, i) }.join('')}
 
         #{animation.loop ? 'loop' : ''}
@@ -38,7 +38,7 @@ module GdDoc
             return '' if track_aliases[track.node]
             short = "T#{i}"
             self.track_aliases[track.node] = short
-            name  = track.node.gsub('/', "\\n/")
+            name  = '$' + track.node.gsub('/', "\\n/")
             "participant \"#{name}\" as #{short}\n"
           end
         end
@@ -53,7 +53,7 @@ module GdDoc
           animation.time_grouped_tracks.sort.each do |time, arr|
             txt << "== Time: #{time} ==\n"
             arr.each do |value, track|
-              txt << "Root #{arrow_of(track)} #{track_alias_of(track)} : "
+              txt << "R #{arrow_of(track)} #{track_alias_of(track)} : "
               txt << \
                 if track.keys[:method]
                   "#{track.keys[:method]}(#{value})\n"
@@ -67,7 +67,7 @@ module GdDoc
 
         def track_alias_of(track)
           if track.root_node?
-            'Root'
+            'R'
           else
             track_aliases[track.node]
           end
