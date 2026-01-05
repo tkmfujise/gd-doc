@@ -32,10 +32,10 @@ module GdDoc
         === Scene Tree
         #{SceneTree.new(scene).format}
 
-        #{animations_with_title}
-
         === Signal Connections
         #{signal_connections}
+
+        #{animations_with_title}
 
         === Properties
         #{properties}
