@@ -23,6 +23,8 @@ module GdDoc
         true
       when :false
         false
+      when :null
+        nil
       else
         value.text
       end
