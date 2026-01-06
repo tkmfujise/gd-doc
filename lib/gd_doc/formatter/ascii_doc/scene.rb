@@ -79,18 +79,25 @@ module GdDoc
 
         # TODO
         def properties
-          content = scene.sections.flat_map{|section|
-              section.properties.map{|prop|
-                "|_#{section.name}_ |*#{prop.name}* |`#{prop.value}`"
-              }
-            }.join("\n")
-          <<~TEXT
-          [cols="1,1,3" options="header"]
-          |===
-          |Section |Name |Value
-          #{content}
-          |===
-          TEXT
+          scene.nodes.map{|node|
+            next '' if node.section.properties.empty?
+            content = node.section.properties.map{|prop|
+                "|_#{node.section.name}_ |*#{prop.name}* |`#{prop.value}`"
+              }.join("\n")
+
+            title = node.root? \
+              ? 'Root properties' \
+              : "$#{node.path} properties"
+
+            <<~TEXT
+            .#{title}
+            [cols="1,1,3" options="header"]
+            |===
+            |Section |Name |Value
+            #{content}
+            |===
+            TEXT
+          }.join
         end
 
 

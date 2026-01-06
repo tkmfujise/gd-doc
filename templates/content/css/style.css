@@ -161,6 +161,13 @@ div#toc .sectlevel1.open {
 }
 
 
+/* table caption */
+table.tableblock caption.title {
+  text-align: left;
+  font-style: italic;
+}
+
+
 /* .asset-image img */
 .asset-image {
   text-align: center;
