@@ -16,7 +16,8 @@ module Helper
   end
 
   def all_items_of(category)
-    @items.find_all("/#{category}/**/*.adoc")
+    @all_items ||= Hash.new
+    @all_items[category] ||= @items.find_all("/#{category}/**/*.adoc")
   end
 
   def siblings_of(item)
