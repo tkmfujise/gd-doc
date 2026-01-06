@@ -22,6 +22,15 @@ module GdDoc::Commands
       end
     end
 
+
+    def mkdir_p_if_not_exist(path)
+      path = Pathname(path)
+      unless path.dirname.exist?
+        mkdir_p path.dirname
+      end
+    end
+
+
     def write(path, content)
       puts "write #{path}"
       File.write(path, content)

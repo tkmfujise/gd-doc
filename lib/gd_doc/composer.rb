@@ -1,12 +1,19 @@
 module GdDoc
   class Composer
-    attr_accessor :project, :resources, :scenes, :scripts
+    attr_accessor(
+      :project,
+      :resources,
+      :scenes,
+      :scripts,
+      :asset_images,
+    )
 
     def initialize
       self.project   = Project.build
       self.resources = Resource.build_all
       self.scenes    = Scene.build_all
       self.scripts   = Script.build_all
+      self.asset_images = Asset::Image.build_all
       combine_scenes_and_scripts
       combine_scenes_to_children
     end

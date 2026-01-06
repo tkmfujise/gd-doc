@@ -18,13 +18,18 @@ module GdDoc::Commands
       rm_content_dir 'scenes'
       rm_content_dir 'scripts'
       rm_content_dir 'resources'
+      rm_content_dir 'assets'
       composer = GdDoc::Composer.new
       composer.format(GdDoc::Formatter::AsciiDoc) do |formatter|
-        path = Pathname(formatter.file_path)
-        unless path.dirname.exist?
-          mkdir_p path.dirname
+        mkdir_p_if_not_exist formatter.file_path
+        write formatter.file_path, formatter.format
+
+        if formatter.store_file_paths.any?
+          formatter.store_file_paths.each do |source, dist|
+            mkdir_p_if_not_exist dist
+            cp source, dist
+          end
         end
-        write path, formatter.format
       end
     end
 

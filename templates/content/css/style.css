@@ -160,6 +160,28 @@ div#toc .sectlevel1.open {
 }
 
 
+/* .asset-image img */
+.asset-image {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+
+  background: conic-gradient(
+    rgba(128,128,128,0.5) 90deg,
+    rgba(211,211,211,0.5) 90deg 180deg,
+    rgba(128,128,128,0.5) 180deg 270deg,
+    rgba(211,211,211,0.5) 270deg
+  );
+
+  background-repeat: repeat ;
+  background-size: 60px 60px;
+  background-position: top left;
+}
+.asset-image img {
+  width: 100%;
+}
+
+
 
 @media only screen and (max-width: 768px) {
   body>main>aside {

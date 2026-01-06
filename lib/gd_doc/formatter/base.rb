@@ -4,7 +4,11 @@ module GdDoc
       include Helper
 
       def file_path
-        Pathname(File.join(GdDoc.config.doc_dir, 'content', file_name))
+        content_path_for(file_name)
+      end
+
+      def content_path_for(name)
+        Pathname(File.join(GdDoc.config.doc_dir, 'content', name))
       end
 
       def file_name
@@ -13,6 +17,12 @@ module GdDoc
 
       def format
         raise 'Override this method'
+      end
+
+
+      # e.g.) { 'path/to/image.png' => 'assets/images/image.png' }
+      def store_file_paths
+        Hash.new
       end
     end
   end

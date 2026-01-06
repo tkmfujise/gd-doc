@@ -7,6 +7,7 @@ gem 'pry'
 gem 'dry-cli'
 gem 'readline'
 gem 'rake'
+gem 'fastimage'
 
 group :test do
   gem 'rspec'
