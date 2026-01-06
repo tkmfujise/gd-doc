@@ -82,7 +82,7 @@ module GdDoc
           scene.nodes.map{|node|
             next '' if node.section.properties.empty?
             content = node.section.properties.map{|prop|
-                "|_#{node.section.name}_ |*#{prop.name}* |`#{prop.value}`"
+                "|*#{prop.name}* |`#{prop.value}`"
               }.join("\n")
 
             title = node.root? \
@@ -91,9 +91,9 @@ module GdDoc
 
             <<~TEXT
             .#{title}
-            [cols="1,1,3" options="header"]
+            [cols="1,3" options="header"]
             |===
-            |Section |Name |Value
+            |Name |Value
             #{content}
             |===
             TEXT
