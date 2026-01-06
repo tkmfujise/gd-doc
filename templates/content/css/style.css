@@ -30,9 +30,10 @@ body>main>aside {
   background-color: ghostwhite;
   min-height: 90vh;
   border-right: 1px solid whitesmoke;
+  padding-bottom: 2rem;
 }
 body>main>aside>nav {
-  padding: 0.5rem 1rem 0 2rem;
+  padding: 0.5rem 1rem 2rem 2rem;
   position: sticky;
   top: 0;
   max-height: 90vh;
@@ -165,6 +166,7 @@ div#toc .sectlevel1.open {
   text-align: center;
   height: 100%;
   width: 100%;
+  border: 1px solid lightgray;
 
   background: conic-gradient(
     rgba(128,128,128,0.5) 90deg,
@@ -179,6 +181,12 @@ div#toc .sectlevel1.open {
 }
 .asset-image img {
   width: 100%;
+  image-rendering: optimizeSpeed;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -o-crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
 }
 
 

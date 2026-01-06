@@ -15,6 +15,12 @@ module GdDoc::Commands
       GdDoc.config.log_verbose = true
       load_config_file
       validate_configuration
+
+      %w[css js].each do |name|
+        rm_content_dir name
+        cp_r File.join(templates_dir, 'content', name), content_dir_for(name)
+      end
+
       rm_content_dir 'scenes'
       rm_content_dir 'scripts'
       rm_content_dir 'resources'
@@ -47,10 +53,15 @@ module GdDoc::Commands
       end
 
       def rm_content_dir(name)
-        dir = File.join(GdDoc.config.doc_dir, 'content', name)
+        dir = content_dir_for(name)
         if Dir.exist?(dir)
           rm_r dir
         end
+      end
+
+
+      def content_dir_for(name)
+        File.join(GdDoc.config.doc_dir, 'content', name)
       end
   end
 end
