@@ -1,5 +1,3 @@
-<% categories = %w[scenes scripts resources assets] %>
-<% current_category = categories.find{|c| @item.path.start_with? "/#{c}" } || categories[0] %>
 <nav>
   <ul>
     <li class="search-form">
@@ -15,10 +13,10 @@
     <details <%= 'open' if current_category == category %>>
       <summary><b><%= category.capitalize %></b></summary>
       <ul>
-        <% @items.find_all("/#{category}/**/*.adoc").each do |item| %>
+        <% all_items_of(category).each do |item| %>
           <li data-path='<%= item.path %>' data-category='<%= category %>'>
             <%= link_to(
-              item.path.delete_prefix("/#{category}/")[0..-2],
+              link_text_of(item),
               item,
               class: (@rep&.path == item.path ? 'selected' : '')
             ) %>
