@@ -82,7 +82,7 @@ module GdDoc
           scene.nodes.map{|node|
             next '' if node.section.properties.empty?
             content = node.section.properties.map{|prop|
-                "|*#{prop.name}* |`#{prop.value}`"
+                "|*#{prop.name}* |`#{prop.formatted_value}`"
               }.join("\n")
 
             title = node.root? \

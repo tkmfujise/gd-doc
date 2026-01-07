@@ -42,7 +42,7 @@ module GdDoc
         def properties
           content = resource.sections.flat_map{|section|
               section.properties.map{|prop|
-                "|_#{section.name}_ |*#{prop.name}* |`#{prop.value}`"
+                "|_#{section.name}_ |*#{prop.name}* |`#{prop.formatted_value}`"
               }
             }.join("\n")
           <<~TEXT
