@@ -1,6 +1,9 @@
 :root {
   --contents-menu-width: 30vw;
 }
+html body {
+  --pico-mark-background-color: cornsilk;
+}
 
 body>header {
   position: sticky;

@@ -86,8 +86,8 @@ module GdDoc
               }.join("\n")
 
             title = node.root? \
-              ? 'Root properties' \
-              : "$#{node.path} properties"
+              ? '#Root# properties' \
+              : "#$#{node.path}# properties"
 
             <<~TEXT
             .#{title}
