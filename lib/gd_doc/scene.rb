@@ -229,6 +229,7 @@ module GdDoc
         :name,
         :length,
         :loop,
+        :autoplay,
         :step,
         :tracks,
       )
@@ -376,6 +377,13 @@ module GdDoc
       def build_animations
         self.animations = sections.select(&:animation?) \
           .map{|section| Animation.new(section) }
+
+        player = nodes.find{|n| n.type == 'AnimationPlayer' }
+        if player
+          name = player.section.value_of('autoplay')
+          return unless name
+          animations.find{|a| a.name == name }&.then{|a| a.autoplay = true }
+        end
       end
   end
 end

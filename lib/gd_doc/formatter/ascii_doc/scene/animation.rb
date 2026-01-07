@@ -10,7 +10,7 @@ module GdDoc
 
       def format
         <<~ASCIIDOC
-        ==== #{animation.name || animation.id}
+        ==== #{animation.name || animation.id}#{ animation.autoplay ? ' (autoplay)' : '' }
 
         [plantuml]
         ....
