@@ -84,7 +84,12 @@ module GdDoc
             if    node.type_2d?      then 'lightskyblue'
             elsif node.type_3d?      then 'hotpink'
             elsif node.type_control? then 'lightgreen'
-            else; 'darkgray'
+            else
+              if type == 'Node'
+                'darkgray'
+              else
+                'yellow'
+              end
             end
 
           "<<(#{type[0]},#{color}) #{type}>>"
