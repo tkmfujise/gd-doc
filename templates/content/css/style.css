@@ -203,7 +203,7 @@ table.tableblock caption.title {
     width: 70vw;
     position: fixed;
     visibility: hidden;
-    z-index: 1;
+    z-index: 3;
   }
   body>main>aside.open {
     visibility: visible;
