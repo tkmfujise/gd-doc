@@ -21,7 +21,12 @@ module GdDoc
             if    node.type_2d?      then '2d'
             elsif node.type_3d?      then '3d'
             elsif node.type_control? then 'control'
-            else; 'other'
+            else
+              if node.type.nil? || node.type == 'Node'
+                'plain'
+              else
+                'other'
+              end
             end
 
           txt << [

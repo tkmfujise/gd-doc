@@ -150,6 +150,12 @@ div#toc .sectlevel1.open {
 .scene-tree li .node-type.type-control {
   color: limegreen;
 }
+.scene-tree li .node-name.type-other:before {
+  color: gold;
+}
+.scene-tree li .node-type.type-other {
+  color: goldenrod;
+}
 
 /* .imageblock.kroki */
 .imageblock.kroki {
