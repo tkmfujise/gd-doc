@@ -23,8 +23,9 @@ module GdDoc
         === Diagram
         #{Diagram.new(scene).format}
 
-        #{overridden_virtual_functions_with_title}
+        #{assets_with_title}
 
+        #{overridden_virtual_functions_with_title}
 
         === Instantiators
         #{instantiators}
@@ -98,6 +99,23 @@ module GdDoc
             |===
             TEXT
           }.join
+        end
+
+
+        def assets_with_title
+          return '' unless scene.assets.any?
+          content = scene.assets.map{|asset|
+              <<~TEXT
+              [.scene-assets]
+              .#{asset.path}
+              [link=/#{File.join('assets', asset.relative_path)}] 
+              image::#{File.join('/assets/raw', asset.relative_path)}[200, 100] 
+              TEXT
+            }.join("\n")
+          <<~ASCIIDOC
+          === Assets
+          #{content}
+          ASCIIDOC
         end
 
 

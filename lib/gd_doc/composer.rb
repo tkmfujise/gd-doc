@@ -16,6 +16,7 @@ module GdDoc
       self.asset_images = Asset::Image.build_all
       combine_scenes_and_scripts
       combine_scenes_to_children
+      combine_assets_and_scenes
     end
 
 
@@ -45,6 +46,14 @@ module GdDoc
               target.instantiators << scene
             end
           end
+        end
+      end
+
+      def combine_assets_and_scenes
+        assets_hash = asset_images.map{|a| [a.path, a] }.to_h
+
+        scenes.each do |scene|
+          scene.combine_assets(assets_hash)
         end
       end
   end

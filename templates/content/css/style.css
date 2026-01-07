@@ -119,6 +119,20 @@ div#toc .sectlevel1.open {
   display: block;
 }
 
+/* scene-assets */
+.scene-assets {
+  display: flex;
+  align-items: center;
+}
+.scene-assets .content {
+  flex: 1;
+}
+.scene-assets .title {
+  flex: 5;
+  color: darkgray;
+  padding-left: 1rem;
+  font-size: smaller;
+}
 
 /* scene-tree */
 .scene-tree>ul {

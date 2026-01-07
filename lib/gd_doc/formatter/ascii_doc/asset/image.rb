@@ -1,13 +1,10 @@
-require 'fastimage'
-
 module GdDoc
   module Formatter
     class AsciiDoc::Asset::Image < Base
-      attr_accessor :image, :meta
+      attr_accessor :image
 
       def initialize(image)
         self.image = image
-        self.meta  = FastImage.new(image.file)
       end
 
       def file_name
@@ -23,14 +20,17 @@ module GdDoc
 
         == #{split_slush(image.relative_path)}
 
+        === Attached Scenes
+        #{attached_scenes}
+
 
         === Metadata
         [cols="1,1" options="header"]
         |===
         |Name |Value
-        |Size |#{meta.width}×#{meta.height} px
-        |Type |#{meta.type}
-        |Content Length |#{byte_size(meta.content_length)}
+        |Size |#{image.meta.width}×#{image.meta.height} px
+        |Type |#{image.meta.type}
+        |Content Length |#{image.byte_size}
         |===
 
 
@@ -51,17 +51,14 @@ module GdDoc
 
 
       private
-        def byte_size(bytes)
-          units = %w[B KB MB GB TB]
-          size  = bytes.to_f
-          unit  = 0
-
-          while size >= 1024 && unit < units.length - 1
-            size /= 1024
-            unit += 1
-          end
-
-          "#{size.round(2)} #{units[unit]}"
+        def attached_scenes
+          return 'NOTE: No attached scenes.' unless image.attached_scenes.any?
+          content = image.attached_scenes.map{|scene|
+              "* link:/scenes/#{scene.relative_path}[#{scene.path}]\n"
+            }.join
+          <<~TEXT
+          #{content}
+          TEXT
         end
     end
   end

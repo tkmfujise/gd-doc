@@ -278,6 +278,7 @@ module GdDoc
       :connections,
       :animations,
       :instantiators,
+      :assets,
     )
 
     def initializer
@@ -286,6 +287,7 @@ module GdDoc
       self.connections = []
       self.animations  = []
       self.instantiators = Set.new
+      self.assets = Set.new
     end
 
     def parse(root)
@@ -332,6 +334,17 @@ module GdDoc
         node.script = script
         if node.root?
           script.attached_scenes << self
+        end
+      end
+    end
+
+    def combine_assets(assets_hash)
+      sections.select(&:ext_resource?).each do |section|
+        path  = section.attribute_value_of('path')
+        asset = assets_hash[path]
+        if asset
+          self.assets << asset
+          asset.attached_scenes << self
         end
       end
     end

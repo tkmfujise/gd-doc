@@ -40,7 +40,6 @@ module GdDoc
           <<~TEXT
           #{content}
           TEXT
-          
         end
     end
   end
