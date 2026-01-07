@@ -4,6 +4,7 @@ module GdDoc::Commands
 
     def call(*)
       cd GdDoc::ROOT_DIR do
+        sh 'git reset --hard'
         sh 'git pull'
         sh 'git submodule update --init --recursive'
         sh 'bundle install'
