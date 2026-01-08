@@ -12,7 +12,7 @@ module GdDoc
       :connections,
       :animations,
       :instantiators,
-      :assets,
+      :missing_assets,
     )
 
     def initializer
@@ -21,7 +21,7 @@ module GdDoc
       self.connections = []
       self.animations  = []
       self.instantiators = Set.new
-      self.assets = Set.new
+      self.missing_assets = Set.new
     end
 
     def parse(root)
@@ -72,12 +72,27 @@ module GdDoc
       end
     end
 
+
+    def assets
+      missing_assets | nodes.flat_map(&:ext_resources) \
+        .select(&:asset?).map(&:instance).uniq
+    end
+
     def combine_assets(assets_hash)
-      sections.select(&:ext_resource?).each do |section|
-        path  = section.attribute_value_of('path')
+      all_paths = sections.select(&:ext_resource?).map{|r| r.attribute_value_of('path') }
+      nodes.flat_map(&:ext_resources).each do |res|
+        asset = assets_hash[res.path]
+        if asset
+          all_paths.delete(res.path)
+          res.instance = asset
+          asset.attached_scenes << self
+        end
+      end
+
+      all_paths.each do |path|
         asset = assets_hash[path]
         if asset
-          self.assets << asset
+          self.missing_assets << asset
           asset.attached_scenes << self
         end
       end
@@ -103,6 +118,7 @@ module GdDoc
         end
         root_node.scene = self
         set_uid_to_nodes
+        set_ext_resource_paths_to_nodes
       end
 
       def set_uid_to_nodes
@@ -112,6 +128,17 @@ module GdDoc
             .find{|e| e.attribute_value_of('id') == node.instance }
           if section
             node.scene_uid = section.attribute_value_of('uid')
+          end
+        end
+      end
+
+      def set_ext_resource_paths_to_nodes
+        ext_resources_hash = nodes.flat_map(&:ext_resources).group_by(&:id)
+        sections.select(&:ext_resource?).each do |section|
+          match = ext_resources_hash[section.attribute_value_of('id')]
+          next unless match
+          match.each do |res|
+            res.path = section.attribute_value_of('path')
           end
         end
       end

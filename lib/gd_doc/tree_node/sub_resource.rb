@@ -1,13 +1,13 @@
 module GdDoc::TreeNode
   class SubResource < Base
-    attr_accessor :value, :name
+    attr_accessor :id, :name
 
-    def initialize(value)
-      self.value = value
+    def initialize(id)
+      self.id = id
     end
 
     def to_s
-      "SubResource(#{format_value(value)})"
+      "SubResource(#{format_value(id)})"
     end
   end
 end
