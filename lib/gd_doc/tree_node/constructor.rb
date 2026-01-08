@@ -8,7 +8,7 @@ module GdDoc::TreeNode
     end
 
     def parse(root)
-      self.name  = root.children.first.text
+      self.name = root.children.first.text
       Argument.select(root).each do |child|
         self.arguments << Argument.new(child)
       end

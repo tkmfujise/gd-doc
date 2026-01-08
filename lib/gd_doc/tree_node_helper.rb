@@ -18,7 +18,17 @@ module GdDoc
       when :string
         value.text[1..-2]
       when :constructor
-        TreeNode::Constructor.new(value)
+        constructor = TreeNode::Constructor.new(value)
+        case constructor.name
+        when 'ExtResource'
+          TreeNode::ExtResource.new(constructor.arguments[0].value)
+        when 'SubResource'
+          TreeNode::SubResource.new(constructor.arguments[0].value)
+        when 'NodePath'
+          TreeNode::NodePath.new(constructor.arguments[0].value)
+        else
+          constructor
+        end
       when :true
         true
       when :false
