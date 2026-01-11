@@ -124,6 +124,7 @@ div#toc .sectlevel1.open {
   display: flex;
   gap: 0.1rem;
   flex-wrap: wrap;
+  margin-bottom: 1rem;
 }
 .scene-assets h3 {
   flex: 0 0 100%;
