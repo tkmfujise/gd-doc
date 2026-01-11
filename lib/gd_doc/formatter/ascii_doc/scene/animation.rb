@@ -50,7 +50,7 @@ module GdDoc
         #
         def timeline
           txt = ''
-          animation.time_grouped_tracks.sort.each do |time, arr|
+          animation.time_grouped_tracks.sort_by(&:first).each do |time, arr|
             txt << "== Time: #{time} ==\n"
             arr.each do |value, track|
               txt << "R #{arrow_of(track)} #{track_alias_of(track)} : "
