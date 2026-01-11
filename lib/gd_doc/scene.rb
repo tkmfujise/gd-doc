@@ -150,7 +150,7 @@ module GdDoc
 
       def build_animations
         self.animations = sections.select(&:animation?) \
-          .map{|section| Animation.new(section) }
+          .map{|section| Animation.new(self, section) }
 
         player = nodes.find{|n| n.type == 'AnimationPlayer' }
         if player

@@ -1,6 +1,7 @@
 module GdDoc
   module Formatter
     class AsciiDoc::Scene::Animation
+      include Helper
       attr_accessor :animation, :track_aliases
 
       def initialize(animation)
@@ -35,11 +36,12 @@ module GdDoc
           if track.root_node?
             ''
           else
-            return '' if track_aliases[track.node]
+            return '' if track_aliases[track.node_path]
             short = "T#{i}"
-            self.track_aliases[track.node] = short
-            name  = '$' + track.node.gsub('/', "\\n/")
-            "participant \"#{name}\" as #{short}\n"
+            self.track_aliases[track.node_path] = short
+            name  = '$' + track.node_path.gsub('/', "\\n/")
+            color = track.node ? node_color(track.node) : ''
+            "participant \"#{name}\" as #{short} #{color}\n"
           end
         end
 
@@ -69,7 +71,7 @@ module GdDoc
           if track.root_node?
             'R'
           else
-            track_aliases[track.node]
+            track_aliases[track.node_path]
           end
         end
 

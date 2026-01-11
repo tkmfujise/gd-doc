@@ -7,13 +7,14 @@ module GdDoc
         :keys,
         :imported,
         :enabled,
+        :node_path,
         :node,
         :property,
         :interp,
         :loop_wrap,
       )
 
-      def initialize(order, properties)
+      def initialize(scene, order, properties)
         self.order = order
         properties.each do |prop|
           key = prop.name.split('/').last
@@ -21,6 +22,7 @@ module GdDoc
             public_send("#{key}=", prop.value)
           end
         end
+        self.node = scene.find(node_path) if node_path
       end
 
       def path=(value)
@@ -34,15 +36,15 @@ module GdDoc
             value
           end
 
-        self.node, self.property = path.split(':')
+        self.node_path, self.property = path.split(':')
       end
 
       def path
-        "#{node}:#{property}"
+        "#{node_path}:#{property}"
       end
 
       def root_node?
-        node == '.'
+        node_path == '.'
       end
 
 
@@ -124,7 +126,7 @@ module GdDoc
       :tracks,
     )
 
-    def initialize(section)
+    def initialize(scene, section)
       self.id     = section.attribute_value_of('id')
       self.tracks = []
       section.properties.group_by{|p| p.name.split('/')[0..1] }.each do |key, arr|
@@ -138,7 +140,7 @@ module GdDoc
         when ['step']
           self.step   = arr[0].value&.to_f
         else
-          tracks << Track.new(key[1].to_i, arr) if key[0] == 'tracks'
+          tracks << Track.new(scene, key[1].to_i, arr) if key[0] == 'tracks'
         end
       end
     end

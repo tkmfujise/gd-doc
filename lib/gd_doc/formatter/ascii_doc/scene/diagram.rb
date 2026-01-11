@@ -1,6 +1,7 @@
 module GdDoc
   module Formatter
     class AsciiDoc::Scene::Diagram
+      include Helper
       attr_accessor :scene, :aliases
 
       def initialize(scene)
@@ -80,18 +81,7 @@ module GdDoc
         # <<(P,lightskyblue) Polygon2D>>
         def node_definition_subtitle(node)
           type  = node.type || 'Node'
-          color = \
-            if    node.type_2d?      then 'lightskyblue'
-            elsif node.type_3d?      then 'hotpink'
-            elsif node.type_control? then 'lightgreen'
-            else
-              if type == 'Node'
-                'darkgray'
-              else
-                'yellow'
-              end
-            end
-
+          color = node_color(node)
           "<<(#{type[0]},#{color}) #{type}>>"
         end
 
