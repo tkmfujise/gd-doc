@@ -1,6 +1,7 @@
 module GdDoc
   module Formatter
     class AsciiDoc::Scene::SceneTree
+      include Helper
       attr_accessor :scene
 
       def initialize(scene)
@@ -17,18 +18,7 @@ module GdDoc
         txt = "[.scene-tree]\n"
         scene.nodes.each do |node|
           txt << ('*' * node.depth.succ) + ' '
-          suffix = \
-            if    node.type_2d?      then '2d'
-            elsif node.type_3d?      then '3d'
-            elsif node.type_control? then 'control'
-            else
-              if node.type.nil? || node.type == 'Node'
-                'plain'
-              else
-                'other'
-              end
-            end
-
+          suffix = node_class(node)
           txt << [
               "[.node-name.type-#{suffix}]##{node.name}#",
               (if !node.root? && node.scene

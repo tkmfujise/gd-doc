@@ -220,6 +220,23 @@ table.tableblock caption.title {
 }
 
 
+/* .node-property */
+.node-property mark {
+  background-color: lightgray;
+}
+.node-property.node-2d mark {
+  background-color: lightskyblue;
+}
+.node-property.node-3d mark {
+  background-color: pink;
+}
+.node-property.node-control mark {
+  background-color: palegreen;
+}
+.node-property.node-other mark {
+  background-color: yellow;
+}
+
 
 @media only screen and (max-width: 768px) {
   body>main>aside {

@@ -78,7 +78,6 @@ module GdDoc
         end
 
 
-        # TODO
         def properties
           scene.nodes.map{|node|
             next '' if node.section.properties.empty?
@@ -91,6 +90,7 @@ module GdDoc
               : "#$#{node.path}# properties"
 
             <<~TEXT
+            [.node-property.node-#{node_class(node)}]
             .#{title}
             [cols="1,3" options="header"]
             |===

@@ -21,6 +21,20 @@ module GdDoc
           end
         end
       end
+
+
+      def node_class(node)
+        if    node.type_2d?      then '2d'
+        elsif node.type_3d?      then '3d'
+        elsif node.type_control? then 'control'
+        else
+          if node.type.nil? || node.type == 'Node'
+            'plain'
+          else
+            'other'
+          end
+        end
+      end
     end
   end
 end
