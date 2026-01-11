@@ -82,6 +82,22 @@ module GdDoc
             ' ->o '
           end
         end
+
+        def node_color(node)
+          if node.type_2d?
+            '#87CEFA'  # lightskyblue
+          elsif node.type_3d?
+            '#FFC0CB'  # pink
+          elsif node.type_control?
+            '#90EE90'  # lightgreen
+          else
+            if node.type.nil? || node.type == 'Node'
+              '#A9A9A9'  # darkgray
+            else
+              '#FFFF00'  # yellow
+            end
+          end
+        end
     end
   end
 end

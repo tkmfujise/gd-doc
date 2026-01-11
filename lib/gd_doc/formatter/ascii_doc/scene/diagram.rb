@@ -81,7 +81,21 @@ module GdDoc
         # <<(P,lightskyblue) Polygon2D>>
         def node_definition_subtitle(node)
           type  = node.type || 'Node'
-          color = node_color(node)
+          color = \
+            if node.type_2d?
+              'lightskyblue'
+            elsif node.type_3d?
+              'hotpink'
+            elsif node.type_control?
+              'lightgreen'
+            else
+              if node.type.nil? || node.type == 'Node'
+                'darkgray'
+              else
+                'yellow'
+              end
+            end
+
           "<<(#{type[0]},#{color}) #{type}>>"
         end
 
