@@ -39,7 +39,7 @@ module GdDoc
         #{animations_with_title}
 
         === Properties
-        #{properties}
+        #{Properties.new(scene).format}
 
         #{script_with_title}
 
@@ -56,78 +56,19 @@ module GdDoc
         end
 
 
-        def signal_connections
-          return 'NOTE: No signal connections.' unless scene.connections.any?
-
-          group = scene.connections.map{|c|
-              code = scene.find(c.to)&.script&.functions \
-                  &.find{|f| f.name == c.method_name }&.text
-              next nil unless code
-              [code, c]
-            }.compact.group_by{|c, _| c.object_id }
-
-          group.map{|_, arr|
-            <<~TEXT
-            [.signal-connection]
-            .#{arr.map{|_, c| "$#{c.from}:[#_#{c.name}_#]=>$#{c.to}" }.join(', ')}
-            ```gdscript
-            #{arr[0][0]}
-            ```
-            TEXT
-          }.join
-        end
-
-
-        def properties
-          scene.nodes.map{|node|
-            next '' if node.section.properties.empty?
-            content = node.section.properties.map{|prop|
-                "|*#{prop.name}* |`#{prop.formatted_value}`"
-              }.join("\n")
-
-            title = node.root? \
-              ? '#Root# properties' \
-              : "#$#{node.path}# properties"
-
-            <<~TEXT
-            [.node-property.node-#{node_class(node)}]
-            .#{title}
-            [cols="1,3" options="header"]
-            |===
-            |Name |Value
-            #{content}
-            |===
-            TEXT
-          }.join
-        end
-
-
         def assets_with_title
           return '' unless scene.assets.any?
           content = scene.assets.map{|asset|
               <<~TEXT
-              [.scene-assets]
-              .#{asset.path}
-              [link=/#{File.join('assets', asset.relative_path)}] 
-              image::#{File.join('/assets/raw', asset.relative_path)}[200, 100] 
+              [.asset-image]
+              [link=#{content_link(asset)}]
+              image::#{asset_raw_link(asset)}[200, 100] 
               TEXT
             }.join("\n")
           <<~ASCIIDOC
+          [.scene-assets]
           === Assets
           #{content}
-          ASCIIDOC
-        end
-
-
-        def script_with_title
-          return '' unless scene.script
-          path = Pathname(File.join('scripts', scene.script.relative_path))
-          <<~ASCIIDOC
-          === link:/#{path}[#{path.basename}]
-
-          ```gdscript
-          #{scene.script.raw_data}
-          ```
           ASCIIDOC
         end
 
@@ -160,6 +101,28 @@ module GdDoc
         end
 
 
+        def signal_connections
+          return 'NOTE: No signal connections.' unless scene.connections.any?
+
+          group = scene.connections.map{|c|
+              code = scene.find(c.to)&.script&.functions \
+                  &.find{|f| f.name == c.method_name }&.text
+              next nil unless code
+              [code, c]
+            }.compact.group_by{|c, _| c.object_id }
+
+          group.map{|_, arr|
+            <<~TEXT
+            [.signal-connection]
+            .#{arr.map{|_, c| "$#{c.from}:[#_#{c.name}_#]=>$#{c.to}" }.join(', ')}
+            ```gdscript
+            #{arr[0][0]}
+            ```
+            TEXT
+          }.join
+        end
+
+
         def animations_with_title
           return '' unless scene.animations.any?
           txt = "=== Animations\n"
@@ -167,6 +130,19 @@ module GdDoc
             txt += "#{Animation.new(animation).format}\n"
           end
           txt
+        end
+
+
+        def script_with_title
+          return '' unless scene.script
+          path = content_link(scene.script)
+          <<~ASCIIDOC
+          === link:#{path}[#{path.basename}]
+
+          ```gdscript
+          #{scene.script.raw_data}
+          ```
+          ASCIIDOC
         end
     end
   end

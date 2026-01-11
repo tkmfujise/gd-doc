@@ -122,16 +122,16 @@ div#toc .sectlevel1.open {
 /* scene-assets */
 .scene-assets {
   display: flex;
-  align-items: center;
+  gap: 0.1rem;
+  flex-wrap: wrap;
 }
-.scene-assets .content {
-  flex: 1;
+.scene-assets h3 {
+  flex: 0 0 100%;
+  width: 100%;
 }
-.scene-assets .title {
-  flex: 5;
-  color: darkgray;
-  padding-left: 1rem;
-  font-size: smaller;
+.scene-assets .asset-image {
+  display: inline-flex;
+  height: 3rem;
 }
 
 /* scene-tree */
@@ -192,7 +192,7 @@ table.tableblock caption.title {
 
 
 /* .asset-image img */
-.asset-image {
+.asset-image .content img {
   text-align: center;
   height: 100%;
   width: 100%;
@@ -208,15 +208,15 @@ table.tableblock caption.title {
   background-repeat: repeat ;
   background-size: 60px 60px;
   background-position: top left;
-}
-.asset-image img {
-  width: 100%;
   image-rendering: optimizeSpeed;
   image-rendering: -moz-crisp-edges;
   image-rendering: -o-crisp-edges;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
   image-rendering: pixelated;
+}
+.asset-image .title {
+  background-color: white;
 }
 
 
@@ -235,6 +235,9 @@ table.tableblock caption.title {
 }
 .node-property.node-other mark {
   background-color: yellow;
+}
+.node-property .imageblock .content {
+  display: flex;
 }
 
 

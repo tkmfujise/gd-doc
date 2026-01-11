@@ -6,6 +6,26 @@ module GdDoc
       end
 
 
+      def content_link(instance)
+        case instance
+        when GdDoc::Scene
+          Pathname(File.join('/scenes', instance.relative_path))
+        when GdDoc::Script
+          Pathname(File.join('/scripts', instance.relative_path))
+        when GdDoc::Resource
+          Pathname(File.join('/resources', instance.relative_path))
+        when GdDoc::Asset::Image
+          Pathname(File.join('/assets', instance.relative_path))
+        else
+          ''
+        end
+      end
+
+      def asset_raw_link(image)
+        File.join('/assets/raw', image.relative_path)
+      end
+
+
       def node_color(node)
         if node.type_2d?
           '#87CEFA'  # lightskyblue

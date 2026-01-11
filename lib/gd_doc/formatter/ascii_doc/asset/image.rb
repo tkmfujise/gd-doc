@@ -42,7 +42,7 @@ module GdDoc
       end
 
       def raw_path
-        File.join('/assets/raw', image.relative_path)
+        asset_raw_link(image)
       end
 
       def store_file_paths
