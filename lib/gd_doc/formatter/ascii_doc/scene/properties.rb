@@ -33,9 +33,8 @@ module GdDoc
 
       private
         def value_of(node, prop)
-          val = "`#{prop.formatted_value}`"
           ext = node.ext_resources.find{|n| n.name == prop.name }
-          return val unless ext
+          return value_may_link_for(prop.formatted_value) unless ext
           case ext.instance
           when GdDoc::Asset::Image
             <<~TEXT
@@ -44,15 +43,23 @@ module GdDoc
             .#{ext.instance.path}
             image::#{asset_raw_link(ext.instance)}[]
             TEXT
-          when GdDoc::Script
+          when GdDoc::Script, GdDoc::Resource
             "link:#{content_link(ext.instance)}[#{ext.instance.path}]"
           else
-            if ext.path.to_s.end_with?('.tscn')
-              link = ext.path.sub('res://', 'scenes/')
-              "link:/#{link}[#{ext.path}]"
-            else
-              val
-            end
+            value_may_link_for(ext.path)
+          end
+        end
+
+
+        def value_may_link_for(value)
+          if value.to_s.end_with?('.tscn')
+            link = value.sub('res://', 'scenes/')
+            "link:/#{link}[#{value}]"
+          elsif value.to_s.end_with?('.tres')
+            link = value.sub('res://', 'resources/')
+            "link:/#{link}[#{value}]"
+          else
+            "`#{value}`"
           end
         end
     end
