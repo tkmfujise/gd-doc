@@ -28,7 +28,7 @@ module GdDoc
 
         #{section_for('Scripts', scripts, {
           'Functions' => [->{ functions.count }, 'funcs'],
-          'Lines / Func' => [->{ functions.sum{|f| f.text.lines.count } }, 'lines'],
+          'Lines / Func' => [->{ functions.map{|f| f.text.lines.count } }, 'lines'],
         })}
 
         #{section_for('Resources', resources, {
@@ -76,26 +76,27 @@ module GdDoc
 
 
         #
-        # summarize [1, 2, 3]
+        # summarize [1, [2, 3]]
         # => {
         #   all:     6,
         #   min:     1,
         #   min_idx: 0,
         #   mean:    2,
         #   max:     3,
-        #   max_idx: 2,
+        #   max_idx: 1,
         # }
         #
         def summarize(arr)
-          sum = arr.sum
-          min, max = arr.minmax
+          flat = arr.flatten
+          sum  = flat.sum
+          min, max = flat.minmax
           {
             all:     sum,
             min:     min,
-            min_idx: arr.index(min),
+            min_idx: arr.index{|v| v.is_a?(Array) ? v.include?(min) : v == min },
             mean:    (sum.to_f / arr.count).ceil(1),
             max:     max,
-            max_idx: arr.index(max),
+            max_idx: arr.index{|v| v.is_a?(Array) ? v.include?(max) : v == max },
           }
         end
 
