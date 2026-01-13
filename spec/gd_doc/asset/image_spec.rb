@@ -20,13 +20,17 @@ RSpec.describe GdDoc::Asset::Image do
   end
 
 
-  describe '#format_byte' do
-    subject { image.send(:format_byte, bytes) }
-    let(:image) { GdDoc::Asset::Image.build }
+  describe 'Numeric#human_size' do
+    subject { bytes.human_size }
 
     context 'if 0' do
       let(:bytes) { 0 }
       it { is_expected.to eq '0.0 B' }
+    end
+
+    context 'if 1.0' do
+      let(:bytes) { 1.0 }
+      it { is_expected.to eq '1.0 B' }
     end
 
     context 'if 100' do

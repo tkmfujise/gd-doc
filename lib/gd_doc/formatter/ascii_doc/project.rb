@@ -1,10 +1,20 @@
 module GdDoc
   module Formatter
     class AsciiDoc::Project < Base
-      attr_accessor :project
+      attr_accessor(
+        :project,
+        :scenes,
+        :scripts,
+        :resources,
+        :asset_images,
+      )
 
-      def initialize(project)
-        self.project = project
+      def initialize(project, scenes: [], scripts: [], resources: [], asset_images: [])
+        self.project      = project
+        self.scenes       = scenes
+        self.scripts      = scripts
+        self.resources    = resources
+        self.asset_images = asset_images
       end
 
       def file_name
@@ -19,6 +29,14 @@ module GdDoc
         ---
 
         #{welcome_message}
+
+        === Stats
+        #{Stats.new(
+            scenes:       scenes,
+            scripts:      scripts,
+            resources:    resources,
+            asset_images: asset_images,
+          ).format}
 
         === Main Scene
         #{main_scene}

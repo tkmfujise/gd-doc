@@ -13,23 +13,8 @@ module GdDoc
 
 
     def byte_size
-      format_byte(meta.content_length)
+      meta.content_length.human_size
     end
-
-
-    private
-      def format_byte(bytes)
-        units = %w[B KB MB GB TB]
-        size  = bytes.to_f
-        unit  = 0
-
-        while size >= 1024 && unit < units.length - 1
-          size /= 1024
-          unit += 1
-        end
-
-        "#{size.round(2)} #{units[unit]}"
-      end
   end
 end
 
