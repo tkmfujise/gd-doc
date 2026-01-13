@@ -94,7 +94,7 @@ module GdDoc
             all:     sum,
             min:     min,
             min_idx: arr.index{|v| v.is_a?(Array) ? v.include?(min) : v == min },
-            mean:    (sum.to_f / arr.count).ceil(1),
+            mean:    (sum.to_f / flat.count).ceil(1),
             max:     max,
             max_idx: arr.index{|v| v.is_a?(Array) ? v.include?(max) : v == max },
           }
