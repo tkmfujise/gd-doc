@@ -44,6 +44,8 @@ module GdDoc
       case value
       when String
         "\"#{value}\""
+      when NilClass
+        'null'
       else
         value.to_s
       end
