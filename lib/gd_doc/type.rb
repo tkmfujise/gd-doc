@@ -4,6 +4,11 @@ module GdDoc
       Control
         BaseButton
           Button
+            CheckBox
+            CheckButton
+            ColorPickerButton
+            MenuButton
+            OptionButton
           LinkButton
           TextureButton
         ColorRect
@@ -12,6 +17,9 @@ module GdDoc
           BoxContainer
             HBoxContainer
             VBoxContainer
+              ColorPicker
+              FileSystemDock
+              ScriptEditorBase
           CenterContainer
           EditorProperty
           FlowContainer
@@ -26,6 +34,8 @@ module GdDoc
             ScriptEditor
           MarginContainer
           PanelContainer
+            OpenXRBindingModifierEditor,
+            ScriptEditor
           ScrollContainer
             EditorInspector
           SplitContainer
