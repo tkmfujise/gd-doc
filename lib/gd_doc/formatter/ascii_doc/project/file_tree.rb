@@ -2,11 +2,11 @@ module GdDoc
   module Formatter
     class AsciiDoc::Project::FileTree
       class Directory
-        attr_accessor :parents, :entities, :followers
+        attr_accessor :parents, :entries, :followers
 
-        def initialize(parents, entities)
-          self.parents  = parents
-          self.entities = entities
+        def initialize(parents, entries)
+          self.parents = parents
+          self.entries = entries
           self.followers = [true] * parents.count
         end
 
@@ -37,12 +37,27 @@ module GdDoc
 
         # |│  ├  MokiTown |0 |0 |0 |0
         def format
-          "|#{prefix} #{parents.last} #{counts}\n"
+          "|#{prefix} #{parents.last} #{all_counts}\n"
         end
 
+        def scenes
+          entries.select{|e| e.kind_of? GdDoc::Scene }
+        end
+
+        def scripts
+          entries.select{|e| e.kind_of? GdDoc::Script }
+        end
+
+        def resources
+          entries.select{|e| e.kind_of? GdDoc::Resource }
+        end
+
+        def asset_images
+          entries.select{|e| e.kind_of? GdDoc::Asset::Image }
+        end
 
         private
-          def counts
+          def all_counts
             [scenes, scripts, resources, asset_images].map(&:count).map{|i|
               if i == 0
                 "|[.zero]##{i}# "
@@ -52,22 +67,6 @@ module GdDoc
                 "|[.more]##{i}# "
               end
             }.join
-          end
-
-          def scenes
-            entities.select{|e| e.kind_of? GdDoc::Scene }
-          end
-
-          def scripts
-            entities.select{|e| e.kind_of? GdDoc::Script }
-          end
-
-          def resources
-            entities.select{|e| e.kind_of? GdDoc::Resource }
-          end
-
-          def asset_images
-            entities.select{|e| e.kind_of? GdDoc::Asset::Image }
           end
       end
 
@@ -82,8 +81,8 @@ module GdDoc
             | composer.asset_images
           ).group_by{|target|
             target.relative_path.split('/')[0..-2]
-          }.map{|parents, entities|
-            Directory.new(parents, entities)
+          }.map{|parents, entries|
+            Directory.new(parents, entries)
           }.sort
 
         fill_directories
