@@ -15,7 +15,8 @@ body>header {
   max-width: 100%;
   padding: 0;
 }
-body>header>nav {
+body>header>nav,
+body>footer>nav {
   padding: 0 2rem;
 }
 
@@ -92,6 +93,21 @@ article.content h3 {
 }
 article.content .welcome-code code {
   line-height: 1;
+}
+
+
+/* .file-tree */
+table.file-tree tr td,
+table.file-tree tr td p {
+  padding: 0;
+  margin: 0;
+  line-height: 0.9rem;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+table.file-tree tr td:not(:nth-child(1)) p {
+  padding-right: 0.9rem;
+  text-align: right;
 }
 
 
