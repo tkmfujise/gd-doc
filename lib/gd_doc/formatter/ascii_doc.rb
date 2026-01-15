@@ -10,14 +10,7 @@ module GdDoc
       )
 
       def initialize(composer, &block)
-        self.project   = AsciiDoc::Project.new(
-            composer.project,
-            scenes:       composer.scenes,
-            scripts:      composer.scripts,
-            resources:    composer.resources,
-            asset_images: composer.asset_images,
-          )
-
+        self.project   = AsciiDoc::Project.new(composer)
         self.scenes    = composer.scenes.map{|s| AsciiDoc::Scene.new(s) }
         self.scripts   = composer.scripts.map{|s| AsciiDoc::Script.new(s) }
         self.resources = composer.resources.map{|r| AsciiDoc::Resource.new(r) }

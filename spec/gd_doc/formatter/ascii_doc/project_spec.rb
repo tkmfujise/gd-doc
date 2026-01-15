@@ -2,9 +2,8 @@ require 'spec_helper'
 
 RSpec.describe GdDoc::Formatter::AsciiDoc::Project do
   describe '#initialze' do
-    subject { described_class.new(project) }
-    let(:project) { GdDoc::Project.new(file) }
-    let(:file) { Tempfile.new.tap{|f| File.write f, src } }
+    subject { described_class.new(composer) }
+    let(:composer) { GdDoc::Composer.new }
 
     context 'plain' do
       let(:src) {

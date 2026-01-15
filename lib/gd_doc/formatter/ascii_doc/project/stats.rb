@@ -9,11 +9,11 @@ module GdDoc
         :asset_images,
       )
 
-      def initialize(scenes: [], scripts: [], resources: [], asset_images: [])
-        self.scenes       = scenes
-        self.scripts      = scripts
-        self.resources    = resources
-        self.asset_images = asset_images
+      def initialize(composer)
+        self.scenes       = composer.scenes
+        self.scripts      = composer.scripts
+        self.resources    = composer.resources
+        self.asset_images = composer.asset_images
       end
 
       def format
@@ -22,20 +22,20 @@ module GdDoc
         |===
         | | | Min | Mean | Max | All
 
-        #{section_for('Scenes', scenes, {
+        #{section_for('🎬 Scenes', scenes, {
           'Child Nodes' => [->{ child_nodes.count }, 'nodes'],
         })}
 
-        #{section_for('Scripts', scripts, {
+        #{section_for('📝 Scripts', scripts, {
           'Functions' => [->{ functions.count }, 'funcs'],
           'Lines / Func' => [->{ functions.map{|f| f.text.lines.count } }, 'lines'],
         })}
 
-        #{section_for('Resources', resources, {
+        #{section_for('📊 Resources', resources, {
           'Properties' => [->{ sections.flat_map(&:properties).count }, 'props'],
         })}
 
-        #{section_for('Asset Images', asset_images, {
+        #{section_for('💠 Asset Images', asset_images, {
           'Content Length' => [->{ meta.content_length }, '', :human_size],
         })}
         |===
@@ -88,16 +88,27 @@ module GdDoc
         #
         def summarize(arr)
           flat = arr.flatten
-          sum  = flat.sum
-          min, max = flat.minmax
-          {
-            all:     sum,
-            min:     min,
-            min_idx: arr.index{|v| v.is_a?(Array) ? v.include?(min) : v == min },
-            mean:    (sum.to_f / flat.count).ceil(1),
-            max:     max,
-            max_idx: arr.index{|v| v.is_a?(Array) ? v.include?(max) : v == max },
-          }
+          if flat.any?
+            sum  = flat.sum
+            min, max = flat.minmax
+            {
+              all:     sum,
+              min:     min || 0,
+              min_idx: arr.index{|v| v.is_a?(Array) ? v.include?(min) : v == min },
+              mean:    (sum.to_f / flat.count).ceil(1),
+              max:     max || 0,
+              max_idx: arr.index{|v| v.is_a?(Array) ? v.include?(max) : v == max },
+            }
+          else
+            {
+              all:     0,
+              min:     0,
+              min_idx: 0,
+              mean:    0,
+              max:     0,
+              max_idx: 0,
+            }
+          end
         end
 
 

@@ -106,8 +106,20 @@ table.file-tree tr td p {
   font-size: 0.9rem;
 }
 table.file-tree tr td:not(:nth-child(1)) p {
-  padding-right: 0.9rem;
   text-align: right;
+}
+table.file-tree tr td span {
+  padding-right: 0.3rem;
+  display: block;
+}
+table.file-tree tr td .zero {
+  color: lightgray;
+}
+table.file-tree tr td .one {
+  background-color: greenyellow;
+}
+table.file-tree tr td .more {
+  background-color: limegreen;
 }
 
 

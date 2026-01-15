@@ -1,20 +1,12 @@
 module GdDoc
   module Formatter
     class AsciiDoc::Project < Base
-      attr_accessor(
-        :project,
-        :scenes,
-        :scripts,
-        :resources,
-        :asset_images,
-      )
+      extend Forwardable
+      delegate %i[project scenes scripts resources asset_images] => :composer
+      attr_accessor :composer
 
-      def initialize(project, scenes: [], scripts: [], resources: [], asset_images: [])
-        self.project      = project
-        self.scenes       = scenes
-        self.scripts      = scripts
-        self.resources    = resources
-        self.asset_images = asset_images
+      def initialize(composer)
+        self.composer = composer
       end
 
       def file_name
@@ -31,12 +23,9 @@ module GdDoc
         #{welcome_message}
 
         === Stats
-        #{Stats.new(
-            scenes:       scenes,
-            scripts:      scripts,
-            resources:    resources,
-            asset_images: asset_images,
-          ).format}
+        #{Stats.new(composer).format}
+
+        #{FileTree.new(composer).format}
 
         === Main Scene
         #{main_scene}
