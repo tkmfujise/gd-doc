@@ -97,6 +97,10 @@ article.content .welcome-code code {
 
 
 /* .file-tree */
+table.file-tree tr th:not(:nth-child(1)) {
+  padding: 0.5rem 0.2rem;
+  text-align: center;
+}
 table.file-tree tr td,
 table.file-tree tr td p {
   padding: 0;
