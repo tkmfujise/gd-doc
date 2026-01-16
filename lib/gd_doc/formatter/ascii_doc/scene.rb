@@ -51,7 +51,7 @@ module GdDoc
         def instantiators
           return 'CAUTION: No other scene instantiate this scene.' if scene.instantiators.none?
           scene.instantiators.map{|instantiator|
-            "* link:/scenes/#{instantiator.relative_path}[#{instantiator.path}]\n"
+            "* link:/scenes/#{encode_link instantiator.relative_path}[#{instantiator.path}]\n"
           }.join
         end
 

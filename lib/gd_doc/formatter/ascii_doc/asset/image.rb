@@ -54,7 +54,7 @@ module GdDoc
         def attached_scenes
           return 'NOTE: No attached scenes.' unless image.attached_scenes.any?
           content = image.attached_scenes.map{|scene|
-              "* link:/scenes/#{scene.relative_path}[#{scene.path}]\n"
+              "* link:#{content_link scene}[#{scene.path}]\n"
             }.join
           <<~TEXT
           #{content}

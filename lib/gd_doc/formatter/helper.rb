@@ -5,17 +5,22 @@ module GdDoc
         str.gsub('/', ' / ')
       end
 
+      def encode_link(str)
+        Addressable::URI.encode(str)
+      end
+
 
       def content_link(instance)
+        path = encode_link(instance.relative_path)
         case instance
         when GdDoc::Scene
-          Pathname(File.join('/scenes', instance.relative_path))
+          Pathname(File.join('/scenes', path))
         when GdDoc::Script
-          Pathname(File.join('/scripts', instance.relative_path))
+          Pathname(File.join('/scripts', path))
         when GdDoc::Resource
-          Pathname(File.join('/resources', instance.relative_path))
+          Pathname(File.join('/resources', path))
         when GdDoc::Asset::Image
-          Pathname(File.join('/assets', instance.relative_path))
+          Pathname(File.join('/assets', path))
         else
           ''
         end

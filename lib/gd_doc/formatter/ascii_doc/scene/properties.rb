@@ -54,10 +54,10 @@ module GdDoc
         def value_may_link_for(value)
           if value.to_s.end_with?('.tscn')
             link = value.sub('res://', 'scenes/')
-            "link:/#{link}[#{value}]"
+            "link:/#{encode_link link}[#{value}]"
           elsif value.to_s.end_with?('.tres')
             link = value.sub('res://', 'resources/')
-            "link:/#{link}[#{value}]"
+            "link:/#{encode_link link}[#{value}]"
           else
             "`#{value}`"
           end

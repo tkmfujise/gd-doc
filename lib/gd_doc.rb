@@ -2,6 +2,7 @@ require 'pathname'
 require 'tree_stand'
 require 'dry/cli'
 require 'forwardable'
+require 'addressable/uri'
 require 'zeitwerk'
 require_relative './gd_doc/core_ext'
 

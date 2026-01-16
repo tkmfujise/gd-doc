@@ -33,7 +33,7 @@ module GdDoc
           if resource.script_path
             link = resource.script_path.dup
             link['res://'] =  '/scripts/'
-            "* #{resource.type} (link:#{link}[#{resource.script_path}])"
+            "* #{resource.type} (link:#{encode_link link}[#{resource.script_path}])"
           else
             "* #{resource.type}"
           end

@@ -8,6 +8,7 @@ gem 'dry-cli'
 gem 'readline'
 gem 'rake'
 gem 'fastimage'
+gem 'addressable'
 
 group :test do
   gem 'rspec'

@@ -22,7 +22,7 @@ module GdDoc
           txt << [
               "[.node-name.type-#{suffix}]##{node.name}#",
               (if !node.root? && node.scene
-                "[.node-type.type-#{suffix}]#link:/scenes/#{node.scene.relative_path}[#{node.scene.path}]#"
+                "[.node-type.type-#{suffix}]#link:#{content_link node.scene}[#{node.scene.path}]#"
               else
                 "[.node-type.type-#{suffix}]##{node.type || 'Node'}#"
               end),

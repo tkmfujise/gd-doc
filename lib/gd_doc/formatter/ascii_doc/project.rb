@@ -61,7 +61,7 @@ module GdDoc
         def main_scene
           return 'CAUTION: This project has no main scene.' unless project.main_scene
           <<~TEXT
-          * link:/scenes/#{project.main_scene.relative_path}[#{project.main_scene.path}]
+          * link:#{content_link project.main_scene}[#{project.main_scene.path}]
           TEXT
         end
 
@@ -77,7 +77,7 @@ module GdDoc
                   '/'
                 end
 
-              "|_#{a.name}_ |link:#{link}[#{a.path}]"
+              "|_#{a.name}_ |link:#{encode_link link}[#{a.path}]"
             }.join("\n")
           <<~TEXT
           [cols="1,3" options="header"]
