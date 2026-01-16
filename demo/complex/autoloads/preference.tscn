@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://de7ci3y1rxaco"]
+
+[ext_resource type="Script" uid="uid://wok43pvhs2te" path="res://autoloads/preference.gd" id="1_grupi"]
+
+[node name="Preference" type="Node"]
+script = ExtResource("1_grupi")

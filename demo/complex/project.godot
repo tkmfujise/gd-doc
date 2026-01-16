@@ -1,0 +1,24 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="GdDoc Demo Complex"
+run/main_scene="uid://bn6b80q25bhta"
+config/features=PackedStringArray("4.5")
+
+[autoload]
+
+Current="*res://autoloads/current.gd"
+Preference="*res://autoloads/preference.tscn"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/myplugin/plugin.cfg")

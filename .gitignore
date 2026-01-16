@@ -7,6 +7,9 @@ crash.log
 /tree-sitters/*
 !/tree-sitters/.keep
 
+/coverage/*
+!/coverage/.keep
+
 demo/doc/*
 
 templates/output

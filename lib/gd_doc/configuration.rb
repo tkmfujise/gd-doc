@@ -10,7 +10,7 @@ module GdDoc
     )
 
     def initialize
-      self.project_dir = 'demo'
+      self.project_dir = 'demo/complex'
       self.doc_dir = File.join(project_dir, DEFAULT_DOC_DIR)
       self.ignoring_paths = [
         'addons',

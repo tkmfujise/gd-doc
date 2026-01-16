@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Stage" load_steps=2 format=3 uid="uid://8dei6kmw70di"]
+
+[ext_resource type="Script" uid="uid://ocugjqn78wq7" path="res://resources/stage.gd" id="1_tnfk0"]
+
+[resource]
+script = ExtResource("1_tnfk0")
+metadata/_custom_type_script = "uid://ocugjqn78wq7"

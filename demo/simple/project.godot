@@ -10,6 +10,5 @@ config_version=5
 
 [application]
 
-config/name="GdDoc Demo"
-run/main_scene="uid://bn6b80q25bhta"
+config/name="GdDoc Demo Simple"
 config/features=PackedStringArray("4.5")

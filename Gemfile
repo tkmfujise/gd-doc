@@ -12,6 +12,7 @@ gem 'addressable'
 
 group :test do
   gem 'rspec'
+  gem 'simplecov'
 end
 
 gem "zeitwerk", "~> 2.7"
