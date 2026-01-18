@@ -90,18 +90,23 @@ module GdDoc
 
         
         def properties
-          content = project.sections.flat_map{|section|
-              section.properties.map{|prop|
-                "|_#{section.name}_ |*#{prop.name}* |`#{prop.formatted_value}`"
-              }
-            }.join("\n")
-          <<~TEXT
-          [cols="1,1,3" options="header"]
-          |===
-          |Section |Name |Value
-          #{content}
-          |===
-          TEXT
+          ignoring_sections = %w(autoload)
+          project.sections.flat_map{|section|
+            next '' if ignoring_sections.include?(section.name)
+            content = section.properties.map{|prop|
+                <<~TEXT
+                |*#{prop.name}* |`#{prop.formatted_value}`
+                TEXT
+              }.join("\n")
+            <<~TEXT
+            ==== #{section.name}
+            [cols="1,3" options="header"]
+            |===
+            |Name |Value
+            #{content}
+            |===
+            TEXT
+          }.join("\n")
         end
     end
   end
