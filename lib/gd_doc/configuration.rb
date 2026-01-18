@@ -7,6 +7,7 @@ module GdDoc
       :doc_dir,
       :log_verbose,
       :ignoring_paths,
+      :asset_text_extensions,
     )
 
     def initialize
@@ -17,6 +18,7 @@ module GdDoc
         'test',
         'tmp',
       ]
+      self.asset_text_extensions = %w[txt rb json]
     end
 
     def project_dir_absolute

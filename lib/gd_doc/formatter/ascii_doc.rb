@@ -7,6 +7,7 @@ module GdDoc
         :scripts,
         :resources,
         :asset_images,
+        :asset_texts,
       )
 
       def initialize(composer, &block)
@@ -15,6 +16,7 @@ module GdDoc
         self.scripts   = composer.scripts.map{|s| AsciiDoc::Script.new(s) }
         self.resources = composer.resources.map{|r| AsciiDoc::Resource.new(r) }
         self.asset_images = composer.asset_images.map{|i| AsciiDoc::Asset::Image.new(i) }
+        self.asset_texts  = composer.asset_texts.map{|t| AsciiDoc::Asset::Text.new(t) }
 
         if block_given?
           yield project
@@ -22,6 +24,7 @@ module GdDoc
           scripts.each     {|s| yield s }
           resources.each   {|r| yield r }
           asset_images.each{|i| yield i }
+          asset_texts.each {|i| yield i }
         end
       end
     end

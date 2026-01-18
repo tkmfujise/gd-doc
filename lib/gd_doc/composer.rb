@@ -6,6 +6,7 @@ module GdDoc
       :scenes,
       :scripts,
       :asset_images,
+      :asset_texts,
     )
 
     def initialize
@@ -14,6 +15,7 @@ module GdDoc
       self.scenes    = Scene.build_all
       self.scripts   = Script.build_all
       self.asset_images = Asset::Image.build_all
+      self.asset_texts  = Asset::Text.build_all
       combine_scenes_and_scripts
       combine_scenes_to_children
       combine_assets_and_scenes

@@ -15,4 +15,8 @@ GdDoc.configure do |config|
     'test',
     'tmp',
   ]
+
+  # = Configure asset text extensions
+  # config.asset_text_extensions = %w[txt rb json]
+  config.asset_text_extensions = %w[txt rb json]
 end

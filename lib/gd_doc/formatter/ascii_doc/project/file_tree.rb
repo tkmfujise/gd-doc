@@ -35,7 +35,7 @@ module GdDoc
           txt
         end
 
-        # |│  ├  MokiTown |0 |0 |0 |0
+        # |│  ├  MokiTown |0 |0 |0 |0 |0
         def format
           "|#{prefix} #{parents.last} #{all_counts}\n"
         end
@@ -56,9 +56,13 @@ module GdDoc
           entries.select{|e| e.kind_of? GdDoc::Asset::Image }
         end
 
+        def asset_texts
+          entries.select{|e| e.kind_of? GdDoc::Asset::Text }
+        end
+
         private
           def all_counts
-            [scenes, scripts, resources, asset_images].map(&:count).map{|i|
+            [scenes, scripts, resources, asset_images, asset_texts].map(&:count).map{|i|
               if i == 0
                 "|[.zero]##{i}# "
               elsif i == 1
@@ -78,7 +82,8 @@ module GdDoc
             composer.scenes \
             | composer.scripts \
             | composer.resources \
-            | composer.asset_images
+            | composer.asset_images \
+            | composer.asset_texts
           ).group_by{|target|
             target.relative_path.split('/')[0..-2]
           }.map{|parents, entries|
@@ -93,9 +98,9 @@ module GdDoc
       def format
         <<~TEXT
           [.file-tree.grid]
-          [cols="5,1,1,1,1" options="header"]
+          [cols="5,1,1,1,1,1" options="header"]
           |===
-          |File Tree |🎬 |📝 |📊 |💠
+          |File Tree |🎬 |📝 |📊 |💠 |💬
           #{directories.map(&:format).join}
           |===
         TEXT

@@ -21,6 +21,8 @@ module GdDoc
           Pathname(File.join('/resources', path))
         when GdDoc::Asset::Image
           Pathname(File.join('/assets', path))
+        when GdDoc::Asset::Text
+          Pathname(File.join('/assets', path))
         else
           ''
         end

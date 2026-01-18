@@ -92,7 +92,7 @@
   font-weight: bold;
 }
 .highlight .no {
-  color: #b2fd6d;
+  color: #fd6d6d;
   font-weight: bold;
 }
 .highlight .nc {
@@ -104,7 +104,7 @@
   font-weight: bold;
 }
 .highlight .nn {
-  color: #b2fd6d;
+  color: #fd6d6d;
   font-weight: bold;
 }
 .highlight .bp {
@@ -131,8 +131,7 @@
   font-weight: bold;
 }
 .highlight .ss {
-  color: #f696db;
-  font-weight: bold;
+  color: #fffc00;
 }
 .highlight .s, .highlight .sb, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .sr, .highlight .s1 {
   color: #44FF00;

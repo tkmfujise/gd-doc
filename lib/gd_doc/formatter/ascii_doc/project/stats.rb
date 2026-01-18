@@ -7,6 +7,7 @@ module GdDoc
         :scripts,
         :resources,
         :asset_images,
+        :asset_texts,
       )
 
       def initialize(composer)
@@ -14,6 +15,7 @@ module GdDoc
         self.scripts      = composer.scripts
         self.resources    = composer.resources
         self.asset_images = composer.asset_images
+        self.asset_texts  = composer.asset_texts
       end
 
       def format
@@ -37,6 +39,10 @@ module GdDoc
 
         #{section_for('💠 Asset Images', asset_images, {
           'Content Length' => [->{ meta.content_length }, '', :human_size],
+        })}
+
+        #{section_for('💬 Asset Texts', asset_texts, {
+          'Lines' => [->{ content.lines.count }, 'lines'],
         })}
         |===
         ASCIIDOC

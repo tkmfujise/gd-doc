@@ -22,6 +22,7 @@ RSpec.describe GdDoc::Formatter::AsciiDoc do
         expect(subject.scripts).to be_empty
         expect(subject.resources).to be_empty
         expect(subject.asset_images).to be_empty
+        expect(subject.asset_texts).to be_empty
       end
     end
 
@@ -37,6 +38,7 @@ RSpec.describe GdDoc::Formatter::AsciiDoc do
         expect(subject.scripts).to be_any
         expect(subject.resources).to be_empty
         expect(subject.asset_images).to be_any
+        expect(subject.asset_texts).to be_empty
       end
     end
 
@@ -51,6 +53,7 @@ RSpec.describe GdDoc::Formatter::AsciiDoc do
         expect(subject.scripts).to be_any
         expect(subject.resources).to be_any
         expect(subject.asset_images).to be_any
+        expect(subject.asset_texts).to be_any
       end
     end
   end
