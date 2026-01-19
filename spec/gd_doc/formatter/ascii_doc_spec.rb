@@ -2,7 +2,12 @@ require 'spec_helper'
 
 RSpec.describe GdDoc::Formatter::AsciiDoc do
   describe '#initialze' do
-    subject { described_class.new(composer){|formatter| formatter.format } }
+    subject {
+      described_class.new(composer){|formatter|
+        formatter.file_path
+        formatter.format
+      }
+    }
     let(:composer) { GdDoc::Composer.new }
 
     shared_examples 'works' do
