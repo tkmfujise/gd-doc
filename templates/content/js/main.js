@@ -14,6 +14,13 @@ function toggleContentsMenu() {
 }
 
 
+function openContentsMenu() {
+  const elem = document.querySelector('aside.contents-menu')
+  if (!elem) return;
+  elem.classList.add('open')
+}
+
+
 function hideContentsMenu() {
   const elem = document.querySelector('aside.contents-menu')
   if (!elem) return;
@@ -25,6 +32,37 @@ function toggleTocContents() {
   const elem = document.querySelector('#toc .sectlevel1')
   if (!elem) return;
   toggleElementClass(elem, 'open')
+}
+
+
+function base64UrlDecode(str) {
+  str = str.replace(/-/g, '+').replace(/_/g, '/');
+  while (str.length % 4 !== 0) {
+    str += '=';
+  }
+  return atob(str);
+}
+
+
+function searchPath(path) {
+  const elem = document.querySelector('.contents-menu .search-form input[type="search"]')
+  if (elem) {
+    openContentsMenu()
+    elem.value = `res://${path}`
+    elem.dispatchEvent(new Event('input'))
+  }
+}
+
+function searchFromFileTree(event) {
+  event.stopPropagation()
+  const head = event.target.closest('tr').querySelector('.path')
+  if (head) {
+    const pathClass = Array.from(head.classList).find(e => e != 'path')
+    if (pathClass) {
+      const path = base64UrlDecode(pathClass)
+      searchPath(path)
+    }
+  }
 }
 
 
@@ -43,5 +81,9 @@ window.onload = () => {
 
   document.querySelectorAll('#toc .sectlevel1 a').forEach(elem => {
     elem.addEventListener('click', toggleTocContents)
+  })
+
+  document.querySelectorAll('table.file-tree.grid tbody .one, table.file-tree.grid tbody .more').forEach(elem => {
+    elem.addEventListener('click', searchFromFileTree)
   })
 }

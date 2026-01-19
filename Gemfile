@@ -9,6 +9,7 @@ gem 'readline'
 gem 'rake'
 gem 'fastimage'
 gem 'addressable'
+gem 'base64'
 
 group :test do
   gem 'rspec'

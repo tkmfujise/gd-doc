@@ -35,9 +35,9 @@ module GdDoc
           txt
         end
 
-        # |│  ├  MokiTown |0 |0 |0 |0 |0
+        # |[.path.xxx] |│  ├  Path |0 |1 |2 |0 |0
         def format
-          "|#{prefix} #{parents.last} #{all_counts}\n"
+          "|[.path.#{base64_path}]#_# |#{prefix} #{parents.last} #{all_counts}\n"
         end
 
         def scenes
@@ -61,6 +61,10 @@ module GdDoc
         end
 
         private
+          def base64_path
+            Base64.urlsafe_encode64(path)
+          end
+
           def all_counts
             [scenes, scripts, resources, asset_images, asset_texts].map(&:count).map{|i|
               if i == 0
@@ -98,9 +102,9 @@ module GdDoc
       def format
         <<~TEXT
           [.file-tree.grid]
-          [cols="5,1,1,1,1,1" options="header"]
+          [cols="0,6,1,1,1,1,1" options="header"]
           |===
-          |File Tree |🎬 |📝 |📊 |💠 |💬
+          | |File Tree |🎬 |📝 |📊 |💠 |💬
           #{directories.map(&:format).join}
           |===
         TEXT

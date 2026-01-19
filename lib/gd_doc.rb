@@ -3,6 +3,7 @@ require 'tree_stand'
 require 'dry/cli'
 require 'forwardable'
 require 'addressable/uri'
+require 'base64'
 require 'zeitwerk'
 require_relative './gd_doc/core_ext'
 

@@ -97,7 +97,14 @@ article.content .welcome-code code {
 
 
 /* .file-tree */
-table.file-tree tr th:not(:nth-child(1)) {
+table.file-tree tr * {
+  cursor: pointer;
+}
+table.file-tree tr th:nth-child(1) *,
+table.file-tree tr td:nth-child(1) *{
+  display: none;
+}
+table.file-tree tr th:not(:nth-child(2)) {
   padding: 0.5rem 0.2rem;
   text-align: center;
 }
@@ -109,7 +116,10 @@ table.file-tree tr td p {
   font-family: monospace;
   font-size: 0.9rem;
 }
-table.file-tree tr td:not(:nth-child(1)) p {
+table.file-tree tr td:nth-child(2) p {
+  padding-right: 1rem;
+}
+table.file-tree tr td:not(:nth-child(2)) p {
   text-align: right;
 }
 table.file-tree tr td span {
