@@ -2,14 +2,16 @@ module GdDoc::Commands
   class Upgrade < Dry::CLI::Command
     desc 'Upgrade gd-doc'
 
+    # CAUTION: This is a dummy method
+    # To avoid `bundle install` error, these commands written in bin/gd-doc
     def call(*)
-      cd GdDoc::ROOT_DIR do
-        sh 'git reset --hard'
-        sh 'git pull'
-        sh 'git submodule update --init --recursive'
-        sh 'bundle install'
-        sh 'rake build'
-      end
+      # cd GdDoc::ROOT_DIR do
+      #   sh 'git reset --hard'
+      #   sh 'git pull'
+      #   sh 'git submodule update --init --recursive'
+      #   sh 'bundle install'
+      #   sh 'rake build'
+      # end
     end
   end
 end

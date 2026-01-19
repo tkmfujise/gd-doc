@@ -1,7 +1,18 @@
 #!/usr/bin/env ruby
 
-ENV['BUNDLE_GEMFILE'] = File.expand_path('../Gemfile', __dir__)
-require 'bundler/setup'
-require_relative '../lib/gd_doc'
+if ARGV == ['upgrade']
+  dir = File.expand_path('..', __dir__)
+  Dir.chdir(dir) do
+    system 'git reset --hard'
+    system 'git pull'
+    system 'git submodule update --init --recursive'
+    system 'bundle install'
+    system 'rake build'
+  end
+else
+  ENV['BUNDLE_GEMFILE'] = File.expand_path('../Gemfile', __dir__)
+  require 'bundler/setup'
+  require_relative '../lib/gd_doc'
 
-Dry::CLI.new(GdDoc::Commands).call
+  Dry::CLI.new(GdDoc::Commands).call
+end
