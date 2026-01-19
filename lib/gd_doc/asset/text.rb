@@ -11,5 +11,3 @@ module GdDoc
     end
   end
 end
-
-

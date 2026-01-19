@@ -24,7 +24,7 @@ module GdDoc
         #{attached_scenes}
 
 
-        === Code
+        === Content
         ```#{text.extension}
         #{text.content}
         ```
