@@ -1,6 +1,10 @@
 module GdDoc
   module Formatter
     class AsciiDoc::Asset::Text < Base
+      SYNTAX_FALLBACKS = {
+        'po' => 'ruby',
+      }
+
       attr_accessor :text
 
       def initialize(text)
@@ -25,11 +29,16 @@ module GdDoc
 
 
         === Content
-        ```#{text.extension}
+        ```#{syntax}
         #{text.content}
         ```
 
         ASCIIDOC
+      end
+
+
+      def syntax
+        SYNTAX_FALLBACKS[text.extension] || text.extension
       end
 
 
