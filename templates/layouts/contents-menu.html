@@ -14,7 +14,9 @@
       <summary><b><%= category.capitalize %></b></summary>
       <ul>
         <% all_items_of(category).each do |item| %>
-          <li data-path='<%= item.path %>' data-category='<%= category %>'>
+          <% path  = item.path.split('/')[2..-1].join('/') %>
+          <% depth = path.count('/') %>
+          <li data-path='<%= "#{depth}:/#{path}" %>' data-category='<%= category %>'>
             <%= link_to(
               link_text_of(item),
               item,
@@ -60,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const newFuse = (elements) => {
       return new Fuse(generateFuseItems(elements), {
         keys: ['path'],
-        threshold: 0.3,
+        threshold: 0,
         distance: 0,
         ignoreLocation: true,
       })

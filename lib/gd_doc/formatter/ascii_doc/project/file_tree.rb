@@ -14,7 +14,7 @@ module GdDoc
           if parents.any? 
             parents.join('/')
           else
-            '.'
+            ''
           end
         end
 
@@ -23,12 +23,12 @@ module GdDoc
         end
 
         def depth
-          parents.count - 1
+          parents.count
         end
 
         def prefix
           return '.' if parents.none?
-          txt = followers[depth] ? ' ├' : ' └'
+          txt = followers[depth - 1] ? ' ├' : ' └'
           txt.prepend (parents.count - 1).times.map{|i|
             followers[i] ?  ' │' : ' └'
           }.join(' ')
@@ -62,7 +62,7 @@ module GdDoc
 
         private
           def base64_path
-            Base64.urlsafe_encode64(path)
+            Base64.urlsafe_encode64("#{depth}:/#{path}")
           end
 
           def all_counts
