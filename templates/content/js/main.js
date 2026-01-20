@@ -48,7 +48,7 @@ function searchPath(path) {
   const elem = document.querySelector('.contents-menu .search-form input[type="search"]')
   if (elem) {
     openContentsMenu()
-    elem.value = `res://${path}`
+    elem.value = `res://${path}/`
     elem.dispatchEvent(new Event('input'))
   }
 }
