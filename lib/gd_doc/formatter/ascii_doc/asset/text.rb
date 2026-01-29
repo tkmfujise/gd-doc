@@ -2,7 +2,8 @@ module GdDoc
   module Formatter
     class AsciiDoc::Asset::Text < Base
       SYNTAX_FALLBACKS = {
-        'po' => 'ruby',
+        'po'       => 'ruby',
+        'gdshader' => 'glsl',
       }
 
       attr_accessor :text

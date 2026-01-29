@@ -18,7 +18,7 @@ module GdDoc
         'test',
         'tmp',
       ]
-      self.asset_text_extensions = %w[txt rb json po sh bat csv]
+      self.asset_text_extensions = %w[txt rb json po sh bat csv gdshader]
     end
 
     def project_dir_absolute
