@@ -58,6 +58,9 @@ module GdDoc
           elsif value.to_s.end_with?('.tres')
             link = value.sub('res://', 'resources/')
             "link:/#{encode_link link}[#{value}]"
+          elsif GdDoc.config.asset_text_extensions.any?{|ext| value.to_s.end_with?(ext) }
+            link = value.sub('res://', 'assets/')
+            "link:/#{encode_link link}[#{value}]"
           else
             "`#{value}`"
           end
